@@ -1,29 +1,31 @@
 <nav class="navbar navbar-expand shadow-sm main-menu">
   <a class="navbar-brand links">SuCasa</a>
   <ul class="nav nav-pills">
-    <li class="nav-link links">Home</li>
-    <li class="nav-link links">For Sale</li>
+    <li class="nav-link links" routerLink = '/hompage'>Home</li>
+    <li class="nav-link links" >For Sale</li>
     <li class="nav-link links">Sell a House</li>
-    <li class="nav-link links">Login</li>
-    <li class="nav-link links">Register</li>
+    <li class="nav-link links" routerLink = '/login'>Login</li>
+    <li class="nav-link links" routerLink = '/registration'>Register</li>
     <li class="nav-link links">Logout</li>
   </ul>
 </nav>
-<div>
+<div class="parent">
   <router-outlet></router-outlet>
+  
+  <footer>
+    <div>
+      <h2 class="text-primary">SUCASA PROPERTY LISTING</h2>
+    </div>
+    <div class="footer-links">
+      <ul>
+        <li class="nav-link links">Home</li>
+        <li class="nav-link links">For Sale</li>
+        <li class="nav-link links">Sell a House</li>
+        <li class="nav-link links">Login</li>
+        <li class="nav-link links">Register</li>
+        <li class="nav-link links">Logout</li>
+      </ul>
+    </div>
+  </footer>
 </div>
-<footer>
-  <div>
-    <h2 class="text-primary">SUCASA PROPERTY LISTING</h2>
-  </div>
-  <div class="footer-links">
-    <ul>
-      <li class="nav-link links">Home</li>
-      <li class="nav-link links">For Sale</li>
-      <li class="nav-link links">Sell a House</li>
-      <li class="nav-link links">Login</li>
-      <li class="nav-link links">Register</li>
-      <li class="nav-link links">Logout</li>
-    </ul>
-  </div>
-</footer>
+

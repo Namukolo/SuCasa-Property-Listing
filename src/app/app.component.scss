@@ -2,14 +2,27 @@
   padding: .5rem 4rem;
   display: flex;
   justify-content: space-between;
+  ul li {
+    cursor: pointer;
+  }
 }
 
 footer{
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  margin: 3rem 0;
   .footer-links ul{
     display: flex;
+    li{
+      cursor: pointer;
+    }
   }
+}
+.parent{
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 4rem;
 }
