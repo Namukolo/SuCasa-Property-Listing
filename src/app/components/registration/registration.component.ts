@@ -29,8 +29,6 @@ export class RegistrationComponent implements OnInit {
   failed = false;
   success = false;
 
-
-
   constructor(private fb: FormBuilder, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
@@ -65,11 +63,7 @@ export class RegistrationComponent implements OnInit {
       });
     this.failed = false;
     this.success = true;
-
-
   }
-
-
 
   onRegisterComplete(): void {
     this.userForm.reset();

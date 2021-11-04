@@ -11,24 +11,66 @@
     </div>
     <div class="row">
         <div class="col-md-4 mx-auto">
-            <div class="myform form ">
-                <form action="" method="" name="login">
-
-
-                    
+            <div class="myform form">
+                <form action="" method="" name="login" [formGroup]="loginForm" novalidate (ngSubmit)="login()">
                     <div class="form-group mb-3">
-                        <input type="text" name="name" class="form-control my-input" id="name" placeholder="email" />
+                        <input type="email" name="email" class="form-control my-input" id="email" placeholder="email"
+                            formControlName="email" [ngClass]="{'is-invalid': 
+                        (loginForm.get('email')?.touched ||
+                        loginForm.get('email')?.dirty) &&
+                        !loginForm.get('email')?.valid}" />
+
+                        <span class="invalid-feedback">
+                            <span *ngIf="loginForm.get('email')?.errors?.required">
+                                Please enter your email.
+                            </span>
+                            <span *ngIf="loginForm.get('email')?.errors?.minlength">
+                                Your email must be longer than 6 characters.
+                            </span>
+                            <span *ngIf="loginForm.get('email')?.errors?.maxlength">
+                                Your email must not be longer than 100 characters.
+                            </span>
+                            <span *ngIf="loginForm.get('email')?.errors?.email">
+                                Please enter a vaild email.
+                            </span>
+                        </span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <input type="text" name="name" class="form-control my-input" id="name" placeholder="Password" />
+                        <input type="password" name="password" class="form-control my-input" id="password"
+                            placeholder="Password" formControlName="password" [ngClass]="{'is-invalid': 
+                            (loginForm.get('password')?.touched ||
+                            loginForm.get('password')?.dirty) &&
+                            !loginForm.get('password')?.valid}" />
+
+                        <span class="invalid-feedback">
+                            <span *ngIf="loginForm.get('password')?.errors?.required">
+                                Please enter your password.
+                            </span>
+                            <span *ngIf="loginForm.get('password')?.errors?.minlength">
+                                Your password must be longer than 8 characters.
+                            </span>
+                            <span *ngIf="loginForm.get('password')?.errors?.maxlength">
+                                Your password must not be longer than 100 characters.
+                            </span>
+                        </span>
                     </div>
-                    
+
 
 
                     <!-- SUBMIT BUTTON  -->
                     <div class="text-center ">
                         <button type="submit" class=" btn btn-block send-button tx-tfm">Login</button>
+
+                        <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="failed">
+                            Please enter all the required fields
+                        </div>
+                        <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="failedLogin">
+                            This user doesnt exist
+                        </div>
+                        <div class="alert alert-success" style="margin-top: 1rem;" role="alert" *ngIf="success">
+                            Account created Successfully
+                        </div>
                     </div>
                 </form>
             </div>

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IUser } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 
 @Component({
@@ -10,17 +13,65 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
 
+  loginForm: FormGroup;
+  user: IUser;
   allUsers: IUser[] = [];
   errorMessage = '';
-  constructor(private userService: UserService) { }
+  failed = false;
+  success = false;
+  failedLogin = false
 
-  ngOnInit(): void {
+  constructor(private fb: FormBuilder, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+
+  ngOnInit() {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.minLength(6), Validators.maxLength(100), Validators.email, Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
+    });
+
     this.userService.getUsers().subscribe({
       next: users => {
         this.allUsers = [...users];
         console.log('all Users', this.allUsers)
       },
     })
+
+    this.failed = false;
+    this.success = false;
   }
+
+  login() {
+    if (!this.loginForm.valid) {
+      console.log('form invalid')
+      this.failed = true;
+      return;
+    }
+
+    if (this.allUsers
+      .find(user =>
+        (user.email === this.loginForm.get('email').value && user.password === this.loginForm.get('password').value))
+    ) {
+
+      console.log('logged in!')
+      this.success = true;
+      this.router.navigate(['/home']);
+
+
+    } else {
+      console.log('user doesnt exist')
+      this.failedLogin = true;
+      return;
+    }
+
+
+  }
+  // ngOnInit(): void {
+  //   this.userService.getUsers().subscribe({
+  //     next: users => {
+  //       this.allUsers = [...users];
+  //       console.log('all Users', this.allUsers)
+  //     },
+  //   })
+  // }
 
 }
