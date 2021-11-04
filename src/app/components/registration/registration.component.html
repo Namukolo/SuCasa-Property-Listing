@@ -12,36 +12,124 @@
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="myform form ">
-                <form action="" method="" name="registration" novalidate (ngSubmit)="registerUser()" [formGroup]="userForm">
+                <form action="" method="" name="registration" novalidate (ngSubmit)="registerUser()"
+                    [formGroup]="userForm">
 
                     <div class="form-group mb-3">
-                        <input type="text" name="name" class="form-control my-input" id="name"
-                            placeholder="Name" formControlName ="name"/>
+                        <input type="text" name="name" class="form-control my-input" id="name" placeholder="Name"
+                            formControlName="name" [ngClass]="{'is-invalid': (userForm.get('name')?.touched ||
+                            userForm.get('name')?.dirty) &&
+                            !userForm.get('name')?.valid }" />
+
+                        <span class="invalid-feedback">
+                            <span *ngIf="userForm.get('name')?.errors?.required">
+                                Please enter your name.
+                            </span>
+                            <span *ngIf="userForm.get('name')?.errors?.minlength">
+                                Your name must be longer than 1 character.
+                            </span>
+                            <span *ngIf="userForm.get('name')?.errors?.maxlength">
+                                Your name must not be longer than 100 characters.
+                            </span>
+                        </span>
                     </div>
 
                     <div class="form-group mb-3">
                         <input type="text" name="surname" class="form-control my-input" id="surname"
-                            placeholder="Surname" formControlName ="surname"/>
+                            placeholder="Surname" formControlName="surname" [ngClass]="{'is-invalid': (userForm.get('surname')?.touched ||
+                            userForm.get('surname')?.dirty) &&
+                            !userForm.get('surname')?.valid }" />
+
+                        <span class="invalid-feedback">
+                            <span *ngIf="userForm.get('surname')?.errors?.required">
+                                Please enter your Surname.
+                            </span>
+                            <span *ngIf="userForm.get('surname')?.errors?.minlength">
+                                Your surname must be longer than 1 character.
+                            </span>
+                            <span *ngIf="userForm.get('surname')?.errors?.maxlength">
+                                Your surname must not be longer than 100 characters.
+                            </span>
+                        </span>
                     </div>
 
                     <div class="form-group mb-3">
-                        <input type="email" name="email" class="form-control my-input" id="email"
-                            placeholder="email" formControlName ="email"/>
+                        <input type="email" name="email" class="form-control my-input" id="email" placeholder="email"
+                            formControlName="email" [ngClass]="{'is-invalid': (userForm.get('email')?.touched ||
+                            userForm.get('email')?.dirty) &&
+                            !userForm.get('email')?.valid }" />
+
+                        <span class="invalid-feedback">
+                            <span *ngIf="userForm.get('email')?.errors?.required">
+                                Please enter your email.
+                            </span>
+                            <span *ngIf="userForm.get('email')?.errors?.minlength">
+                                Your email must be longer than 6 characters.
+                            </span>
+                            <span *ngIf="userForm.get('email')?.errors?.maxlength">
+                                Your email must not be longer than 100 characters.
+                            </span>
+                            <span *ngIf="userForm.get('email')?.errors?.email">
+                                Enter a valid email.
+                            </span>
+                        </span>
                     </div>
 
-                    <div class="form-group mb-3">
-                        <input type="password" name="password" class="form-control my-input" id="password"
-                            placeholder="Password" formControlName ="password"/>
-                    </div>
-                    <div class="form-group mb-3">
-                        <input type="password" name="confirmPassword" class="form-control my-input" id="confirmPassword"
-                            placeholder="Comfirm Password" formControlName="confirmPassword"/>
-                    </div>
 
+
+
+                    <div class="form-group mb-3" formGroupName="passwordGroup">
+                        <div class="form-group mb-3">
+                            <input type="password" name="password" class="form-control my-input" id="password"
+                                placeholder="Password" formControlName="password" [ngClass]="{'is-invalid': 
+                                (userForm.get('passwordGroup').errors) ||((userForm.get('passwordGroup.password')?.touched ||
+                                userForm.get('passwordGroup.password')?.dirty) &&
+                                !userForm.get('passwordGroup.password')?.valid) }" />
+
+                            <span class="invalid-feedback">
+                                <span *ngIf="userForm.get('passwordGroup.password')?.errors?.required">
+                                    Please enter your password.
+                                </span>
+                                <span *ngIf="userForm.get('passwordGroup.password')?.errors?.minlength">
+                                    Your password must be longer than 8 characters.
+                                </span>
+                                <span *ngIf="userForm.get('passwordGroup.password')?.errors?.maxlength">
+                                    Your password must not be longer than 100 characters.
+                                </span>
+                            </span>
+                        </div>
+                        <div class="form-group mb-3">
+                            <input type="password" name="confirmPassword" class="form-control my-input"
+                                id="confirmPassword" placeholder="Comfirm Password" formControlName="confirmPassword"
+                                [ngClass]="{'is-invalid': (userForm.get('passwordGroup').errors) ||
+                                ((userForm.get('passwordGroup.password')?.touched ||
+                                userForm.get('passwordGroup.password')?.dirty) &&
+                                !userForm.get('passwordGroup.password')?.valid )}" />
+
+                            <span class="invalid-feedback">
+                                <span *ngIf="(userForm.get('passwordGroup.confirmPassword')?.errors?.required) || (userForm.get('passwordGroup')?.errors?.match)">
+                                    Your passwords dont match.
+                                </span>
+                            </span>
+
+                            <!-- <span class="invalid-feedback">
+                                <span *ngIf="userForm.get('passwordGroup')?.errors?.match">
+                                    Your passwords dont match
+                                </span>
+                            </span> -->
+                        </div>
+                    </div>
 
                     <!-- SUBMIT BUTTON  -->
                     <div class="text-center ">
                         <button type="submit" class=" btn btn-block send-button tx-tfm">Create Account</button>
+
+                        <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="failed">
+                            Please enter all the required fields
+                          </div>
+                          <div class="alert alert-success" style="margin-top: 1rem;" role="alert" *ngIf="success">
+                            Account created Successfully
+                          </div>
                     </div>
                 </form>
             </div>

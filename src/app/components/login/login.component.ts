@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: users => {
         this.allUsers = [...users];
-        console.log('user', users)
         console.log('all Users', this.allUsers)
       },
     })
