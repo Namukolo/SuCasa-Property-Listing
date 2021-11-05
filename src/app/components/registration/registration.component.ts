@@ -9,6 +9,10 @@ function passwordMatcher(c: AbstractControl): { [key: string]: boolean } | null 
   const password = c.get('password');
   const confirmPassword = c.get('confirmPassword')
 
+  if(password.pristine || confirmPassword.pristine){
+    return null;
+  }
+  
   if (password.value === confirmPassword.value) {
     return null;
   }

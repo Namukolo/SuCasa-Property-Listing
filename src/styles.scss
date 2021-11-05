@@ -2,6 +2,15 @@
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
+*,*::before,*::after{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+html{
+	font-size: 62.5%;
+}
 body{
 	font-family: 'Poppins', sans-serif;
+	background-color: #F5F5F5;
 }
