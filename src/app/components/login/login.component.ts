@@ -43,33 +43,11 @@ export class LoginComponent implements OnInit {
 
     this.failed = false;
     this.success = false;
+    this.failedLogin = false;
+
+    this.authenticationService.logout();
+
   }
-
-  // login() {
-  //   if (!this.loginForm.valid) {
-  //     console.log('form invalid')
-  //     this.failed = true;
-  //     return;
-  //   }
-
-  //   if (this.allUsers
-  //     .find(user =>
-  //       (user.email === this.loginForm.get('email').value && user.password === this.loginForm.get('password').value))
-  //   ) {
-
-  //     console.log('logged in!')
-  //     this.success = true;
-  //     this.router.navigate(['/home']);
-
-
-  //   } else {
-  //     console.log('user doesnt exist')
-  //     this.failedLogin = true;
-  //     return;
-  //   }
-
-
-  // }
 
   login(){
 
@@ -79,16 +57,16 @@ export class LoginComponent implements OnInit {
       return;
     }
 
+    this.failedLogin = false;
     this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate([this.returnUrl]);
+                    this.router.navigate(['/home']);
                 },
                 error => {
-                    // this.alertService.error(error);
-                    // this.loading = false;
-                    console.log(error)
+                    console.log('ERROR FRM LGIN',error)
+                    this.failedLogin = true;
                 });
   }
 }

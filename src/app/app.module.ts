@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import {InMemoryWebApiModule} from 'angular-in-memory-web-api';
-import {UserData} from './api/user-data'
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { UserData } from './api/user-data'
 
 import { RouterModule } from '@angular/router';
 // import { AppRoutingModule } from './app-routing.module';
@@ -10,9 +10,10 @@ import { AppComponent } from './app.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { LoginComponent } from './components/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Interceptor } from './shared/interceptor';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ]),
     InMemoryWebApiModule.forRoot(UserData)
   ],
-  providers: [],
+  providers: [
+    {
+			provide: HTTP_INTERCEPTORS,
+			useClass: Interceptor,
+			multi: true
+		},
+		UserData
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
