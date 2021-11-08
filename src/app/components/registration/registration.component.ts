@@ -59,7 +59,7 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
-    let p = { ...this.user, ...this.userForm.value };
+    let p = { ...this.user, ...this.userForm.value};
     this.userService.createUser(p)
       .subscribe({
         next: () => this.onRegisterComplete(),

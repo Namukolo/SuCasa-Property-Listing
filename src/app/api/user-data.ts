@@ -1,5 +1,7 @@
 import { IUser, AccessLevel } from "../models/user";
 import { InMemoryDbService } from 'angular-in-memory-web-api';
+import { HttpRequest, HttpResponse, HttpHandler, HttpEvent, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs';
 
 
 export class UserData implements InMemoryDbService {
@@ -78,4 +80,27 @@ export class UserData implements InMemoryDbService {
         ];
         return { users };
     }
+
+    // intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+    //     if (request.url.endsWith('/users/register') && request.method === 'POST') {
+    //         // get new user object from post body
+    //         let newUser = request.body;
+
+    //         // validation
+    //         let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
+    //         if (duplicateUser) {
+    //             return throwError({ error: { message: 'Username "' + newUser.username + '" is already taken' } });
+    //         }
+
+    //         // save new user
+    //         newUser.id = users.length + 1;
+    //         users.push(newUser);
+    //         localStorage.setItem('users', JSON.stringify(users));
+
+    //         // respond 200 OK
+    //         return of(new HttpResponse({ status: 200 }));
+    //     }
+
+    // }
 }

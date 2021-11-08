@@ -3,6 +3,9 @@ import { IUser } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { first } from 'rxjs/operators';
+
 
 
 
@@ -20,8 +23,10 @@ export class LoginComponent implements OnInit {
   failed = false;
   success = false;
   failedLogin = false
+  returnUrl: string;
 
-  constructor(private fb: FormBuilder, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+
+  constructor(private fb: FormBuilder, private userService: UserService, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -40,38 +45,50 @@ export class LoginComponent implements OnInit {
     this.success = false;
   }
 
-  login() {
+  // login() {
+  //   if (!this.loginForm.valid) {
+  //     console.log('form invalid')
+  //     this.failed = true;
+  //     return;
+  //   }
+
+  //   if (this.allUsers
+  //     .find(user =>
+  //       (user.email === this.loginForm.get('email').value && user.password === this.loginForm.get('password').value))
+  //   ) {
+
+  //     console.log('logged in!')
+  //     this.success = true;
+  //     this.router.navigate(['/home']);
+
+
+  //   } else {
+  //     console.log('user doesnt exist')
+  //     this.failedLogin = true;
+  //     return;
+  //   }
+
+
+  // }
+
+  login(){
+
     if (!this.loginForm.valid) {
       console.log('form invalid')
       this.failed = true;
       return;
     }
 
-    if (this.allUsers
-      .find(user =>
-        (user.email === this.loginForm.get('email').value && user.password === this.loginForm.get('password').value))
-    ) {
-
-      console.log('logged in!')
-      this.success = true;
-      this.router.navigate(['/home']);
-
-
-    } else {
-      console.log('user doesnt exist')
-      this.failedLogin = true;
-      return;
-    }
-
-
+    this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    // this.alertService.error(error);
+                    // this.loading = false;
+                    console.log(error)
+                });
   }
-  // ngOnInit(): void {
-  //   this.userService.getUsers().subscribe({
-  //     next: users => {
-  //       this.allUsers = [...users];
-  //       console.log('all Users', this.allUsers)
-  //     },
-  //   })
-  // }
-
 }
