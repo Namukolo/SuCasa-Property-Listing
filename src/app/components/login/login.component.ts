@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate(['/homepage']);
+                    this.router.navigate(['/my-adverts']);
                     // this.router.navigate([this.returnUrl]);
                     // console.log(this.returnUrl)
                 },
