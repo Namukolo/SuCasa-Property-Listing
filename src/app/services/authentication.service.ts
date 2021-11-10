@@ -11,7 +11,7 @@ export class AuthenticationService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
-    return this.http.post<any>(`http://localhost:4200/allUsers/authenticate`, { email: email, password: password })
+    return this.http.post<any>(`http://localhost:4200/users/authenticate`, { email: email, password: password })
         .pipe(map(user => {
             // login successful if there's a jwt token in the response
             if (user && user.token) {

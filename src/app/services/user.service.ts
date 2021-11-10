@@ -14,7 +14,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  private userUrl = 'api/users';
+  private userUrl = `http://localhost:4200/users`;
 
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.userUrl).pipe(
@@ -25,11 +25,10 @@ export class UserService {
 
   createUser(user: IUser): Observable<IUser> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    user.id = null;
-
-    return this.http.post<IUser>(this.userUrl, user, { headers })
+    // user.id = null;
+    return this.http.post<IUser>(`${this.userUrl}/register`, user, { headers })
       .pipe(
-        tap(data => console.log('creating user: ' + JSON.stringify(data))),
+        tap(data => console.log('creating user')),
         catchError(this.handleError)
       );
   }

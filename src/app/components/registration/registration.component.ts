@@ -60,6 +60,7 @@ export class RegistrationComponent implements OnInit {
     }
 
     let p = { ...this.user, ...this.userForm.value};
+    console.log(p)
     this.userService.createUser(p)
       .subscribe({
         next: () => this.onRegisterComplete(),

@@ -8,39 +8,88 @@ import { AccessLevel, IUser } from '../models/user';
 
 
 @Injectable()
-export class Interceptor implements HttpInterceptor, OnInit {
-    allUsers:IUser[];
+export class Interceptor implements HttpInterceptor {
     // constructor( INJECT YOUR AUTH SERVICE HERE )
-    constructor( private userService: UserService) { }
+    constructor(private userService: UserService) { }
 
-    ngOnInit() {
-        this.getAllUsers();
-        console.log('ALL THE USERS FROM INTERCEPT', this.allUsers)
-    }
-    private getAllUsers(){
-        this.userService.getUsers()
-        .subscribe(data => this.allUsers = data);
-    }
-    // allUsers: IUser[] = [
-    //     {
-    //         id: 1,
-    //         forenames: 'Namukolo',
-    //         surname: 'Mangwende',
-    //         email: 'stuff@gmail.com',
-    //         password: '12345678',
-    //         accessLevel: AccessLevel.admin,
-    //         adverts: [
+    allUsers: IUser[] = [
+        {
+            id: 1,
+            forenames: 'Namukolo',
+            surname: 'Mangwende',
+            email: 'somestuff@gmail.com',
+            password: 'Namukolo123',
+            accessLevel: AccessLevel.admin,
+            adverts: [
 
-    //         ]
-    //     },
-    // ];
+            ]
+        },
+        {
+            id: 2,
+            forenames: 'James',
+            surname: 'Colin',
+            email: 'someotherstuff@gmail.com',
+            password: 'James123',
+            accessLevel: AccessLevel.user,
+            adverts: [
+                {
+                    id: 1,
+                    location: 'Johannesburg',
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                }
+            ]
+        },
+        {
+            id: 3,
+            forenames: 'Bongani',
+            surname: 'Kunene',
+            email: 'somewhichstuff@gmail.com',
+            password: 'Bongani123',
+            accessLevel: AccessLevel.user,
+            adverts: [
+                {
+                    id: 1,
+                    location: 'Johannesburg',
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                },
+                {
+                    id: 2,
+                    location: 'Pretoria',
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                },
+                {
+                    id: 3,
+                    location: 'Bloemfontein',
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                }
+            ]
+        },
+        {
+            id: 4,
+            forenames: 'Jane',
+            surname: 'Doe',
+            email: 'idontknow@gmail.com',
+            password: 'Jane1234',
+            accessLevel: AccessLevel.user,
+            adverts: []
+        },
+        {
+            id: 5,
+            forenames: 'John',
+            surname: 'Doe',
+            email: 'metoo@gmail.com',
+            password: 'John1234',
+            accessLevel: AccessLevel.user,
+            adverts: []
+        }
+    ];
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         return of(null).pipe(mergeMap(() => {
 
             // authenticate
-            if (req.url.endsWith('/allUsers/authenticate') && req.method === 'POST') {
+            if (req.url.endsWith('/users/authenticate') && req.method === 'POST') {
                 // find if any user matches login credentials
                 let filteredUsers = this.allUsers.filter(user => {
                     return user.email === req.body.email && user.password === req.body.password;
@@ -64,6 +113,43 @@ export class Interceptor implements HttpInterceptor, OnInit {
                     return throwError({ error: { message: 'Username or password is incorrect' } });
                 }
             }
+
+            //register
+            if (req.url.endsWith('/users/register') && req.method === 'POST') {
+
+                // get new user object from post body
+                let newUser = req.body;
+
+                // validation
+                let duplicateUser = this.allUsers.filter(user => { return user.email === newUser.email; }).length;
+                if (duplicateUser) {
+                    return throwError({ error: { message: 'An account with this email already exists' } });
+                }
+
+                // save new user
+                newUser.id = this.allUsers.length + 1;
+                this.allUsers.push(newUser);
+                localStorage.setItem('users', JSON.stringify(this.allUsers));
+
+                console.log('All users from register', this.allUsers)
+
+                // respond 200 OK
+                return of(new HttpResponse({ status: 200 }));
+            }
+
+            //Get Users
+
+            if (req.url.endsWith('/users') && req.method === 'GET') {
+                // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
+                // if (req.headers.get('Authorization') === 'Bearer fake-jwt-token') {
+                    return of(new HttpResponse({ status: 200, body: this.allUsers }));
+                // } else {
+                    // return 401 not authorised if token is null or invalid
+                    // return throwError({ status: 401, error: { message: 'Unauthorised' } });
+                // }
+            }
+
+
 
             // pass through any requests not handled above
             return next.handle(req);
