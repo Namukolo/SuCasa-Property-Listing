@@ -12,13 +12,17 @@ export class AdvertsComponent implements OnInit {
   currentUser: IUser;
   adverts: IAdvert[];
 
+
   ngOnInit(): void {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
     this.adverts = this.currentUser.adverts;
     console.log(this.adverts);
-
   }
 
-
+  delete(){
+    console.log(localStorage.getItem('users'))
+    localStorage.removeItem('users')
+    console.log(localStorage.getItem('users'))
+  }
 
 }

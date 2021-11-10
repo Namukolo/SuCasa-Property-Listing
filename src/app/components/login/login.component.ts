@@ -59,16 +59,15 @@ export class LoginComponent implements OnInit {
     }
 
     this.failedLogin = false;
+    console.log(`EMAIL:${this.loginForm.get('email').value} PASSWORD:${this.loginForm.get('password').value} `)
     this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
             .pipe(first())
             .subscribe(
                 data => {
                     this.router.navigate(['/my-adverts']);
-                    // this.router.navigate([this.returnUrl]);
-                    // console.log(this.returnUrl)
                 },
                 error => {
-                    console.log('ERROR FRM LGIN',error)
+                    console.log('ERROR FROM LOGIN',error)
                     this.failedLogin = true;
                 });
   }

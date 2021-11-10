@@ -1,8 +1,10 @@
-<div class="container">
+<div class="container" *ngIf="adverts">
     <div class="card" *ngFor="let advert of adverts">
         <h1>{{advert.headeline}}</h1>
         <img src="{{advert.images[0]}}" alt="" srcset="">
         <p>{{advert.location}}</p>
     </div>
-
 </div>
+
+<div *ngIf="!adverts">YOU HAVE NO ADVERTS</div>
+<button (click)="delete()">Clear local storage</button>
