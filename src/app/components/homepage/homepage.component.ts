@@ -14,4 +14,14 @@ export class HomepageComponent implements OnInit {
 
   }
 
+  currentUserinfo(){
+    let currentUser = JSON.parse(this.currentUser)
+    let currentUserAccess = currentUser.accessLevel;
+    if(currentUserAccess === 'ADMIN'){
+      console.log('You are God baby')
+    } else{
+      console.log('get outta my face you stooge')
+    }
+  }
+
 }

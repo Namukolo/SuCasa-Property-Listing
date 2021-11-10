@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand shadow-sm main-menu">
+  <div class="unauth-menu" *ngIf="isNotLoggedIn">
+    <a class="navbar-brand links" routerLink="/">
+      Su<span class="logo-cut">Casa</span>
+    </a>
+  
+    <ul class="nav nav-pills">
+      <li class="nav-link links" routerLink='/hompage'>Home</li>
+      <li class="nav-link links">For Sale</li>
+      <li class="nav-link links">Sell a House</li>
+    </ul>
+  
+    <ul class="accounts">
+      <li class="nav-link links" routerLink='/login'>Login</li>
+      <li class="nav-link links" routerLink='/registration' class="cta-register">Register</li>
+    </ul>
+  </div>
+
+
+  <div class="unauth-menu" *ngIf="isLoggedIn">
+    <a class="navbar-brand links" routerLink="/">
+      Su<span class="logo-cut">Casa</span>
+    </a>
+  
+    <ul class="nav nav-pills">
+      <li class="nav-link links" routerLink='/hompage'>My ads</li>
+      <li class="nav-link links">Profile</li>
+      <li class="nav-link links">Buy</li>
+      <li class="nav-link links">Sell</li>
+      <li class="nav-link links">Favourites</li>
+      <li class="nav-link links">Manage Account</li>
+    </ul>
+  
+    <ul class="accounts">
+      <li class="nav-link links" routerLink='/login'>Logout</li>
+    </ul>
+  </div>
+
+
+</nav>
+
+
+
+<div class="parent">
+  <router-outlet></router-outlet>
+
+  <footer>
+    <div>
+      <h2 class="">SUCASA PROPERTY LISTING</h2>
+    </div>
+    <div class="footer-links">
+      <ul>
+        <li class="nav-link links">Home</li>
+        <li class="nav-link links">For Sale</li>
+        <li class="nav-link links">Sell a House</li>
+        <li class="nav-link links">Login</li>
+        <li class="nav-link links">Register</li>
+        <li class="nav-link links">Logout</li>
+      </ul>
+    </div>
+  </footer>
+</div>

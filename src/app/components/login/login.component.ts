@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: users => {
         this.allUsers = [...users];
-        console.log('all Users', this.allUsers)
+        // console.log('all Users', this.allUsers)
       },
     })
 
@@ -46,6 +46,7 @@ export class LoginComponent implements OnInit {
     this.failedLogin = false;
 
     this.authenticationService.logout();
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
   }
 
@@ -62,7 +63,9 @@ export class LoginComponent implements OnInit {
             .pipe(first())
             .subscribe(
                 data => {
-                    this.router.navigate(['/home']);
+                    this.router.navigate(['/homepage']);
+                    // this.router.navigate([this.returnUrl]);
+                    // console.log(this.returnUrl)
                 },
                 error => {
                     console.log('ERROR FRM LGIN',error)

@@ -13,14 +13,21 @@ import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Interceptor } from './shared/interceptor';
+import { Interceptor, localBackendProvider } from './shared/interceptor';
+import { NavigationComponent } from './components/navigation/navigation.component';
+import { RouteGuard } from './shared/route.guard';
+import { JwtInterceptor } from './shared/jwt.interceptor';
+import { ErrorInterceptor } from './shared/error.interceptor';
+import { AuthenticationService } from './services/authentication.service';
+import { UserService } from './services/user.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     HomepageComponent,
-    LoginComponent
+    LoginComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,
@@ -28,22 +35,22 @@ import { Interceptor } from './shared/interceptor';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    RouterModule.forRoot([
-      { path: 'homepage', component: HomepageComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'registration', component: RegistrationComponent },
-      { path: '', redirectTo: 'homepage', pathMatch: 'full' },
-      { path: '**', redirectTo: 'homepage', pathMatch: 'full' },
-    ]),
+    // RouterModule.forRoot([
+    //   { path: 'homepage', component: HomepageComponent },
+    //   { path: 'login', component: LoginComponent },
+    //   { path: 'registration', component: RegistrationComponent },
+    //   { path: '', redirectTo: 'homepage', pathMatch: 'full' },
+    //   { path: '**', redirectTo: 'homepage', pathMatch: 'full' },
+    // ]),
     InMemoryWebApiModule.forRoot(UserData)
   ],
   providers: [
-    {
-			provide: HTTP_INTERCEPTORS,
-			useClass: Interceptor,
-			multi: true
-		},
-		UserData
+    RouteGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    localBackendProvider,
+    AuthenticationService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
