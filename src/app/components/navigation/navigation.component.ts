@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import { of } from 'rxjs';
-import { IUser } from 'src/app/models/user';
+import { AccessLevel, IUser } from 'src/app/models/user';
 
 @Component({
   selector: 'sc-navigation',
@@ -8,21 +8,15 @@ import { IUser } from 'src/app/models/user';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-  isLoggedIn:boolean;
-  isNotLoggedIn:boolean;
+  currentUser: IUser;
+  userAccessLevel: AccessLevel;
   constructor() { }
 
   ngOnInit(): void {
-    const currentUser = localStorage.getItem('currentUser');
-
-    if(!currentUser){
-      this.isNotLoggedIn = true;
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (this.currentUser) {
+      this.userAccessLevel = this.currentUser.accessLevel;
+      console.log(this.userAccessLevel)
     }
-    
-    if(currentUser){
-      this.isLoggedIn = true
-    }
-    
   }
-
 }

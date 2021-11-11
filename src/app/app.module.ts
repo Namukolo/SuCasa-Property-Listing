@@ -20,6 +20,7 @@ import { JwtInterceptor } from './shared/jwt.interceptor';
 import { ErrorInterceptor } from './shared/error.interceptor';
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
+import { AdvertsComponent } from './components/adverts/adverts.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UserService } from './services/user.service';
     RegistrationComponent,
     HomepageComponent,
     LoginComponent,
-    NavigationComponent
+    NavigationComponent,
+    AdvertsComponent
   ],
   imports: [
     BrowserModule,

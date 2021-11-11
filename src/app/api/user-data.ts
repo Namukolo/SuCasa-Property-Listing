@@ -21,7 +21,7 @@ export class UserData implements InMemoryDbService{
                 password: 'Namukolo123',
                 accessLevel: AccessLevel.admin,
                 adverts: [
-
+    
                 ]
             },
             {
@@ -34,6 +34,7 @@ export class UserData implements InMemoryDbService{
                 adverts: [
                     {
                         id: 1,
+                        headeline: "Cool House",
                         location: 'Johannesburg',
                         images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                     }
@@ -43,23 +44,26 @@ export class UserData implements InMemoryDbService{
                 id: 3,
                 forenames: 'Bongani',
                 surname: 'Kunene',
-                email: 'somewhichstuff@gmail.com',
+                email: 'email@gmail.com',
                 password: 'Bongani123',
                 accessLevel: AccessLevel.user,
                 adverts: [
                     {
                         id: 1,
+                        headeline: "Cool House",
                         location: 'Johannesburg',
                         images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                     },
                     {
-                        id: 2,
-                        location: 'Pretoria',
+                        id: 1,
+                        headeline: "Cool House",
+                        location: 'Johannesburg',
                         images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                     },
                     {
-                        id: 3,
-                        location: 'Bloemfontein',
+                        id: 1,
+                        headeline: "Cool House",
+                        location: 'Johannesburg',
                         images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                     }
                 ]
@@ -68,8 +72,8 @@ export class UserData implements InMemoryDbService{
                 id: 4,
                 forenames: 'Jane',
                 surname: 'Doe',
-                email: 'idontknowwhoiam@gmail.com',
-                password: 'Jane23',
+                email: 'idontknow@gmail.com',
+                password: 'Jane1234',
                 accessLevel: AccessLevel.user,
                 adverts: []
             },
@@ -78,7 +82,7 @@ export class UserData implements InMemoryDbService{
                 forenames: 'John',
                 surname: 'Doe',
                 email: 'metoo@gmail.com',
-                password: 'John123',
+                password: 'John1234',
                 accessLevel: AccessLevel.user,
                 adverts: []
             }

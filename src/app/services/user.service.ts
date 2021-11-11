@@ -25,10 +25,11 @@ export class UserService {
 
   createUser(user: IUser): Observable<IUser> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    console.log(`USER BEFORE CREATION:${user}`)
     // user.id = null;
     return this.http.post<IUser>(`${this.userUrl}/register`, user, { headers })
       .pipe(
-        tap(data => console.log('creating user')),
+        tap(data => console.log(`CREATING USER:  ${user}`)),
         catchError(this.handleError)
       );
   }

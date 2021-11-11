@@ -11,7 +11,7 @@ import { AccessLevel, IUser } from '../models/user';
 export class Interceptor implements HttpInterceptor {
     // constructor( INJECT YOUR AUTH SERVICE HERE )
     constructor(private userService: UserService) { }
-
+    
     allUsers: IUser[] = [
         {
             id: 1,
@@ -34,6 +34,7 @@ export class Interceptor implements HttpInterceptor {
             adverts: [
                 {
                     id: 1,
+                    headeline: "Cool House",
                     location: 'Johannesburg',
                     images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                 }
@@ -43,23 +44,26 @@ export class Interceptor implements HttpInterceptor {
             id: 3,
             forenames: 'Bongani',
             surname: 'Kunene',
-            email: 'somewhichstuff@gmail.com',
+            email: 'email@gmail.com',
             password: 'Bongani123',
             accessLevel: AccessLevel.user,
             adverts: [
                 {
                     id: 1,
+                    headeline: "Cool House",
                     location: 'Johannesburg',
                     images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                 },
                 {
-                    id: 2,
-                    location: 'Pretoria',
+                    id: 1,
+                    headeline: "Cool House",
+                    location: 'Johannesburg',
                     images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                 },
                 {
-                    id: 3,
-                    location: 'Bloemfontein',
+                    id: 1,
+                    headeline: "Cool House",
+                    location: 'Johannesburg',
                     images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                 }
             ]
@@ -83,15 +87,19 @@ export class Interceptor implements HttpInterceptor {
             adverts: []
         }
     ];
+    
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+            //    localStorage.setItem('users', JSON.stringify(this.allUsers)); 
+               let users:IUser[] = JSON.parse(localStorage.getItem('users')) || [...this.allUsers];
+                // console.log('USERS from localstorages',JSON.parse(localStorage.getItem('users')))
         return of(null).pipe(mergeMap(() => {
 
             // authenticate
             if (req.url.endsWith('/users/authenticate') && req.method === 'POST') {
+                console.log('USERS FOMR AUTH',users)
                 // find if any user matches login credentials
-                let filteredUsers = this.allUsers.filter(user => {
+                let filteredUsers = users.filter(user => {
                     return user.email === req.body.email && user.password === req.body.password;
                 });
 
@@ -101,9 +109,11 @@ export class Interceptor implements HttpInterceptor {
                     let body = {
                         id: user.id,
                         email: user.email,
+                        AccessLevel: AccessLevel.user,
                         forenames: user.forenames,
                         surname: user.surname,
                         accessLevel: user.accessLevel,
+                        adverts: user.adverts,
                         token: 'fake-jwt-token'
                     };
 
@@ -118,20 +128,30 @@ export class Interceptor implements HttpInterceptor {
             if (req.url.endsWith('/users/register') && req.method === 'POST') {
 
                 // get new user object from post body
-                let newUser = req.body;
-
+                let input = req.body;
+                let newUser =  {
+                    id: input.id,
+                    email: input.email,
+                    accessLevel: AccessLevel.user,
+                    forenames: input.name,
+                    surname: input.surname,
+                    password: input.passwordGroup.password
+                    // adverts: [],
+                };
                 // validation
-                let duplicateUser = this.allUsers.filter(user => { return user.email === newUser.email; }).length;
+                let duplicateUser = users.filter(user => { return user.email === newUser.email; }).length;
                 if (duplicateUser) {
                     return throwError({ error: { message: 'An account with this email already exists' } });
                 }
 
                 // save new user
-                newUser.id = this.allUsers.length + 1;
-                this.allUsers.push(newUser);
-                localStorage.setItem('users', JSON.stringify(this.allUsers));
+                newUser.id = users.length + 1;
+                users.push(newUser);
+                localStorage.setItem('users', JSON.stringify(users));
 
-                console.log('All users from register', this.allUsers)
+                console.log('All users from register', users)
+                // console.log('All users from register', req.body)
+
 
                 // respond 200 OK
                 return of(new HttpResponse({ status: 200 }));

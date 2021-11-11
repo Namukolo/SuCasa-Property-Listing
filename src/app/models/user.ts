@@ -5,7 +5,7 @@ export interface IUser{
     email: string,
     password: string,
     accessLevel: AccessLevel,
-    adverts: IAdvert[]
+    adverts?: IAdvert[]
 }
 
 export enum AccessLevel{
@@ -16,5 +16,6 @@ export enum AccessLevel{
 export interface IAdvert{
     id:number,
     location: string,
+    headeline: string,
     images: string[]
 }
