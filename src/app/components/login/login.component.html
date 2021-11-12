@@ -1,3 +1,6 @@
+<sc-navigation></sc-navigation>
+
+
 <div class="container parent">
 
     <div class="col-md-6 mx-auto text-center">
@@ -12,10 +15,17 @@
     </div>
 
     <div class="row">
-        <h2 class="wv-heading--subtitle">
-            email:email@gmail.com
-            password:Bongani123
-        </h2>
+        <p class="wv-heading--subtitle text-center">
+            email@gmail.com
+            Bongani123
+            access: User
+        </p>
+        <p class="wv-heading--subtitle text-center">
+            somestuff@gmail.com
+            Namukolo123
+            access: Admin
+        </p>
+
         <div class="col-md-4 mx-auto">
             <div class="myform form">
                 <form action="" method="" name="login" [formGroup]="loginForm" novalidate (ngSubmit)="login()">

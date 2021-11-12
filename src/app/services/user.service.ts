@@ -29,7 +29,7 @@ export class UserService {
     // user.id = null;
     return this.http.post<IUser>(`${this.userUrl}/register`, user, { headers })
       .pipe(
-        tap(data => console.log(`CREATING USER:  ${user}`)),
+        tap(data => console.log(`CREATING USER`)),
         catchError(this.handleError)
       );
   }

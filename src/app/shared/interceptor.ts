@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of } from "rxjs";
 import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
@@ -11,7 +11,7 @@ import { AccessLevel, IUser } from '../models/user';
 export class Interceptor implements HttpInterceptor {
     // constructor( INJECT YOUR AUTH SERVICE HERE )
     constructor(private userService: UserService) { }
-    
+
     allUsers: IUser[] = [
         {
             id: 1,
@@ -87,17 +87,17 @@ export class Interceptor implements HttpInterceptor {
             adverts: []
         }
     ];
-    
+
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-            //    localStorage.setItem('users', JSON.stringify(this.allUsers)); 
-               let users:IUser[] = JSON.parse(localStorage.getItem('users')) || [...this.allUsers];
-                // console.log('USERS from localstorages',JSON.parse(localStorage.getItem('users')))
+        //    localStorage.setItem('users', JSON.stringify(this.allUsers)); 
+        let users: IUser[] = JSON.parse(localStorage.getItem('users')) || [...this.allUsers];
+        // console.log('USERS from localstorages',JSON.parse(localStorage.getItem('users')))
         return of(null).pipe(mergeMap(() => {
 
             // authenticate
             if (req.url.endsWith('/users/authenticate') && req.method === 'POST') {
-                console.log('USERS FOMR AUTH',users)
+                console.log('USERS FOMR AUTH', users)
                 // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
                     return user.email === req.body.email && user.password === req.body.password;
@@ -129,7 +129,7 @@ export class Interceptor implements HttpInterceptor {
 
                 // get new user object from post body
                 let input = req.body;
-                let newUser =  {
+                let newUser = {
                     id: input.id,
                     email: input.email,
                     accessLevel: AccessLevel.user,
@@ -141,7 +141,13 @@ export class Interceptor implements HttpInterceptor {
                 // validation
                 let duplicateUser = users.filter(user => { return user.email === newUser.email; }).length;
                 if (duplicateUser) {
-                    return throwError({ error: { message: 'An account with this email already exists' } });
+                    throw new HttpErrorResponse({
+                        error: 'An account with this email already exists',
+                        // headers: 202,
+                        status: 500,
+                        statusText: 'Warning',
+                        url: 'users/register'
+                    });
                 }
 
                 // save new user
@@ -162,10 +168,10 @@ export class Interceptor implements HttpInterceptor {
             if (req.url.endsWith('/users') && req.method === 'GET') {
                 // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
                 // if (req.headers.get('Authorization') === 'Bearer fake-jwt-token') {
-                    return of(new HttpResponse({ status: 200, body: this.allUsers }));
+                return of(new HttpResponse({ status: 200, body: this.allUsers }));
                 // } else {
-                    // return 401 not authorised if token is null or invalid
-                    // return throwError({ status: 401, error: { message: 'Unauthorised' } });
+                // return 401 not authorised if token is null or invalid
+                // return throwError({ status: 401, error: { message: 'Unauthorised' } });
                 // }
             }
 

@@ -1,0 +1,32 @@
+
+  
+  footer{
+    // border: 1px solid red;
+    color: rgb(107, 102, 102);
+    min-height: 30vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 3rem 0;
+    font-size: 2rem ;
+    h2{
+      font-weight: 600;
+    }
+    .footer-links ul{
+      display: flex;
+      font-size: 1.4rem;
+      li{
+        cursor: pointer;
+        color: rgb(107, 102, 102);
+  
+      }
+    }
+  }
+  .parent{
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    // margin-top: 10rem;
+  }

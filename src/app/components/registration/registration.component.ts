@@ -7,18 +7,28 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 function passwordMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const password = c.get('password');
-  const confirmPassword = c.get('confirmPassword')
+  const confirmPassword = c.get('confirmPassword');
 
-  if(password.pristine || confirmPassword.pristine){
+  if (confirmPassword.pristine || password.pristine ) {
     return null;
   }
-  
+
   if (password.value === confirmPassword.value) {
     return null;
   }
 
   return { match: true }
 }
+
+function noSpaces(c: AbstractControl): { [key: string]: boolean } | null {
+  const password = c.get('password')
+  if ( (password.value) && (password.value as string).indexOf(' ') >= 0) {
+    return { noSpaces: true }
+  }
+
+  return null;
+}
+
 
 @Component({
   selector: 'sc-registration',
@@ -32,6 +42,7 @@ export class RegistrationComponent implements OnInit {
   private errorMessage: String;
   failed = false;
   success = false;
+  userExists = false;
 
   constructor(private fb: FormBuilder, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
@@ -41,15 +52,18 @@ export class RegistrationComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
       surname: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
       email: ['', [Validators.minLength(6), Validators.maxLength(100), Validators.email, Validators.required]],
+      
       passwordGroup: this.fb.group({
         password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
         confirmPassword: ['', Validators.required]
-      }, { validator: passwordMatcher })
+      }, { validator: [passwordMatcher, noSpaces] })
 
     });
 
     this.failed = false;
     this.success = false;
+    this.userExists = false;
+
   }
 
   registerUser() {
@@ -59,13 +73,14 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
-    let p = { ...this.user, ...this.userForm.value};
+    let p = { ...this.user, ...this.userForm.value };
     console.log(p)
     this.userService.createUser(p)
       .subscribe({
         next: () => this.onRegisterComplete(),
-        error: err => this.errorMessage = err
+        error: err => { this.userExists = true; return; }
       });
+    this.userExists = false;
     this.failed = false;
     this.success = true;
   }

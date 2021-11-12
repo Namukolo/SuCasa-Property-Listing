@@ -1,3 +1,5 @@
+<sc-navigation></sc-navigation>
+
 <div class="container">
     <div class="col-md-6 mx-auto text-center">
         <div class="header-title">
@@ -22,13 +24,13 @@
                             !userForm.get('name')?.valid }" />
 
                         <span class="invalid-feedback">
-                            <span *ngIf="userForm.get('name')?.errors?.required">
+                            <span *ngIf="userForm.get('name')?.errors?.required" class="field-tip">
                                 Please enter your name.
                             </span>
-                            <span *ngIf="userForm.get('name')?.errors?.minlength">
+                            <span *ngIf="userForm.get('name')?.errors?.minlength" class="field-tip">
                                 Your name must be longer than 1 character.
                             </span>
-                            <span *ngIf="userForm.get('name')?.errors?.maxlength">
+                            <span *ngIf="userForm.get('name')?.errors?.maxlength" class="field-tip">
                                 Your name must not be longer than 100 characters.
                             </span>
                         </span>
@@ -41,13 +43,13 @@
                             !userForm.get('surname')?.valid }" />
 
                         <span class="invalid-feedback">
-                            <span *ngIf="userForm.get('surname')?.errors?.required">
+                            <span *ngIf="userForm.get('surname')?.errors?.required" class="field-tip">
                                 Please enter your Surname.
                             </span>
-                            <span *ngIf="userForm.get('surname')?.errors?.minlength">
+                            <span *ngIf="userForm.get('surname')?.errors?.minlength" class="field-tip">
                                 Your surname must be longer than 1 character.
                             </span>
-                            <span *ngIf="userForm.get('surname')?.errors?.maxlength">
+                            <span *ngIf="userForm.get('surname')?.errors?.maxlength" class="field-tip">
                                 Your surname must not be longer than 100 characters.
                             </span>
                         </span>
@@ -60,16 +62,16 @@
                             !userForm.get('email')?.valid }" />
 
                         <span class="invalid-feedback">
-                            <span *ngIf="userForm.get('email')?.errors?.required">
+                            <span *ngIf="userForm.get('email')?.errors?.required" class="field-tip">
                                 Please enter your email.
                             </span>
-                            <span *ngIf="userForm.get('email')?.errors?.minlength">
+                            <span *ngIf="userForm.get('email')?.errors?.minlength" class="field-tip">
                                 Your email must be longer than 6 characters.
                             </span>
-                            <span *ngIf="userForm.get('email')?.errors?.maxlength">
+                            <span *ngIf="userForm.get('email')?.errors?.maxlength" class="field-tip">
                                 Your email must not be longer than 100 characters.
                             </span>
-                            <span *ngIf="userForm.get('email')?.errors?.email">
+                            <span *ngIf="userForm.get('email')?.errors?.email" class="field-tip">
                                 Enter a valid email.
                             </span>
                         </span>
@@ -85,29 +87,43 @@
                                 (userForm.get('passwordGroup').errors) ||((userForm.get('passwordGroup.password')?.touched ||
                                 userForm.get('passwordGroup.password')?.dirty) &&
                                 !userForm.get('passwordGroup.password')?.valid) }" />
-
+                                <span class="field-tip">
+                                    atleast 8 characters, no spaces
+                                </span>
                             <span class="invalid-feedback">
-                                <span *ngIf="userForm.get('passwordGroup.password')?.errors?.required">
-                                    Please enter your password.
+                                <span *ngIf="userForm.get('passwordGroup.password')?.errors">
+                                    <!-- Please enter a valid password. -->
+                                </span>
+                                <!-- <span *ngIf="userForm.get('passwordGroup.password')?.errors?.noSpaces">
+                                    No spaces
                                 </span>
                                 <span *ngIf="userForm.get('passwordGroup.password')?.errors?.minlength">
                                     Your password must be longer than 8 characters.
                                 </span>
                                 <span *ngIf="userForm.get('passwordGroup.password')?.errors?.maxlength">
                                     Your password must not be longer than 100 characters.
-                                </span>
+                                </span> -->
                             </span>
                         </div>
                         <div class="form-group mb-3">
                             <input type="password" name="confirmPassword" class="form-control my-input"
                                 id="confirmPassword" placeholder="Comfirm Password" formControlName="confirmPassword"
                                 [ngClass]="{'is-invalid': (userForm.get('passwordGroup').errors) ||
-                                ((userForm.get('passwordGroup.password')?.touched ||
-                                userForm.get('passwordGroup.password')?.dirty) &&
-                                !userForm.get('passwordGroup.password')?.valid )}" />
+                                ((userForm.get('passwordGroup.password').touched ||
+                                userForm.get('passwordGroup.password').dirty) &&
+                                !userForm.get('passwordGroup.password').valid )}" />
 
                             <span class="invalid-feedback">
-                                <span *ngIf="(userForm.get('passwordGroup.confirmPassword')?.errors?.required) || (userForm.get('passwordGroup')?.errors?.match)">
+                                <!-- <span
+                                    *ngIf="(userForm.get('passwordGroup.confirmPassword')?.errors?.required) ||  (userForm.get('passwordGroup')?.errors?.match)">
+                                    Your passwords dont match.
+                                </span> -->
+                                <span
+                                    *ngIf="(userForm.get('passwordGroup.confirmPassword').errors?.required)" class="field-tip">
+                                    Confirm your password
+                                </span>
+                                <span
+                                    *ngIf="(userForm.get('passwordGroup')?.errors?.match)">
                                     Your passwords dont match.
                                 </span>
                             </span>
@@ -126,10 +142,15 @@
 
                         <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="failed">
                             Please enter all the required fields
-                          </div>
-                          <div class="alert alert-success" style="margin-top: 1rem;" role="alert" *ngIf="success">
+                        </div>
+                        
+                        <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="userExists">
+                            This user already exists
+                        </div>
+
+                        <div class="alert alert-success" style="margin-top: 1rem;" role="alert" *ngIf="success && !userExists">
                             Account created Successfully
-                          </div>
+                        </div>
                     </div>
                 </form>
             </div>

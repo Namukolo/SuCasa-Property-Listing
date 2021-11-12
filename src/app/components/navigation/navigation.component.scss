@@ -1,11 +1,11 @@
 .main-menu{
     min-height: 12vh;
-    
+    margin-bottom: 10rem;
     // border: 1px solid red;
     .unauth-menu{
       // border: 1px solid red;
       font-weight: bold;
-      padding: .5rem 3rem;
+      padding: .5rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -45,7 +45,6 @@
   
     .accounts{
       display: flex;
-      // flex-direction: column;
       justify-content: space-between;
       min-width: 20%;
       align-items: center;
@@ -62,34 +61,53 @@
     }
   
   }
-  
-  footer{
-    // border: 1px solid red;
-    color: rgb(107, 102, 102);
-    min-height: 30vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: center;
-    margin: 3rem 0;
-    font-size: 2rem ;
-    h2{
-      font-weight: 600;
+
+  @media only screen and (max-width: 890px) {
+    .unauth-menu{
+      // // border: 1px solid red;
+      // font-weight: bold;
+      padding: .5rem 0rem;
+      // display: flex;
+      // justify-content: space-between;
+      // align-items: center;
+      // width: 100%;
+      // border: 1px solid red;
     }
-    .footer-links ul{
-      display: flex;
-      font-size: 1.4rem;
-      li{
-        cursor: pointer;
-        color: rgb(107, 102, 102);
+    .user-menu{
+      ul li{
+          font-size: 1.3rem;
   
       }
-    }
+    } 
   }
-  .parent{
-    min-height: 90vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-top: 10rem;
-  }
+  
+  // footer{
+  //   // border: 1px solid red;
+  //   color: rgb(107, 102, 102);
+  //   min-height: 30vh;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: flex-end;
+  //   align-items: center;
+  //   margin: 3rem 0;
+  //   font-size: 2rem ;
+  //   h2{
+  //     font-weight: 600;
+  //   }
+  //   .footer-links ul{
+  //     display: flex;
+  //     font-size: 1.4rem;
+  //     li{
+  //       cursor: pointer;
+  //       color: rgb(107, 102, 102);
+  
+  //     }
+  //   }
+  // }
+  // .parent{
+  //   min-height: 90vh;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: space-between;
+  //   // margin-top: 10rem;
+  // }

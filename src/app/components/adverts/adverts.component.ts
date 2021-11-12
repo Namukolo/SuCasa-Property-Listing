@@ -20,7 +20,7 @@ export class AdvertsComponent implements OnInit {
   ngOnInit(): void {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'))
     this.adverts = this.currentUser.adverts;
-    console.log('USER STATE ACCESS LEVEL:', this.stateService.currentUserAccessLevel)
+    // console.log('USER STATE ACCESS LEVEL:', this.stateService.currentUserAccessLevel)
     // console.log(this.adverts);
     // console.log(this.getAccessLevel);
   }

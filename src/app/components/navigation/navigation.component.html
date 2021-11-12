@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand shadow-sm main-menu">
+<nav class="navbar navbar-expand shadow-sm main-menu"  *ngIf="!userAccessLevel || userAccessLevel == 'UU'">
   <div class="unauth-menu">
     <a class="navbar-brand links" routerLink="/">
       Su<span class="logo-cut">Casa</span>
@@ -17,14 +17,14 @@
   </div>
 </nav>
 
-<nav class="navbar navbar-expand shadow-sm main-menu" *ngIf="userAccessLevel == 'USER'">
+<nav class="navbar navbar-expand shadow-sm main-menu user-menu" *ngIf="userAccessLevel == 'USER'">
   <div class="unauth-menu" >
     <a class="navbar-brand links" routerLink="/">
-      <!-- Su<span class="logo-cut">Casa</span> -->
+      Su<span class="logo-cut">Casa</span>
     </a>
   
     <ul class="nav nav-pills">
-      <li class="nav-link links" routerLink='/hompage'>My ads</li>
+      <li class="nav-link links" routerLink='/my-adverts'>My ads</li>
       <li class="nav-link links">Profile</li>
       <li class="nav-link links">Buy</li>
       <li class="nav-link links">Sell</li>
@@ -41,11 +41,10 @@
 <nav class="navbar navbar-expand shadow-sm main-menu" *ngIf="userAccessLevel == 'ADMIN'">
   <div class="unauth-menu" >
     <a class="navbar-brand links" routerLink="/">
-      <!-- Su<span class="logo-cut">Casa</span> -->
+      Su<span class="logo-cut">Casa</span>
     </a>
   
     <ul class="nav nav-pills">
-      <li class="nav-link links" routerLink='/hompage'>My ads</li>
       <li class="nav-link links">User Management</li>
       <li class="nav-link links">Advert Management</li>
     </ul>
@@ -55,24 +54,3 @@
     </ul>
   </div>
 </nav>
-
-
-<div class="parent">
-  <router-outlet></router-outlet>
-
-  <footer>
-    <div>
-      <h2 class="">SUCASA PROPERTY LISTING</h2>
-    </div>
-    <div class="footer-links">
-      <ul>
-        <li class="nav-link links">Home</li>
-        <li class="nav-link links">For Sale</li>
-        <li class="nav-link links">Sell a House</li>
-        <li class="nav-link links">Login</li>
-        <li class="nav-link links">Register</li>
-        <li class="nav-link links">Logout</li>
-      </ul>
-    </div>
-  </footer>
-</div>

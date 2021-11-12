@@ -10,7 +10,8 @@ export interface IUser{
 
 export enum AccessLevel{
     admin = 'ADMIN',
-    user = 'USER'
+    user = 'USER',
+    uu = 'UU'
 }
 
 export interface IAdvert{

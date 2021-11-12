@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { StateService } from './state.service';
+import { AccessLevel } from '../models/user';
 
 
 @Injectable({
@@ -8,8 +10,11 @@ import { map } from 'rxjs/operators';
 })
 export class AuthenticationService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private stateService: StateService) { }
 
+  setAccessLevel(value: AccessLevel){
+    this.stateService.currentUserAccessLevel = value;
+  }
   login(email: string, password: string) {
     return this.http.post<any>(`http://localhost:4200/users/authenticate`, { email: email, password: password })
         .pipe(map(user => {
@@ -25,6 +30,7 @@ export class AuthenticationService {
 }
 
 logout() {
+    this.setAccessLevel(AccessLevel.uu);
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
 }
