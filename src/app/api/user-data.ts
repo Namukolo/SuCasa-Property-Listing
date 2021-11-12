@@ -9,7 +9,7 @@ import { delay, dematerialize, finalize, materialize, mergeMap } from 'rxjs/oper
 
 
 @Injectable()
-export class UserData implements InMemoryDbService{
+export class UserData implements InMemoryDbService {
 
     createDb(): { users: IUser[] } {
         const users: IUser[] = [
@@ -17,24 +17,24 @@ export class UserData implements InMemoryDbService{
                 id: 1,
                 forenames: 'Namukolo',
                 surname: 'Mangwende',
-                email: 'somestuff@gmail.com',
+                email: 'admin@gmail.com',
                 password: 'Namukolo123',
                 accessLevel: AccessLevel.admin,
                 adverts: [
-    
+
                 ]
             },
             {
                 id: 2,
                 forenames: 'James',
                 surname: 'Colin',
-                email: 'someotherstuff@gmail.com',
+                email: 'james@gmail.com',
                 password: 'James123',
                 accessLevel: AccessLevel.user,
                 adverts: [
                     {
                         id: 1,
-                        headeline: "Cool House",
+                        headline: "Cool House",
                         location: 'Johannesburg',
                         images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                     }
@@ -50,21 +50,21 @@ export class UserData implements InMemoryDbService{
                 adverts: [
                     {
                         id: 1,
-                        headeline: "Cool House",
+                        headline: "2 bedroom townhouse for sale in Melrose North",
                         location: 'Johannesburg',
-                        images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                        images: ['https://www.pamgolding.co.za/property-details/2-bedroom-townhouse-for-sale-melrose-north/hp1544263']
                     },
                     {
-                        id: 1,
-                        headeline: "Cool House",
+                        id: 2,
+                        headline: "1 bedroom apartment for sale in Melrose Arch",
                         location: 'Johannesburg',
-                        images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                        images: ['https://www.pamgolding.co.za/property-details/1-bedroom-apartment-for-sale-melrose-arch/hp1538650']
                     },
                     {
-                        id: 1,
-                        headeline: "Cool House",
+                        id: 3,
+                        headline: "4 bedroom house for sale in Parktown North",
                         location: 'Johannesburg',
-                        images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                        images: ['https://www.pamgolding.co.za/property-details/4-bedroom-house-for-sale-parktown-north/hp1514261']
                     }
                 ]
             },
@@ -89,45 +89,4 @@ export class UserData implements InMemoryDbService{
         ];
         return { users };
     }
-
-    // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    //     return of(null).pipe(mergeMap(() => {
-
-    //         // authenticate
-    //         if (req.url.endsWith('/allUsers/authenticate') && req.method === 'POST') {
-    //             // find if any user matches login credentials
-    //             let filteredUsers = users.filter(user => {
-    //                 return user.email === req.body.email && user.password === req.body.password;
-    //             });
-
-    //             if (filteredUsers.length) {
-    //                 // if login details are valid return 200 OK with user details and fake jwt token
-    //                 let user = filteredUsers[0];
-    //                 let body = {
-    //                     id: user.id,
-    //                     email: user.email,
-    //                     forenames: user.forenames,
-    //                     surname: user.surname,
-    //                     accessLevel: user.accessLevel,
-    //                     token: 'fake-jwt-token'
-    //                 };
-
-    //                 return of(new HttpResponse({ status: 200, body: body }));
-    //             } else {
-    //                 // else return 400 bad request
-    //                 return throwError({ error: { message: 'Username or password is incorrect' } });
-    //             }
-    //         }
-
-    //         // pass through any requests not handled above
-    //         return next.handle(req);
-
-    //     }))
-    //         // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
-    //         .pipe(materialize())
-    //         .pipe(delay(500))
-    //         .pipe(dematerialize());
-    // }
-
 }

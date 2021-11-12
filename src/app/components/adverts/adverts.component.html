@@ -1,7 +1,15 @@
 <sc-navigation></sc-navigation>
+
+<div *ngIf="adverts" class="text-center">
+    <h3>Welcome {{currentUser.forenames}}</h3>
+    <h3>These are your current adverts</h3>
+    <br>
+    <button (click)="delete()">Clear local storage</button>
+</div>
+
 <div class="container" *ngIf="adverts">
     <div class="card" *ngFor="let advert of adverts">
-        <h1>{{advert.headeline}}</h1>
+        <h1>{{advert.headline}}</h1>
         <img src="{{advert.images[0]}}" alt="" srcset="">
         <p>{{advert.location}}</p>
     </div>
@@ -10,6 +18,6 @@
 <div *ngIf="!adverts" class="text-center">
     <h3>Welcome {{currentUser.forenames}}</h3>
     <h3>You currently have no adverts, click the sell tab in the menu to make one</h3>
-    <br>    
-    <button (click)="delete()">Clear local storage</button> 
+    <br>
+    <button (click)="delete()">Clear local storage</button>
 </div>

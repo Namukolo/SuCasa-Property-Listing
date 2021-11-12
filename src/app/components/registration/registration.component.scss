@@ -1,61 +1,70 @@
-
-*{
-	color: #4C537D;
-	font-family: 'Poppins', sans-serif;
+* {
+	color: #4c537d;
+	font-family: "Poppins", sans-serif;
 	font-size: 1.8rem;
 }
 
-.parent{
+.parent {
 	height: 60vh;
 }
-.send-button{
-	background: #62CA6B;
-	width:100%;
+
+.send-button {
+	background: #62ca6b;
+	width: 100%;
 	font-weight: 600;
-	color:#fff;
+	color: #fff;
 	padding: 1rem 3.125rem;
 	height: 5rem;
 	font-size: 1.8rem;
 }
 
-input{
+input {
 	height: 5rem;
-	&::placeholder{
+	&::placeholder {
 		font-size: 1.8rem;
 	}
 }
 
-.my-input{
+.my-input {
 	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 	cursor: text;
 	padding: 8px 10px;
-	transition: border .1s linear;
+	transition: border 0.1s linear;
 }
 
-h1{
+h1 {
 	font-size: 6rem;
 	line-height: 4rem;
 	font-weight: 600;
-    color: rgb(26, 25, 25);
+	color: rgb(26, 25, 25);
 	margin-bottom: 2rem;
-	.logo-cut{
-		color: #62CA6B;
+	.logo-cut {
+		color: #62ca6b;
 		font-size: 6rem;
-
 	}
 }
-h2{
-    color: rgb(59, 58, 58);
+
+h2 {
+	color: rgb(59, 58, 58);
 
 	font-size: 1.8rem;
 	line-height: 2.6rem;
 	font-weight: 600;
 }
-.field-tip{
+
+.field-tip {
 	font-size: 1.3rem;
 }
-
-@media screen and (max-width:480px){
-	h1{ font-size: 26px; }
-	h2{ font-size: 20px; }
-} 
+.to-login{
+	cursor: pointer;
+	font-size: 1.4rem;
+	margin-top: 1rem;
+}
+@media screen and (max-width: 480px) {
+	h1 {
+		font-size: 26px;
+	}
+	h2 {
+		font-size: 20px;
+	}
+}

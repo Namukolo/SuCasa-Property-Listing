@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { catchError, map, tap } from "rxjs/operators";
-import { Observable, throwError, of } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
 
 
 import { IUser } from "../models/user";
@@ -24,12 +24,10 @@ export class UserService {
   }
 
   createUser(user: IUser): Observable<IUser> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    console.log(`USER BEFORE CREATION:${user}`)
-    // user.id = null;
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     return this.http.post<IUser>(`${this.userUrl}/register`, user, { headers })
       .pipe(
-        tap(data => console.log(`CREATING USER`)),
+        tap(data => console.log(``)),
         catchError(this.handleError)
       );
   }

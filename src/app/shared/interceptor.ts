@@ -1,23 +1,21 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HTTP_INTERCEPTORS, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError, of } from "rxjs";
-import { AuthenticationService } from '../services/authentication.service';
 import { UserService } from '../services/user.service';
-import { delay, dematerialize, finalize, materialize, mergeMap } from 'rxjs/operators';
+import { delay, dematerialize, materialize, mergeMap } from 'rxjs/operators';
 import { AccessLevel, IUser } from '../models/user';
 
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-    // constructor( INJECT YOUR AUTH SERVICE HERE )
-    constructor(private userService: UserService) { }
+    constructor() { }
 
     allUsers: IUser[] = [
         {
             id: 1,
             forenames: 'Namukolo',
             surname: 'Mangwende',
-            email: 'somestuff@gmail.com',
+            email: 'admin@gmail.com',
             password: 'Namukolo123',
             accessLevel: AccessLevel.admin,
             adverts: [
@@ -28,13 +26,13 @@ export class Interceptor implements HttpInterceptor {
             id: 2,
             forenames: 'James',
             surname: 'Colin',
-            email: 'someotherstuff@gmail.com',
+            email: 'james@gmail.com',
             password: 'James123',
             accessLevel: AccessLevel.user,
             adverts: [
                 {
                     id: 1,
-                    headeline: "Cool House",
+                    headline: "Cool House",
                     location: 'Johannesburg',
                     images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                 }
@@ -50,21 +48,21 @@ export class Interceptor implements HttpInterceptor {
             adverts: [
                 {
                     id: 1,
-                    headeline: "Cool House",
+                    headline: "2 bedroom townhouse for sale in Melrose North",
                     location: 'Johannesburg',
-                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                    images: ['https://images.prop24.com/273163086/Crop525x350']
                 },
                 {
-                    id: 1,
-                    headeline: "Cool House",
+                    id: 2,
+                    headline: "1 bedroom apartment for sale in Melrose Arch",
                     location: 'Johannesburg',
-                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                    images: ['https://images.prop24.com/272234688/Crop526x328']
                 },
                 {
-                    id: 1,
-                    headeline: "Cool House",
+                    id: 3,
+                    headline: "4 bedroom house for sale in Parktown North",
                     location: 'Johannesburg',
-                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                    images: ['https://images.prop24.com/271820758/Crop600x400']
                 }
             ]
         },
@@ -90,17 +88,14 @@ export class Interceptor implements HttpInterceptor {
 
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        //    localStorage.setItem('users', JSON.stringify(this.allUsers)); 
         let users: IUser[] = JSON.parse(localStorage.getItem('users')) || [...this.allUsers];
-        // console.log('USERS from localstorages',JSON.parse(localStorage.getItem('users')))
         return of(null).pipe(mergeMap(() => {
 
-            // authenticate
+            // AUTHENTICATE --- LOGIN
             if (req.url.endsWith('/users/authenticate') && req.method === 'POST') {
-                console.log('USERS FOMR AUTH', users)
-                // find if any user matches login credentials
+                // finds users with given email and password - returns array
                 let filteredUsers = users.filter(user => {
-                    return user.email === req.body.email && user.password === req.body.password;
+                    return user.email.toLowerCase() === req.body.email.toLowerCase() && user.password === req.body.password;
                 });
 
                 if (filteredUsers.length) {
@@ -124,10 +119,11 @@ export class Interceptor implements HttpInterceptor {
                 }
             }
 
-            //register
+
+            //REGISTER --- REGISTRATION
             if (req.url.endsWith('/users/register') && req.method === 'POST') {
 
-                // get new user object from post body
+                // getting new user object from post body
                 let input = req.body;
                 let newUser = {
                     id: input.id,
@@ -136,52 +132,37 @@ export class Interceptor implements HttpInterceptor {
                     forenames: input.name,
                     surname: input.surname,
                     password: input.passwordGroup.password
-                    // adverts: [],
                 };
-                // validation
-                let duplicateUser = users.filter(user => { return user.email === newUser.email; }).length;
+
+                // checking whether user with credentials (email) already exists
+                let duplicateUser = users.filter(user => { return user.email.toLowerCase() === newUser.email.toLowerCase; }).length;
                 if (duplicateUser) {
                     throw new HttpErrorResponse({
                         error: 'An account with this email already exists',
-                        // headers: 202,
                         status: 500,
                         statusText: 'Warning',
                         url: 'users/register'
                     });
                 }
 
-                // save new user
+                // save the new user
                 newUser.id = users.length + 1;
                 users.push(newUser);
                 localStorage.setItem('users', JSON.stringify(users));
 
-                console.log('All users from register', users)
-                // console.log('All users from register', req.body)
-
-
-                // respond 200 OK
+                // respond with 200 OK
                 return of(new HttpResponse({ status: 200 }));
             }
 
-            //Get Users
-
+            //GET USERS -- TODO (CURRENTLY UNFINISHED)
             if (req.url.endsWith('/users') && req.method === 'GET') {
-                // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
-                // if (req.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                 return of(new HttpResponse({ status: 200, body: this.allUsers }));
-                // } else {
-                // return 401 not authorised if token is null or invalid
-                // return throwError({ status: 401, error: { message: 'Unauthorised' } });
-                // }
             }
-
-
 
             // pass through any requests not handled above
             return next.handle(req);
 
         }))
-            // call materialize and dematerialize to ensure delay even if an error is thrown (https://github.com/Reactive-Extensions/RxJS/issues/648)
             .pipe(materialize())
             .pipe(delay(500))
             .pipe(dematerialize());

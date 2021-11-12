@@ -1,15 +1,16 @@
-<nav class="navbar navbar-expand shadow-sm main-menu"  *ngIf="!userAccessLevel || userAccessLevel == 'UU'">
+<!-- UNATHORIZED USER MENU -->
+<nav class="navbar navbar-expand shadow-sm main-menu" *ngIf="!userAccessLevel || userAccessLevel == 'UU'">
   <div class="unauth-menu">
     <a class="navbar-brand links" routerLink="/">
       Su<span class="logo-cut">Casa</span>
     </a>
-  
+
     <ul class="nav nav-pills">
       <li class="nav-link links" routerLink='/hompage'>Home</li>
       <li class="nav-link links">For Sale</li>
       <li class="nav-link links">Sell a House</li>
     </ul>
-  
+
     <ul class="accounts">
       <li class="nav-link links" routerLink='/login'>Login</li>
       <li class="nav-link links" routerLink='/registration' class="cta-register">Register</li>
@@ -17,12 +18,13 @@
   </div>
 </nav>
 
+<!-- AUTHORIZED USER MENU -->
 <nav class="navbar navbar-expand shadow-sm main-menu user-menu" *ngIf="userAccessLevel == 'USER'">
-  <div class="unauth-menu" >
+  <div class="unauth-menu">
     <a class="navbar-brand links" routerLink="/">
       Su<span class="logo-cut">Casa</span>
     </a>
-  
+
     <ul class="nav nav-pills">
       <li class="nav-link links" routerLink='/my-adverts'>My ads</li>
       <li class="nav-link links">Profile</li>
@@ -31,24 +33,25 @@
       <li class="nav-link links">Favourites</li>
       <li class="nav-link links">Manage Account</li>
     </ul>
-  
+
     <ul class="accounts">
       <li class="nav-link links" routerLink='/login'>Logout</li>
     </ul>
   </div>
 </nav>
 
+<!-- ADMIN MENU -->
 <nav class="navbar navbar-expand shadow-sm main-menu" *ngIf="userAccessLevel == 'ADMIN'">
-  <div class="unauth-menu" >
+  <div class="unauth-menu">
     <a class="navbar-brand links" routerLink="/">
       Su<span class="logo-cut">Casa</span>
     </a>
-  
+
     <ul class="nav nav-pills">
       <li class="nav-link links">User Management</li>
       <li class="nav-link links">Advert Management</li>
     </ul>
-  
+
     <ul class="accounts">
       <li class="nav-link links" routerLink='/login'>Logout</li>
     </ul>

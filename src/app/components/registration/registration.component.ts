@@ -9,7 +9,7 @@ function passwordMatcher(c: AbstractControl): { [key: string]: boolean } | null 
   const password = c.get('password');
   const confirmPassword = c.get('confirmPassword');
 
-  if (confirmPassword.pristine || password.pristine ) {
+  if (confirmPassword.pristine || password.pristine) {
     return null;
   }
 
@@ -22,7 +22,7 @@ function passwordMatcher(c: AbstractControl): { [key: string]: boolean } | null 
 
 function noSpaces(c: AbstractControl): { [key: string]: boolean } | null {
   const password = c.get('password')
-  if ( (password.value) && (password.value as string).indexOf(' ') >= 0) {
+  if ((password.value) && (password.value as string).indexOf(' ') >= 0) {
     return { noSpaces: true }
   }
 
@@ -52,7 +52,7 @@ export class RegistrationComponent implements OnInit {
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
       surname: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
       email: ['', [Validators.minLength(6), Validators.maxLength(100), Validators.email, Validators.required]],
-      
+
       passwordGroup: this.fb.group({
         password: ['', [Validators.required, Validators.minLength(8), Validators.maxLength(100)]],
         confirmPassword: ['', Validators.required]
@@ -67,14 +67,12 @@ export class RegistrationComponent implements OnInit {
   }
 
   registerUser() {
-
     if (!this.userForm.valid) {
       this.failed = true;
       return;
     }
 
     let p = { ...this.user, ...this.userForm.value };
-    console.log(p)
     this.userService.createUser(p)
       .subscribe({
         next: () => this.onRegisterComplete(),

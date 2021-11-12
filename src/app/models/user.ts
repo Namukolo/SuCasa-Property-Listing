@@ -1,5 +1,5 @@
-export interface IUser{
-    id:number,
+export interface IUser {
+    id: number,
     forenames: string,
     surname: string,
     email: string,
@@ -8,15 +8,15 @@ export interface IUser{
     adverts?: IAdvert[]
 }
 
-export enum AccessLevel{
+export enum AccessLevel {
     admin = 'ADMIN',
     user = 'USER',
     uu = 'UU'
 }
 
-export interface IAdvert{
-    id:number,
+export interface IAdvert {
+    id: number,
     location: string,
-    headeline: string,
+    headline: string,
     images: string[]
 }

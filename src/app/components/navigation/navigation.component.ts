@@ -1,5 +1,4 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
-import { of } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { AccessLevel, IUser } from 'src/app/models/user';
 
 @Component({
@@ -16,7 +15,6 @@ export class NavigationComponent implements OnInit {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     if (this.currentUser) {
       this.userAccessLevel = this.currentUser.accessLevel;
-      console.log(this.userAccessLevel)
     }
   }
 }

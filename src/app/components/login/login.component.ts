@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccessLevel, IUser } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators} from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { first } from 'rxjs/operators';
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
   success = false;
   failedLogin = false
   returnUrl: string;
-  
+
 
 
   constructor(private fb: FormBuilder, private userService: UserService, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService, private stateService: StateService) { }
@@ -39,7 +39,6 @@ export class LoginComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: users => {
         this.allUsers = [...users];
-        // console.log('all Users', this.allUsers)
       },
     })
 
@@ -51,38 +50,34 @@ export class LoginComponent implements OnInit {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  setAccessLevel(accessLevel: AccessLevel){
+  //getter and setter to update state
+  setAccessLevel(accessLevel: AccessLevel) {
     this.stateService.currentUserAccessLevel = accessLevel;
   }
 
-  getAccessLevel(){
+  getAccessLevel() {
     return this.stateService.currentUserAccessLevel;
   }
 
-  login(){
-
+  login() {
     if (!this.loginForm.valid) {
-      console.log('form invalid')
       this.invalid = true;
       this.failedLogin = false;
       return;
     }
 
     this.failedLogin = false;
-    console.log(`EMAIL:${this.loginForm.get('email').value} PASSWORD:${this.loginForm.get('password').value} `)
     this.authenticationService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
-            .pipe(first())
-            .subscribe(
-                data => {
-                    // console.log(data.accessLevel)
-                    this.success = true;
-                    this.setAccessLevel(data.accessLevel);
-                    this.router.navigate(['/my-adverts']);
-                },
-                error => {
-                    console.log('ERROR FROM LOGIN',error)
-                    this.failedLogin = true;
-                    this.invalid = false;
-                });
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.success = true;
+          this.setAccessLevel(data.accessLevel);
+          this.router.navigate(['/my-adverts']);
+        },
+        error => {
+          this.failedLogin = true;
+          this.invalid = false;
+        });
   }
 }

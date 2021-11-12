@@ -2,7 +2,7 @@
 
 
 <div class="container parent">
-
+    <!-- PAGE HEADING -->
     <div class="col-md-6 mx-auto text-center">
         <div class="header-title">
             <h1 class="wv-heading--title">
@@ -14,6 +14,7 @@
         </div>
     </div>
 
+    <!-- TEMP LOGIN DETAILS FOR EASY ACCESS TO PRELOADED ACCOUNTS -->
     <div class="row">
         <p class="wv-heading--subtitle text-center">
             email@gmail.com
@@ -26,53 +27,28 @@
             access: Admin
         </p>
 
+
+        <!-- LOGIN FORM -->
         <div class="col-md-4 mx-auto">
             <div class="myform form">
                 <form action="" method="" name="login" [formGroup]="loginForm" novalidate (ngSubmit)="login()">
+                    <!-- EMAIL -->
                     <div class="form-group mb-4">
                         <input type="email" name="email" class="form-control my-input" id="email" placeholder="email"
                             formControlName="email" [ngClass]="{'is-invalid': 
                         (loginForm.get('email')?.touched ||
                         loginForm.get('email')?.dirty) &&
                         !loginForm.get('email')?.valid}" />
-
-                        <!-- <span class="invalid-feedback">
-                            <span *ngIf="loginForm.get('email')?.errors?.required">
-                                Please enter your email.
-                            </span>
-                            <span *ngIf="loginForm.get('email')?.errors?.minlength">
-                                Your email must be longer than 6 characters.
-                            </span>
-                            <span *ngIf="loginForm.get('email')?.errors?.maxlength">
-                                Your email must not be longer than 100 characters.
-                            </span>
-                            <span *ngIf="loginForm.get('email')?.errors?.email">
-                                Please enter a vaild email.
-                            </span>
-                        </span> -->
                     </div>
 
+                    <!-- PASSWORD -->
                     <div class="form-group mb-4">
                         <input type="password" name="password" class="form-control my-input" id="password"
                             placeholder="Password" formControlName="password" [ngClass]="{'is-invalid': 
                             (loginForm.get('password')?.touched ||
                             loginForm.get('password')?.dirty) &&
                             !loginForm.get('password')?.valid}" />
-
-                        <!-- <span class="invalid-feedback">
-                            <span *ngIf="loginForm.get('password')?.errors?.required">
-                                Please enter your password.
-                            </span>
-                            <span *ngIf="loginForm.get('password')?.errors?.minlength">
-                                Your password must be longer than 8 characters.
-                            </span>
-                            <span *ngIf="loginForm.get('password')?.errors?.maxlength">
-                                Your password must not be longer than 100 characters.
-                            </span>
-                        </span> -->
                     </div>
-
-
 
                     <!-- SUBMIT BUTTON  -->
                     <div class="text-center ">
@@ -89,6 +65,10 @@
                         </div>
                     </div>
                 </form>
+
+                    <div class="text-center field-tip" routerLink="/registration">
+                        Don't have an account? sign up
+                    </div>
             </div>
         </div>
     </div>

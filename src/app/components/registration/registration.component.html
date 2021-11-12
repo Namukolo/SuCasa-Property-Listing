@@ -1,6 +1,8 @@
 <sc-navigation></sc-navigation>
 
 <div class="container">
+
+    <!-- PAGE HEADING -->
     <div class="col-md-6 mx-auto text-center">
         <div class="header-title">
             <h1 class="wv-heading--title">
@@ -11,12 +13,15 @@
             </h2>
         </div>
     </div>
+
+    <!-- FORM -->
     <div class="row">
         <div class="col-md-4 mx-auto">
             <div class="myform form ">
                 <form action="" method="" name="registration" novalidate (ngSubmit)="registerUser()"
                     [formGroup]="userForm">
 
+                    <!-- NAME -->
                     <div class="form-group mb-3">
                         <input type="text" name="name" class="form-control my-input" id="name" placeholder="Name"
                             formControlName="name" [ngClass]="{'is-invalid': (userForm.get('name')?.touched ||
@@ -36,6 +41,7 @@
                         </span>
                     </div>
 
+                    <!-- SURNAME -->
                     <div class="form-group mb-3">
                         <input type="text" name="surname" class="form-control my-input" id="surname"
                             placeholder="Surname" formControlName="surname" [ngClass]="{'is-invalid': (userForm.get('surname')?.touched ||
@@ -55,6 +61,7 @@
                         </span>
                     </div>
 
+                    <!-- EMAIL -->
                     <div class="form-group mb-3">
                         <input type="email" name="email" class="form-control my-input" id="email" placeholder="email"
                             formControlName="email" [ngClass]="{'is-invalid': (userForm.get('email')?.touched ||
@@ -77,9 +84,7 @@
                         </span>
                     </div>
 
-
-
-
+                    <!-- PASSWORDS -->
                     <div class="form-group mb-3" formGroupName="passwordGroup">
                         <div class="form-group mb-3">
                             <input type="password" name="password" class="form-control my-input" id="password"
@@ -87,24 +92,16 @@
                                 (userForm.get('passwordGroup').errors) ||((userForm.get('passwordGroup.password')?.touched ||
                                 userForm.get('passwordGroup.password')?.dirty) &&
                                 !userForm.get('passwordGroup.password')?.valid) }" />
-                                <span class="field-tip">
-                                    atleast 8 characters, no spaces
-                                </span>
+                            <span class="field-tip">
+                                atleast 8 characters, no spaces
+                            </span>
                             <span class="invalid-feedback">
                                 <span *ngIf="userForm.get('passwordGroup.password')?.errors">
-                                    <!-- Please enter a valid password. -->
                                 </span>
-                                <!-- <span *ngIf="userForm.get('passwordGroup.password')?.errors?.noSpaces">
-                                    No spaces
-                                </span>
-                                <span *ngIf="userForm.get('passwordGroup.password')?.errors?.minlength">
-                                    Your password must be longer than 8 characters.
-                                </span>
-                                <span *ngIf="userForm.get('passwordGroup.password')?.errors?.maxlength">
-                                    Your password must not be longer than 100 characters.
-                                </span> -->
                             </span>
                         </div>
+
+
                         <div class="form-group mb-3">
                             <input type="password" name="confirmPassword" class="form-control my-input"
                                 id="confirmPassword" placeholder="Comfirm Password" formControlName="confirmPassword"
@@ -114,25 +111,14 @@
                                 !userForm.get('passwordGroup.password').valid )}" />
 
                             <span class="invalid-feedback">
-                                <!-- <span
-                                    *ngIf="(userForm.get('passwordGroup.confirmPassword')?.errors?.required) ||  (userForm.get('passwordGroup')?.errors?.match)">
-                                    Your passwords dont match.
-                                </span> -->
-                                <span
-                                    *ngIf="(userForm.get('passwordGroup.confirmPassword').errors?.required)" class="field-tip">
+                                <span *ngIf="(userForm.get('passwordGroup.confirmPassword').errors?.required)"
+                                    class="field-tip">
                                     Confirm your password
                                 </span>
-                                <span
-                                    *ngIf="(userForm.get('passwordGroup')?.errors?.match)">
+                                <span *ngIf="(userForm.get('passwordGroup')?.errors?.match)" class="field-tip">
                                     Your passwords dont match.
                                 </span>
                             </span>
-
-                            <!-- <span class="invalid-feedback">
-                                <span *ngIf="userForm.get('passwordGroup')?.errors?.match">
-                                    Your passwords dont match
-                                </span>
-                            </span> -->
                         </div>
                     </div>
 
@@ -143,16 +129,20 @@
                         <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="failed">
                             Please enter all the required fields
                         </div>
-                        
+
                         <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="userExists">
                             This user already exists
                         </div>
 
-                        <div class="alert alert-success" style="margin-top: 1rem;" role="alert" *ngIf="success && !userExists">
+                        <div class="alert alert-success" style="margin-top: 1rem;" role="alert"
+                            *ngIf="success && !userExists">
                             Account created Successfully
                         </div>
                     </div>
                 </form>
+                <div class="text-center field-tip to-login" routerLink="/login">
+                    Already have an account? sign in
+                </div>
             </div>
         </div>
     </div>
