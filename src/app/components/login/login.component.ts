@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   user: IUser;
   allUsers: IUser[] = [];
   errorMessage = '';
-  failed = false;
+  invalid = false;
   success = false;
   failedLogin = false
   returnUrl: string;
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
       },
     })
 
-    this.failed = false;
+    this.invalid = false;
     this.success = false;
     this.failedLogin = false;
 
@@ -63,7 +63,8 @@ export class LoginComponent implements OnInit {
 
     if (!this.loginForm.valid) {
       console.log('form invalid')
-      this.failed = true;
+      this.invalid = true;
+      this.failedLogin = false;
       return;
     }
 
@@ -74,12 +75,14 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 data => {
                     // console.log(data.accessLevel)
+                    this.success = true;
                     this.setAccessLevel(data.accessLevel);
                     this.router.navigate(['/my-adverts']);
                 },
                 error => {
                     console.log('ERROR FROM LOGIN',error)
                     this.failedLogin = true;
+                    this.invalid = false;
                 });
   }
 }
