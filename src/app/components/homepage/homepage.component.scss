@@ -1,0 +1,25 @@
+.above-the-fold {
+    padding: 0 3.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    overflow: hidden;
+    h1 {
+        text-align: left;
+        width: 60%;
+    }
+    &_image {
+        width: 55%;
+        img {
+            border-radius: 5px;
+            width: 100%;
+        }
+    }
+    h1 {
+        margin-bottom: 2rem;
+        font-weight: 600;
+        color: black;
+        font-size: 9rem;
+    }
+}
