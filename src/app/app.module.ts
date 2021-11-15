@@ -21,6 +21,7 @@ import { ErrorInterceptor } from './shared/error.interceptor';
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { AdvertsComponent } from './components/adverts/adverts.component';
+import { AddAdvertComponent } from './components/add-advert/add-advert.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AdvertsComponent } from './components/adverts/adverts.component';
     HomepageComponent,
     LoginComponent,
     NavigationComponent,
-    AdvertsComponent
+    AdvertsComponent,
+    AddAdvertComponent
   ],
   imports: [
     BrowserModule,

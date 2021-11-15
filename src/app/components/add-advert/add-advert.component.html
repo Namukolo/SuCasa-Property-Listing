@@ -1,0 +1,99 @@
+<sc-navigation></sc-navigation>
+
+<div class="container">
+    <!-- PAGE HEADING -->
+    <div class="col-md-12 mx-auto text-center">
+        <div class="header-title">
+            <h1 class="wv-heading--title">Su<span class="logo-cut">Casa</span></h1>
+            <h2 class="wv-heading--subtitle">Sell your property</h2>
+        </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="myform form">
+                <form action="" method="" name="registration" novalidate>
+                    <!-- HEADLINE -->
+                    <div class="form-group mb-3">
+                        <input type="text" name="headline" class="form-control my-input" id="headline"
+                            placeholder="Headline" />
+                    </div>
+
+                    <!-- PROVINCE -->
+                    <div class="form-group mb-3">
+                        <select class="form-select" aria-label="Select province mb-2" id="province">
+                            <option [selected]="true">Select a province</option>
+                            <option value="Gauteng">Gauteng</option>
+                            <option value="FreeState">Free State</option>
+                            <option value="WesternCape">Western Cape</option>
+                            <option value="NorthWest">North West</option>
+                            <option value="KZN">KZN</option>
+                        </select>
+                    </div>
+
+                    <!-- CITY -->
+                    <div class="form-group mb-3">
+                        <select class="form-select" aria-label="Select city mb-2" id="city">
+                            <option [selected]="true">Select a city</option>
+                            <option value="Gauteng">Johanesburg</option>
+                            <option value="Pretoria">Pretoria</option>
+                        </select>
+                    </div>
+
+                    <!-- <div class="form-group mb-3">
+                        <select class="form-select" aria-label="Select province mb-2" id="province">
+                            <option [selected]="true">Select a province</option>
+                            <option value="Gauteng">Gauteng</option>
+                            <option value="FreeState">Free State</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <select class="form-select" aria-label="Select province mb-2" id="province">
+                            <option [selected]="true">Select a province</option>
+                            <option value="Gauteng">Gauteng</option>
+                            <option value="FreeState">Free State</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <select class="form-select" aria-label="Select province mb-2" id="province">
+                            <option [selected]="true">Select a province</option>
+                            <option value="Gauteng">Gauteng</option>
+                            <option value="FreeState">Free State</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <select class="form-select" aria-label="Select province mb-2" id="province">
+                            <option [selected]="true">Select a province</option>
+                            <option value="Gauteng">Gauteng</option>
+                            <option value="FreeState">Free State</option>
+                        </select>
+                    </div> -->
+
+                    <!-- DESCRIPTION -->
+                    <div class="form-group mb-3">
+                        <textarea class="form-control" id="description" rows="3" placeholder="Description"></textarea>
+                    </div>
+                    <!-- PRICE -->
+                    <div class="form-group mb-3">
+                        <input type="number" id="amount" name="amount" class="form-control my-input" min="0"
+                            placeholder="Price" />
+                    </div>
+
+                    <!-- BUTTONS -->
+                    <div class="btn-row">
+                        <!-- CANCEL -->
+                        <button type="button" class="btn btn-outline-danger cancel">Cancel</button>
+                        <!-- PUBLISH -->
+                        <button type="button" class="btn send-button">Publish</button>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

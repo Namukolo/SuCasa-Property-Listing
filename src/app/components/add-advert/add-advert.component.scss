@@ -1,0 +1,90 @@
+* {
+	color: #4c537d;
+	font-family: "Poppins", sans-serif;
+	font-size: 1.8rem;
+}
+
+.parent {
+	height: 60vh;
+}
+
+.send-button {
+	background: #62ca6b;
+	width: 100%;
+	font-weight: 600;
+	color: #fff;
+	padding: 1rem 3.125rem;
+	height: 5rem;
+	font-size: 1.8rem;
+}
+
+input {
+	height: 5rem;
+	&::placeholder {
+		font-size: 1.8rem;
+	}
+}
+
+.my-input {
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	cursor: text;
+	padding: 8px 10px;
+	transition: border 0.1s linear;
+}
+
+h1 {
+	font-size: 6rem;
+	line-height: 4rem;
+	font-weight: 600;
+	color: rgb(26, 25, 25);
+	margin-bottom: 2rem;
+	.logo-cut {
+		color: #62ca6b;
+		font-size: 6rem;
+	}
+}
+
+h2 {
+	color: rgb(59, 58, 58);
+
+	font-size: 1.8rem;
+	line-height: 2.6rem;
+	font-weight: 600;
+}
+.btn-row{
+	display: flex;
+	justify-content: space-between;
+	// flex-direction: column;
+	button{
+		width: 40%;
+		// width: 100%;
+		font-weight: 600;
+		padding: 1rem 3.125rem;
+		height: 5rem;
+		font-size: 1.8rem;
+	}
+	.cancel {
+		color: #df4759;
+		&:hover{
+			color: #fff;
+		}
+	}
+
+}
+
+.field-tip {
+	font-size: 1.3rem;
+}
+.to-login{
+	cursor: pointer;
+	font-size: 1.4rem;
+	margin-top: 1rem;
+}
+@media screen and (max-width: 480px) {
+	h1 {
+		font-size: 26px;
+	}
+	h2 {
+		font-size: 20px;
+	}
+}
