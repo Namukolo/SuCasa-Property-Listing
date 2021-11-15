@@ -74,37 +74,8 @@ export class AddAdvertComponent implements OnInit {
                 error: err => this.errorMessage = err
               });
       }
-      //   if (p.id === 0) {
-      //     this.success = true;
-      //     //sets failed to false so both alerts dont appear
-      //     this.failed = false;
-
-      //     this.buttonText = 'Creating Salary...';
-      //     this.salaryService.createSalary(p)
-      //       .pipe(delay(2000))
-      //       .subscribe({
-      //         next: () => this.onSaveComplete(),
-      //         error: err => this.errorMessage = err
-      //       });
-
-      //   } else {
-      //     this.update = true;
-      //     this.failed = false;
-      //     this.buttonText = 'Updating Salary...';
-      //     this.salaryService.updateSalary(p)
-      //       .pipe(delay(2000))
-      //       .subscribe({
-      //         next: () => this.onSaveComplete(),
-      //         error: err => this.errorMessage = err
-      //       })
-      //   }
-      // } else {
-      //   this.onSaveComplete();
-      // }
     } else {
       console.log('error')
-      // this.errorMessage = 'Please correct the validation errors.';
-      // this.failed = true;
       this.success = false
     }
 
