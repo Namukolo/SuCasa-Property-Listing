@@ -12,24 +12,42 @@ export class AddAdvertComponent implements OnInit {
 
   advertForm: FormGroup;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router,private fb: FormBuilder, private route: ActivatedRoute,) { }
+  country: any = [
+    { name: 'Gauteng', cities: [{ name: 'JohannesburgGP', }, { 'name': 'Pretoria' }] },
+    { name: 'Free State', cities: [{ name: 'JohannesburgFS', }, { 'name': 'Pretoria' }] },
+    { name: 'Western Cape', cities: [{ name: 'JohannesburgWC', }, { 'name': 'Pretoria' }] },
+    { name: 'North West', cities: [{ name: 'JohannesburgNW', }, { 'name': 'Pretoria' }] },
+    { name: 'KZN', cities: [{ name: 'JohannesburgKZN', }, { 'name': 'Pretoria' }] }
+  ]
+  selectedProvince: any = { name: '', cities: [] };
+  selectedCity: string = null;
 
-  ngOnInit(): void { 
-    if(!this.authenticationService.getLoggedInUser()){
-        this.router.navigate(['/login'])
+  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute,) { }
+
+  ngOnInit(): void {
+    if (!this.authenticationService.getLoggedInUser()) {
+      this.router.navigate(['/login'])
     }
 
     this.advertForm = this.fb.group({
       headline: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]],
       province: ['', Validators.required],
       city: ['', Validators.required],
-      description: ['', [Validators.required,Validators.minLength(10), Validators.maxLength(1000)]],
-      price: ['', [Validators.min(10000), Validators.max(100000000)]]  
+      description: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]],
+      price: ['', [Validators.required, Validators.min(10000), Validators.max(100000000)]]
     });
+
+    this.advertForm.get('province').valueChanges.subscribe(
+      value => {
+        this.selectedProvince = value;
+        this.advertForm.get('city').reset();
+        console.log(this.selectedProvince) 
+      }
+    );
+
   }
 
-
-  saveAdvert(){
+  saveAdvert() {
     console.log(this.advertForm.value)
   }
 }

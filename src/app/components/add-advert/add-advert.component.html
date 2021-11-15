@@ -13,74 +13,59 @@
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="myform form">
-                <form action="" method="" name="registration" novalidate (ngSubmit) = "saveAdvert()" [formGroup]="advertForm">
+                <form action="" method="" name="registration" novalidate (ngSubmit)="saveAdvert()"
+                    [formGroup]="advertForm">
                     <!-- HEADLINE -->
                     <div class="form-group mb-3">
                         <input type="text" name="headline" class="form-control my-input" id="headline"
-                            placeholder="Headline" formControlName="headline"/>
+                            placeholder="Headline" formControlName="headline" [ngClass]="{'is-invalid': (advertForm.get('headline')?.touched ||
+                            advertForm.get('headline')?.dirty) &&
+                            !advertForm.get('headline')?.valid }" />
                     </div>
 
                     <!-- PROVINCE -->
                     <div class="form-group mb-3">
-                        <select class="form-select" aria-label="Select province mb-2" id="province" formControlName="province">
-                            <option [selected]="true">Select a province</option>
-                            <option value="Gauteng">Gauteng</option>
-                            <option value="FreeState">Free State</option>
-                            <option value="WesternCape">Western Cape</option>
-                            <option value="NorthWest">North West</option>
-                            <option value="KZN">KZN</option>
+                        <select class="form-select" aria-label="Select province mb-2" id="province"
+                            formControlName="province" [ngClass]="{'is-invalid': (advertForm.get('province')?.touched ||
+                            advertForm.get('province')?.dirty) &&
+                            !advertForm.get('province')?.valid }">
+                            <option [selected]="true" [attr.disabled]=true>Select a province</option>
+                            <option *ngFor="let province of country" [ngValue]="province">{{province.name}}</option>
                         </select>
+                        <span class="field-tip">
+                            Select a province.
+                        </span>
                     </div>
 
                     <!-- CITY -->
                     <div class="form-group mb-3">
-                        <select class="form-select" aria-label="Select city mb-2" id="city" formControlName="city">
-                            <option [selected]="true">Select a city</option>
-                            <option value="Gauteng">Johanesburg</option>
-                            <option value="Pretoria">Pretoria</option>
+                        <select class="form-select" aria-label="Select city mb-2" id="city" formControlName="city"
+                            [ngClass]="{'is-invalid': (advertForm.get('city')?.touched ||
+                        advertForm.get('city')?.dirty) &&
+                        !advertForm.get('city')?.valid }">
+                            <option [selected]="true" [attr.disabled]=true>Select a city</option>
+                            <option *ngFor="let city of selectedProvince.cities" value={{city?.name}}>{{city?.name}}
+                            </option>
                         </select>
+                        <span class="field-tip">
+                            Select a city.
+                        </span>
                     </div>
-
-                    <!-- <div class="form-group mb-3">
-                        <select class="form-select" aria-label="Select province mb-2" id="province">
-                            <option [selected]="true">Select a province</option>
-                            <option value="Gauteng">Gauteng</option>
-                            <option value="FreeState">Free State</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <select class="form-select" aria-label="Select province mb-2" id="province">
-                            <option [selected]="true">Select a province</option>
-                            <option value="Gauteng">Gauteng</option>
-                            <option value="FreeState">Free State</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <select class="form-select" aria-label="Select province mb-2" id="province">
-                            <option [selected]="true">Select a province</option>
-                            <option value="Gauteng">Gauteng</option>
-                            <option value="FreeState">Free State</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <select class="form-select" aria-label="Select province mb-2" id="province">
-                            <option [selected]="true">Select a province</option>
-                            <option value="Gauteng">Gauteng</option>
-                            <option value="FreeState">Free State</option>
-                        </select>
-                    </div> -->
 
                     <!-- DESCRIPTION -->
                     <div class="form-group mb-3">
-                        <textarea class="form-control" id="description" rows="3" placeholder="Description" formControlName="description"></textarea>
+                        <textarea class="form-control" id="description" rows="3" placeholder="Description"
+                            formControlName="description" [ngClass]="{'is-invalid': (advertForm.get('description')?.touched ||
+                            advertForm.get('description')?.dirty) &&
+                            !advertForm.get('description')?.valid }"></textarea>
                     </div>
+
                     <!-- PRICE -->
                     <div class="form-group mb-3">
-                        <input type="number" id="amount" name="amount" class="form-control my-input" min="0"
-                            placeholder="Price" formControlName="price"/>
+                        <input type="number" id="price" name="price" class="form-control my-input" placeholder="Price"
+                            formControlName="price" [ngClass]="{'is-invalid': (advertForm.get('price')?.touched ||
+                            advertForm.get('price')?.dirty) &&
+                            !advertForm.get('price')?.valid }" />
                     </div>
 
                     <!-- BUTTONS -->
