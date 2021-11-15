@@ -4,7 +4,7 @@ import { catchError, tap } from "rxjs/operators";
 import { Observable, throwError } from "rxjs";
 
 
-import { IUser } from "../models/user";
+import { IAdvert, IUser } from "../models/user";
 
 
 @Injectable({
@@ -28,6 +28,17 @@ export class UserService {
     return this.http.post<IUser>(`${this.userUrl}/register`, user, { headers })
       .pipe(
         tap(data => console.log(``)),
+        catchError(this.handleError)
+      );
+  }
+
+
+  //TODO:: PUT THESE IN THEIR OWN SERVICE :SEPERATION OF CONCERN
+  createAdvert(advert: IAdvert): Observable<IAdvert> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+    return this.http.post<IAdvert>(`${this.userUrl}/add-advert`, advert, { headers })
+      .pipe(
+        tap(data => console.log(`in service adding advert`)),
         catchError(this.handleError)
       );
   }

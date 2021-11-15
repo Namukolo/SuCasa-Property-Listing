@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { delay } from 'rxjs/operators';
+import { IAdvert } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'sc-add-advert',
@@ -11,6 +14,11 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class AddAdvertComponent implements OnInit {
 
   advertForm: FormGroup;
+  advert: IAdvert;
+  success:boolean;
+  buttonText:string = 'Publish';
+  private errorMessage: String;
+
 
   country: any = [
     { name: 'Gauteng', cities: [{ name: 'JohannesburgGP', }, { 'name': 'Pretoria' }] },
@@ -22,7 +30,7 @@ export class AddAdvertComponent implements OnInit {
   selectedProvince: any = { name: '', cities: [] };
   selectedCity: string = null;
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute,) { }
+  constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit(): void {
     if (!this.authenticationService.getLoggedInUser()) {
@@ -41,13 +49,69 @@ export class AddAdvertComponent implements OnInit {
       value => {
         this.selectedProvince = value;
         this.advertForm.get('city').reset();
-        console.log(this.selectedProvince) 
+        // console.log(this.selectedProvince) 
       }
     );
 
   }
 
   saveAdvert() {
-    console.log(this.advertForm.value)
+    if (this.advertForm.valid) {  
+      if (this.advertForm.dirty) {
+        // const selectedProvince = this.selectedProvince.name;
+        let p = { ...this.advert, ...this.advertForm.value};
+        p.province = this.selectedProvince.name;
+
+        this.success = true;
+        this.buttonText = 'Publishing...';
+
+        // console.log('submitted advert', p)
+        
+        this.userService.createAdvert(p)
+              .pipe(delay(2000))
+              .subscribe({
+                next: () => this.onSaveComplete(),
+                error: err => this.errorMessage = err
+              });
+      }
+      //   if (p.id === 0) {
+      //     this.success = true;
+      //     //sets failed to false so both alerts dont appear
+      //     this.failed = false;
+
+      //     this.buttonText = 'Creating Salary...';
+      //     this.salaryService.createSalary(p)
+      //       .pipe(delay(2000))
+      //       .subscribe({
+      //         next: () => this.onSaveComplete(),
+      //         error: err => this.errorMessage = err
+      //       });
+
+      //   } else {
+      //     this.update = true;
+      //     this.failed = false;
+      //     this.buttonText = 'Updating Salary...';
+      //     this.salaryService.updateSalary(p)
+      //       .pipe(delay(2000))
+      //       .subscribe({
+      //         next: () => this.onSaveComplete(),
+      //         error: err => this.errorMessage = err
+      //       })
+      //   }
+      // } else {
+      //   this.onSaveComplete();
+      // }
+    } else {
+      console.log('error')
+      // this.errorMessage = 'Please correct the validation errors.';
+      // this.failed = true;
+      this.success = false
+    }
+
+  }
+
+  onSaveComplete(){
+    this.advertForm.reset();
+    this.router.navigate(['/my-adverts'])
   }
 }

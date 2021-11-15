@@ -59,6 +59,10 @@ export class LoginComponent implements OnInit {
     return this.stateService.currentUserAccessLevel;
   }
 
+  delete() {
+    localStorage.removeItem('users')
+  }
+
   login() {
     if (!this.loginForm.valid) {
       this.invalid = true;

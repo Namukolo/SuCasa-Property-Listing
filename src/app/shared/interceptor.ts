@@ -3,12 +3,16 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HTT
 import { Observable, throwError, of } from "rxjs";
 import { UserService } from '../services/user.service';
 import { delay, dematerialize, materialize, mergeMap } from 'rxjs/operators';
-import { AccessLevel, IUser } from '../models/user';
+import { AccessLevel, IAdvert, IUser } from '../models/user';
+import { AdvertsComponent } from '../components/adverts/adverts.component';
+import { AuthenticationService } from '../services/authentication.service';
 
 
 @Injectable()
 export class Interceptor implements HttpInterceptor {
-    constructor() { }
+    constructor(private authenticationService: AuthenticationService) { }
+
+    currentUser: IUser = this.authenticationService.getLoggedInUser() || null;
 
     allUsers: IUser[] = [
         {
@@ -37,7 +41,7 @@ export class Interceptor implements HttpInterceptor {
                     city: 'Johannesburg',
                     description: 'Some stuff',
                     price: 50,
-                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                 }
             ]
         },
@@ -56,7 +60,7 @@ export class Interceptor implements HttpInterceptor {
                     city: 'Johannesburg',
                     description: 'Some stuff',
                     price: 50,
-                    images: ['https://www.pamgolding.co.za/property-details/2-bedroom-townhouse-for-sale-melrose-north/hp1544263']
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                 },
                 {
                     id: 2,
@@ -65,7 +69,7 @@ export class Interceptor implements HttpInterceptor {
                     city: 'Johannesburg',
                     description: 'Some stuff',
                     price: 50,
-                    images: ['https://www.pamgolding.co.za/property-details/1-bedroom-apartment-for-sale-melrose-arch/hp1538650']
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                 },
                 {
                     id: 3,
@@ -74,7 +78,7 @@ export class Interceptor implements HttpInterceptor {
                     city: 'Johannesburg',
                     description: 'Some stuff',
                     price: 50,
-                    images: ['https://www.pamgolding.co.za/property-details/4-bedroom-house-for-sale-parktown-north/hp1514261']
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                 }
             ]
         },
@@ -101,6 +105,7 @@ export class Interceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let users: IUser[] = JSON.parse(localStorage.getItem('users')) || [...this.allUsers];
+
         return of(null).pipe(mergeMap(() => {
 
             // AUTHENTICATE --- LOGIN
@@ -169,6 +174,28 @@ export class Interceptor implements HttpInterceptor {
             //GET USERS -- TODO (CURRENTLY UNFINISHED)
             if (req.url.endsWith('/users') && req.method === 'GET') {
                 return of(new HttpResponse({ status: 200, body: this.allUsers }));
+            }
+
+
+            //ADD ADVERT
+            if (req.url.endsWith('/add-advert') && req.method === 'POST') {
+                console.log('in the interceptor baby')
+                let input = req.body;
+                let advert = {
+                    id: input.id,
+                    headline: input.headline,
+                    province: input.province,
+                    city: input.city,
+                    description: input.description,
+                    price: input.price,
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+                };
+
+                advert.id = this.currentUser.adverts.length + 1;
+                users[this.currentUser.id - 1].adverts.push(advert)
+                console.log(users);
+                localStorage.setItem('users', JSON.stringify(users))
+                return of(new HttpResponse({ status: 200 }));
             }
 
             // pass through any requests not handled above

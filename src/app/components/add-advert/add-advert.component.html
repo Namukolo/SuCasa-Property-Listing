@@ -73,9 +73,12 @@
                         <!-- CANCEL -->
                         <button type="button" class="btn btn-outline-danger cancel">Cancel</button>
                         <!-- PUBLISH -->
-                        <button type="submit" class="btn send-button">Publish</button>
+                        <button type="submit" class="btn send-button">{{buttonText}}</button>
 
                     </div>
+                    <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="success === false">
+                        Please enter all the required fields
+                      </div>
                 </form>
 
             </div>

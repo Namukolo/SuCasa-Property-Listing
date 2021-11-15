@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { StateService } from './state.service';
-import { AccessLevel } from '../models/user';
+import { AccessLevel, IUser } from '../models/user';
 
 
 @Injectable({
@@ -27,8 +27,8 @@ export class AuthenticationService {
       }));
   }
   
-  getLoggedInUser(){
-    const currentUser = localStorage.getItem('currentUser');
+  getLoggedInUser(): IUser{
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return currentUser
   }
 
