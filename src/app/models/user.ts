@@ -16,7 +16,10 @@ export enum AccessLevel {
 
 export interface IAdvert {
     id: number,
-    location: string,
     headline: string,
+    province: string,
+    city: string,
+    description: string,
+    price: number,
     images: string[]
 }

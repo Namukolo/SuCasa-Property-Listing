@@ -34,8 +34,11 @@ export class UserData implements InMemoryDbService {
                 adverts: [
                     {
                         id: 1,
-                        headline: "Cool House",
-                        location: 'Johannesburg',
+                        headline: "2 bedroom townhouse for sale in Melrose North",
+                        province: 'Gauteng',
+                        city: 'Johannesburg',
+                        description: 'Some stuff',
+                        price: 50,
                         images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
                     }
                 ]
@@ -51,19 +54,28 @@ export class UserData implements InMemoryDbService {
                     {
                         id: 1,
                         headline: "2 bedroom townhouse for sale in Melrose North",
-                        location: 'Johannesburg',
+                        province: 'Gauteng',
+                        city: 'Johannesburg',
+                        description: 'Some stuff',
+                        price: 50,
                         images: ['https://www.pamgolding.co.za/property-details/2-bedroom-townhouse-for-sale-melrose-north/hp1544263']
                     },
                     {
                         id: 2,
                         headline: "1 bedroom apartment for sale in Melrose Arch",
-                        location: 'Johannesburg',
+                        province: 'Gauteng',
+                        city: 'Johannesburg',
+                        description: 'Some stuff',
+                        price: 50,
                         images: ['https://www.pamgolding.co.za/property-details/1-bedroom-apartment-for-sale-melrose-arch/hp1538650']
                     },
                     {
                         id: 3,
                         headline: "4 bedroom house for sale in Parktown North",
-                        location: 'Johannesburg',
+                        province: 'Gauteng',
+                        city: 'Johannesburg',
+                        description: 'Some stuff',
+                        price: 50,
                         images: ['https://www.pamgolding.co.za/property-details/4-bedroom-house-for-sale-parktown-north/hp1514261']
                     }
                 ]
