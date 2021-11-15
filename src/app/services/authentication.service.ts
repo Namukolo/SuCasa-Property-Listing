@@ -26,6 +26,11 @@ export class AuthenticationService {
         return user;
       }));
   }
+  
+  getLoggedInUser(){
+    const currentUser = localStorage.getItem('currentUser');
+    return currentUser
+  }
 
   logout() {
     this.setAccessLevel(AccessLevel.uu);

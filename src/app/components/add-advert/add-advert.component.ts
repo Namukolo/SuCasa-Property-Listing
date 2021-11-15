@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'sc-add-advert',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddAdvertComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    if(!this.authenticationService.getLoggedInUser()){
+        this.router.navigate(['/login'])
+    }
   }
 
 }
