@@ -1,4 +1,4 @@
-import { IUser, AccessLevel } from "../models/user";
+import { IUser, AccessLevel, Status } from "../models/user";
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Observable, of, throwError } from 'rxjs';
 import { Injectable, OnInit } from '@angular/core';
@@ -39,7 +39,8 @@ export class UserData implements InMemoryDbService {
                         city: 'Johannesburg',
                         description: 'Some stuff',
                         price: 50,
-                        images: ['https://www.homestratosphere.com/wp-content/uploads/2020/02/fancy-houses2-feb122020.jpg']
+                        status: Status.live,
+                        images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpga']
                     }
                 ]
             },
@@ -58,7 +59,8 @@ export class UserData implements InMemoryDbService {
                         city: 'Johannesburg',
                         description: 'Some stuff',
                         price: 50,
-                        images: ['https://www.pamgolding.co.za/property-details/2-bedroom-townhouse-for-sale-melrose-north/hp1544263']
+                        status: Status.live,
+                        images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                     },
                     {
                         id: 2,
@@ -67,7 +69,8 @@ export class UserData implements InMemoryDbService {
                         city: 'Johannesburg',
                         description: 'Some stuff',
                         price: 50,
-                        images: ['https://www.pamgolding.co.za/property-details/1-bedroom-apartment-for-sale-melrose-arch/hp1538650']
+                        status: Status.live,
+                        images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                     },
                     {
                         id: 3,
@@ -76,7 +79,8 @@ export class UserData implements InMemoryDbService {
                         city: 'Johannesburg',
                         description: 'Some stuff',
                         price: 50,
-                        images: ['https://www.pamgolding.co.za/property-details/4-bedroom-house-for-sale-parktown-north/hp1514261']
+                        status: Status.live,
+                        images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                     }
                 ]
             },

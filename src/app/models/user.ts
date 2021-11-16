@@ -14,6 +14,13 @@ export enum AccessLevel {
     uu = 'UU'
 }
 
+export enum Status {
+    live = 'LIVE',
+    hiddden = 'HIDDEN',
+    deleted = 'DELETED'
+
+}
+
 export interface IAdvert {
     id: number,
     headline: string,
@@ -21,5 +28,6 @@ export interface IAdvert {
     city: string,
     description: string,
     price: number,
+    status: Status,
     images: string[]
 }

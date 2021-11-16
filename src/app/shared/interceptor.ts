@@ -3,7 +3,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HTT
 import { Observable, throwError, of } from "rxjs";
 import { UserService } from '../services/user.service';
 import { delay, dematerialize, materialize, mergeMap } from 'rxjs/operators';
-import { AccessLevel, IAdvert, IUser } from '../models/user';
+import { AccessLevel, IAdvert, IUser, Status } from '../models/user';
 import { AdvertsComponent } from '../components/adverts/adverts.component';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -41,7 +41,8 @@ export class Interceptor implements HttpInterceptor {
                     city: 'Johannesburg',
                     description: 'Some stuff',
                     price: 50,
-                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+                    status: Status.live,
+                    images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpga']
                 }
             ]
         },
@@ -60,6 +61,7 @@ export class Interceptor implements HttpInterceptor {
                     city: 'Johannesburg',
                     description: 'Some stuff',
                     price: 50,
+                    status: Status.live,
                     images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                 },
                 {
@@ -69,6 +71,7 @@ export class Interceptor implements HttpInterceptor {
                     city: 'Johannesburg',
                     description: 'Some stuff',
                     price: 50,
+                    status: Status.live,
                     images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                 },
                 {
@@ -78,6 +81,7 @@ export class Interceptor implements HttpInterceptor {
                     city: 'Johannesburg',
                     description: 'Some stuff',
                     price: 50,
+                    status: Status.live,
                     images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                 }
             ]
@@ -188,6 +192,7 @@ export class Interceptor implements HttpInterceptor {
                     city: input.city,
                     description: input.description,
                     price: input.price,
+                    status: Status.live,
                     images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
                 };
 
