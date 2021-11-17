@@ -16,7 +16,7 @@ export class AuthenticationService {
     this.stateService.currentUserAccessLevel = value;
   }
   login(email: string, password: string) {
-    return this.http.post<any>(`http://localhost:4200/users/authenticate`, { email: email, password: password })
+    return this.http.post<any>(`api/authenticate`, { email: email, password: password })
       .pipe(map(user => {
         // login is successful if there's a 'jwt' token in the response
         if (user && user.token) {

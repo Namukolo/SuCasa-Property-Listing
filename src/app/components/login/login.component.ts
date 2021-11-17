@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.success = true;
+          console.log('passed')
           this.setAccessLevel(data.accessLevel);
           this.router.navigate(['/my-adverts']);
         },
