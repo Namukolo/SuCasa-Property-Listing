@@ -14,29 +14,45 @@ export class AdvertsComponent implements OnInit {
 
   constructor(private stateService: StateService, private authenticationService: AuthenticationService, private router: Router, private userService: UserService) { }
   // User: IUser;
-  adverts: IAdvert[];
+  allAdverts: IAdvert[];
   users: IUser[];
   currentUser: IUser;
+  userAdverts: IAdvert[];
 
   ngOnInit(): void {
     if(!this.authenticationService.getLoggedInUser()){
       this.router.navigate(['/login'])
     }
-
+    //get logged in user from local storage
     this.currentUser = this.authenticationService.getLoggedInUser();
-    this.getCurrentUser(this.currentUser.id);
     console.log(this.currentUser)
-    // this.currentUser = this.getCurrentUser(this.localStorageUser.id);
-    this.adverts = this.currentUser.adverts;
-    this.adverts = this.adverts.reverse();
-  }
 
+    //get current user from api using id
+    this.getCurrentUser(this.currentUser.id);
+    
+    this.userService.getAdverts().pipe().subscribe({
+      next: adverts => {
+        this.allAdverts = [...adverts]
+      },
+      error: err =>console.log(err)
+    });
+
+    // this.userAdverts = this.allAdverts.filter(advert => advert.userID === this.currentUser.id)
+
+  }
+  
   getCurrentUser(userId: number): void{
+    console.log(userId)
     this.userService.getUser(userId).pipe().subscribe({
-      next: (user: IUser) => localStorage.setItem('currentUser',JSON.stringify(user)),
+      next: (user: IUser) => {
+        // console.log('user', user)
+        localStorage.setItem('currentUser',JSON.stringify(user))
+      },
       error: err => console.log(err)
     })
   }
+
+
 
 
   printUser(){

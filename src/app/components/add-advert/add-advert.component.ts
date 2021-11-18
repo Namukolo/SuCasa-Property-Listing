@@ -67,7 +67,7 @@ export class AddAdvertComponent implements OnInit {
         this.buttonText = 'Publishing...';
 
         // console.log('submitted advert', p)
-        this.stateService.users[this.authenticationService.getLoggedInUser().id].adverts.push(p);
+        // this.stateService.users[this.authenticationService.getLoggedInUser().id].adverts.push(p);
         this.userService.createAdvert(p)
           .pipe(delay(2000))
           .subscribe({

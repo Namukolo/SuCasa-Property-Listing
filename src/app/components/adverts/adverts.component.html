@@ -1,13 +1,13 @@
 <sc-navigation id="navigation"></sc-navigation>
 
-<div *ngIf="adverts" class="text-center">
+<div *ngIf="allAdverts" class="text-center">
     <h3>Welcome {{currentUser.forenames}}</h3>
     <h3>These are your current adverts</h3>
     <br>
 </div>
 
-<div class="container" *ngIf="adverts">
-    <div class="card shadow-sm" *ngFor="let advert of adverts">
+<div class="container" *ngIf="allAdverts">
+    <div class="card shadow-sm" *ngFor="let advert of allAdverts">
         <p class="status">{{advert.status}}</p>
         <img src="{{advert.images[0]}}" alt="" srcset="">
         <h1 class="headline">{{advert.headline}}</h1>
@@ -52,7 +52,7 @@
     <button (click)="delete()">Clear local storage</button>
 </div>
 
-<div *ngIf="!adverts" class="text-center">
+<div *ngIf="!allAdverts" class="text-center">
     <h3>Welcome {{currentUser.forenames}}</h3>
     <h3>You currently have no adverts, click the sell tab in the menu to make one</h3>
     <br>

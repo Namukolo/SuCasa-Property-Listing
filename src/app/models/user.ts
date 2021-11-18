@@ -23,6 +23,7 @@ export enum Status {
 
 export interface IAdvert {
     id: number,
+    userID: number,
     headline: string,
     province: string,
     city: string,

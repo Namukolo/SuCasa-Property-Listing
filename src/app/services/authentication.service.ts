@@ -15,6 +15,7 @@ export class AuthenticationService {
   setAccessLevel(value: AccessLevel) {
     this.stateService.currentUserAccessLevel = value;
   }
+
   login(email: string, password: string) {
     return this.http.post<any>(`api/authenticate`, { email: email, password: password })
       .pipe(map(user => {
