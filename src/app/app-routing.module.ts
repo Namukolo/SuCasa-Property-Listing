@@ -9,6 +9,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 
 const routes: Routes = [
   { path: 'add-advert', component: AddAdvertComponent },
+  { path: 'add-advert/:id/edit', component: AddAdvertComponent },
   { path: 'my-adverts', component: AdvertsComponent },
   { path: 'homepage', component: HomepageComponent },
   { path: 'login', component: LoginComponent },

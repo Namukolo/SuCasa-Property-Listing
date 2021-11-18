@@ -75,7 +75,7 @@ export class UserData implements InMemoryDbService {
             city: 'Johannesburg',
             description: 'Some stuff',
             price: 50,
-            status: Status.live,
+            status: Status.hiddden,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
         },
         {

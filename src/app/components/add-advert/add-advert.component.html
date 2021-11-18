@@ -48,7 +48,7 @@
                         advertForm.get('city')?.dirty) &&
                         !advertForm.get('city')?.valid }">
                             <option  [attr.disabled]=true>Select a city</option>
-                            <option *ngFor="let city of selectedProvince.cities" value={{city?.name}}>{{city?.name}}
+                            <option *ngFor="let city of selectedProvince?.cities" value={{city?.name}}>{{city?.name}}
                             </option>
                         </select>
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { catchError, map, tap } from "rxjs/operators";
-import { Observable, throwError } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 
 
 import { IAdvert, IUser } from "../models/user";
@@ -60,6 +60,17 @@ export class UserService {
       );
   }
 
+  // createAdvert(user: IUser) {
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+  //   user.id = null;
+  //   return this.http.post<IUser>(`${this.userUrl}`, user, { headers })
+  //   // return this.http.post<any>(`api/createUser`, user)
+  //     .pipe(
+  //       tap(),
+  //       catchError(this.handleError)
+  //     );
+  // }
+
   getUser(id: number): Observable<IUser> {
     const url = `${this.userUrl}/${id}`;
     return this.http.get<IUser>(url)
@@ -86,13 +97,49 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     advert.id = null;
     console.log(advert)
-    return this.http.post<IAdvert>(`api/new-advert`, advert, { headers })
+    return this.http.post<IAdvert>(`api/adverts`, advert, { headers })
       .pipe(
         tap(data => console.log('creating salary: ' + (data))),
         catchError(this.handleError)
       );
   }
 
+  getAdvert(id: number): Observable<IAdvert> {
+    if (id === 0) {
+        return of(this.initializeAdvert());
+    }
+    const url = `${this.advertUrl}/${id}`;
+    return this.http.get<IAdvert>(url)
+        .pipe(
+            tap(data => (JSON.stringify(data))),
+            catchError(this.handleError)
+        );
+}
+
+updateAdvert(advert: IAdvert): Observable<IAdvert> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  const url = `${this.advertUrl}/${advert.id}`;
+  return this.http.put<IAdvert>(url, advert, { headers })
+      .pipe(
+          tap(() => console.log('updating Salary: ' + advert.id)),
+          map(() => advert),
+          catchError(this.handleError)
+      );
+}
+
+private initializeAdvert(): IAdvert {
+  return {
+    id : 0,
+    userID: null,
+    headline: null,
+    province: null,
+    city: null,
+    description: null,
+    price: 0,
+    status: null,
+    images: []
+  };
+}
 //   createSalary(salary: ISalary): Observable<ISalary> {
 //     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 //     //in memory api needs id to be null
