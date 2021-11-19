@@ -47,7 +47,13 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
     //   { path: '', redirectTo: 'homepage', pathMatch: 'full' },
     //   { path: '**', redirectTo: 'homepage', pathMatch: 'full' },
     // ]),
-    ConfirmationPopoverModule.forRoot({confirmButtonType: 'danger'}),
+    ConfirmationPopoverModule.forRoot({
+      confirmButtonType: 'danger',
+      popoverClass: 'confirmationDialog',
+      popoverTitle: 'This advert will be deleted',
+      appendToBody: true,
+      popoverMessage: 'Are you sure'
+    }),
     HttpClientInMemoryWebApiModule.forRoot(UserData)
     
     // InMemoryWebApiModule.forRoot(UserData)

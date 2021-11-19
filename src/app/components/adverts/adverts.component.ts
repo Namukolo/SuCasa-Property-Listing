@@ -18,11 +18,12 @@ export class AdvertsComponent implements OnInit {
   users: IUser[];
   currentUser: IUser;
   userAdverts: IAdvert[];
-  popoverTitle: string = 'This advert will be deleted';
-  popoverMessage: string = 'Are you sure';
-  confirmationModal: string = "ConfirmationModal"
+  // popoverTitle: string = 'This advert will be deleted';
+  // popoverMessage: string = 'Are you sure';
+  // confirmationModal: string = "ConfirmationModal"
   confirmClicked = false;
   cancelClicked = false;
+
 
   ngOnInit(): void {
     if (!this.authenticationService.getLoggedInUser()) {

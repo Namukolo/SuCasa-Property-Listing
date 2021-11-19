@@ -11,8 +11,8 @@
         <p class="status" [ngClass]="{'status-hidden': advert.status === 'HIDDEN'}">{{advert.status}}</p>
         <img src="{{advert.images[0]}}" alt="" srcset="">
         <h1 class="headline">{{advert.headline}}</h1>
-        <p class="location"><svg xmlns="http://www.w3.org/2000/svg" class="icon location_icon" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
+        <p class="location"><svg xmlns="http://www.w3.org/2000/svg" class="icon location_icon" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -22,15 +22,17 @@
         <!--ACTION ICONS -->
         <div class="actions">
             <!-- EDIT -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" [routerLink]="['/add-advert', advert.id, 'edit']">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                [routerLink]="['/add-advert', advert.id, 'edit']">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
             </svg>
             <!--  -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" *ngIf="advert.status === 'LIVE'" (click)='onStatusClick(advert)'>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                *ngIf="advert.status === 'LIVE'" (click)='onStatusClick(advert)'>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
-                    
+
             </svg>
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 *ngIf="advert.status === 'HIDDEN'" (click)='onStatusClick(advert)'>
@@ -39,16 +41,9 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" 
-                mwlConfirmationPopover
-                [popoverTitle]="popoverTitle"
-                [popoverMessage]="popoverMessage"
-                [appendToBody]=true
-                popoverClass="confirmationModal"
-                placement="top"
-                (confirm)="onDeleteClick(advert)"
-                (cancel)="cancelClicked = true"
-            >
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                mwlConfirmationPopover [customTemplate]="customTemplate" (confirm)="onDeleteClick(advert)"
+                (cancel)="cancelClicked = true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
             </svg>
@@ -67,3 +62,14 @@
     <br>
     <button (click)="delete()">Clear local storage</button>
 </div>
+
+<ng-template #customTemplate let-options="options">
+    <div [class]="'popover ' + options.placement" style="display: block"  class='confirmationDialog' >
+        <p class="">{{options.popoverMessage}}</p>
+
+        <div class="row">
+            <button type="submit" class="btn btn-default" (click)="options.onConfirm({clickEvent: $event})">Cancel</button>
+            <button  id="cancel" type="button" (click)="options.onCancel({clickEvent: $event})" class="btn btn-danger float-right">Delete</button>
+          </div>
+    </div>
+</ng-template>
