@@ -39,16 +39,6 @@ export class UserService {
     );
   }
 
-  // createUser(user: IUser): Observable<IUser> {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
-  //   user.id = null;
-  //   // return this.http.post<IUser>(`${this.userUrl}`, user, { headers })
-  //   return this.http.post<IUser>(`api/createUser`, user, { headers })
-  //     .pipe(
-  //       tap(),
-  //       catchError(this.handleError)
-  //     );
-  // }
   createUser(user: IUser) {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     user.id = null;
@@ -59,17 +49,6 @@ export class UserService {
         catchError(this.handleError)
       );
   }
-
-  // createAdvert(user: IUser) {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
-  //   user.id = null;
-  //   return this.http.post<IUser>(`${this.userUrl}`, user, { headers })
-  //   // return this.http.post<any>(`api/createUser`, user)
-  //     .pipe(
-  //       tap(),
-  //       catchError(this.handleError)
-  //     );
-  // }
 
   getUser(id: number): Observable<IUser> {
     const url = `${this.userUrl}/${id}`;
@@ -128,38 +107,22 @@ export class UserService {
       );
   }
 
-  // updateStatus(status: Object, advertID: number): Observable<IAdvert> {
-  //   const url = `${this.advertUrl}/${advertID}`;
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  //   return this.http.patch<IAdvert>(url, status, { headers }).pipe(
-  //     tap(() => console.log('Updating Status' + advertID + 'Update: ' + status)),
-  //     catchError(this.handleError)
-  //   )
-  // }
+  
 
   private initializeAdvert(): IAdvert {
     return {
       id: 0,
       userID: null,
-      headline: null,
-      province: null,
-      city: null,
-      description: null,
-      price: 0,
+      headline: '',
+      province: '',
+      city: '',
+      description: '',
+      price: null,
       status: null,
       images: []
     };
   }
-  //   createSalary(salary: ISalary): Observable<ISalary> {
-  //     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  //     //in memory api needs id to be null
-  //     salary.id = null;
-  //     return this.http.post<ISalary>(this.salaryUrl, salary, { headers })
-  //         .pipe(
-  //             tap(data => console.log('creating salary: ' + JSON.stringify(data))),
-  //             catchError(this.handleError)
-  //         );
-  // }
+  
 
 
   private handleError(err: HttpErrorResponse) {

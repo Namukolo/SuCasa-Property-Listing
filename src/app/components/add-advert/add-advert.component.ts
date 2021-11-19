@@ -109,7 +109,7 @@ getAdvert(id: number): void {
 
     //finalize callback sets the button text to either update || add salary based on whether the route is adding or updating a salary i.e 'id'
     this.userService.getAdvert(id)
-    .pipe(delay(2000), finalize(() => this.buttonText = id === 0 ? 'Publish' : 'Update'))
+    .pipe(delay(1000), finalize(() => this.buttonText = id === 0 ? 'Publish' : 'Update'))
     .subscribe({
       next: (advert: any) => this.displaySalary(advert),
       error: err => this.errorMessage = err
