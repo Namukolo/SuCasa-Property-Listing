@@ -37,7 +37,7 @@ export class AdvertsComponent implements OnInit {
         this.allAdverts = [...adverts];
         this.allAdverts = this.allAdverts.filter(advert => {
           return (advert.userID === this.currentUser.id && advert.status != 'DELETED')
-        });
+        }).reverse();
       },
       error: err => console.log(err)
     });
