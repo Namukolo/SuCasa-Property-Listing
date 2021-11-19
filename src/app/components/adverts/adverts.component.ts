@@ -18,6 +18,11 @@ export class AdvertsComponent implements OnInit {
   users: IUser[];
   currentUser: IUser;
   userAdverts: IAdvert[];
+  popoverTitle: string = 'This advert will be deleted';
+  popoverMessage: string = 'Are you sure';
+  confirmationModal: string = "ConfirmationModal"
+  confirmClicked = false;
+  cancelClicked = false;
 
   ngOnInit(): void {
     if (!this.authenticationService.getLoggedInUser()) {
@@ -86,7 +91,6 @@ export class AdvertsComponent implements OnInit {
   onDeleteClick(advert: IAdvert) {
     const clickedAdvert = this.allAdverts.filter(userAdvert => advert.id === userAdvert.id)[0];
 
-    if (confirm('Are you sure you want to delete this advert?')) {
       clickedAdvert.status = Status.deleted
       console.log(clickedAdvert.status)
       //IN MEMORY API DOESNT HAVE AN IMPLEMENTATION FOR PATCH SO IM USING UPDATE
@@ -96,7 +100,6 @@ export class AdvertsComponent implements OnInit {
           next: () => this.ngOnInit(),
           error: (err: any) => console.log(err)
         })
-    }
 
   }
 

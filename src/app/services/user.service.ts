@@ -113,10 +113,10 @@ export class UserService {
     return {
       id: 0,
       userID: null,
-      headline: '',
-      province: '',
-      city: '',
-      description: '',
+      headline: null,
+      province: null,
+      city: null,
+      description: null,
       price: null,
       status: null,
       images: []

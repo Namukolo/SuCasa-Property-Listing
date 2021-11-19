@@ -119,7 +119,7 @@ getAdvert(id: number): void {
 displaySalary(advert: IAdvert): void {
   this.advert = advert;
   let province = this.country.filter( (currentProvince:any) => currentProvince.name === this.advert.province)[0];
-  console.log('province: ', province)
+  console.log('DISPLAY ADVERT: ', this.advert)
   this.advertForm.patchValue({
     id: this.advert.id,
     headline: this.advert.headline,

@@ -22,6 +22,7 @@ import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { AdvertsComponent } from './components/adverts/adverts.component';
 import { AddAdvertComponent } from './components/add-advert/add-advert.component';
+import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { AddAdvertComponent } from './components/add-advert/add-advert.component
     LoginComponent,
     NavigationComponent,
     AdvertsComponent,
-    AddAdvertComponent
+    AddAdvertComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,17 +47,12 @@ import { AddAdvertComponent } from './components/add-advert/add-advert.component
     //   { path: '', redirectTo: 'homepage', pathMatch: 'full' },
     //   { path: '**', redirectTo: 'homepage', pathMatch: 'full' },
     // ]),
+    ConfirmationPopoverModule.forRoot({confirmButtonType: 'danger'}),
     HttpClientInMemoryWebApiModule.forRoot(UserData)
+    
     // InMemoryWebApiModule.forRoot(UserData)
   ],
-  providers: [
-    // RouteGuard,
-    // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    // localBackendProvider,
-    // AuthenticationService,
-    // UserService
-  ],
-  bootstrap: [AppComponent]
+  providers: [],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
