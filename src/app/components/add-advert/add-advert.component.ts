@@ -15,25 +15,15 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class AddAdvertComponent implements OnInit {
 
-  advertForm: FormGroup;
-  advert: IAdvert;
-  success: boolean;
-  buttonText: string = 'Publish';
+  advertForm: FormGroup
+  advert: IAdvert
+  success: boolean
+  buttonText: string = 'Publish'
   private errorMessage: String;
-  currentUser: IUser;
-  private sub: Subscription;
-
-
-
-  country: any = [
-    { name: 'Gauteng', cities: [{ name: 'JohannesburgGP', }, { 'name': 'Pretoria' }] },
-    { name: 'Free State', cities: [{ name: 'JohannesburgFS', }, { 'name': 'Pretoria' }] },
-    { name: 'Western Cape', cities: [{ name: 'JohannesburgWC', }, { 'name': 'Pretoria' }] },
-    { name: 'North West', cities: [{ name: 'JohannesburgNW', }, { 'name': 'Pretoria' }] },
-    { name: 'KZN', cities: [{ name: 'JohannesburgKZN', }, { 'name': 'Pretoria' }] }
-  ]
-  selectedProvince: any = { name: '', cities: [] };
-  selectedCity: string = null;
+  currentUser: IUser
+  private sub: Subscription
+  country: any[]
+  selectedProvince: any = { name: '', cities: [] }
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private userService: UserService, private stateService: StateService) { }
 
@@ -45,7 +35,6 @@ export class AddAdvertComponent implements OnInit {
     this.sub = this.route.paramMap.subscribe(
       params => {
         const id = +params.get('id');
-        console.log('PARAM ID: ', id);
         this.getAdvert(id);
       }
     );
@@ -58,15 +47,21 @@ export class AddAdvertComponent implements OnInit {
       price: ['', [Validators.required, Validators.min(10000), Validators.max(100000000)]]
     });
 
+    this.userService.getProvinces().pipe().subscribe(
+      {
+        next: (data) => { this.country = data },
+        error: (error) => console.log(error)
+      }
+    )
+
     this.advertForm.get('province').valueChanges.subscribe(
       value => {
         this.selectedProvince = value;
         this.advertForm.get('city').reset();
-        // console.log(this.selectedProvince) 
       }
-    );
+    )
 
-    this.currentUser = this.authenticationService.getLoggedInUser();
+    this.currentUser = this.authenticationService.getLoggedInUser()
   }
 
   saveAdvert() {
@@ -89,49 +84,50 @@ export class AddAdvertComponent implements OnInit {
               error: err => this.errorMessage = err
             });
         } else {
-        this.buttonText = 'Updating...';
-        this.userService.updateAdvert(p)
-          .pipe(delay(2000))
-          .subscribe({
-            next: () => this.onSaveComplete(),
-            error: (err:any) => console.log(err)
-          })
+          this.buttonText = 'Updating...';
+          this.userService.updateAdvert(p)
+            .pipe(delay(2000))
+            .subscribe({
+              next: () => this.onSaveComplete(),
+              error: (err: any) => console.log(err)
+            })
+        }
+
+      } else {
+        this.onSaveComplete();
       }
     } else {
-      this.onSaveComplete();
+      this.errorMessage = 'Please correct the validation errors.';
+      this.success = false;
     }
   }
-}
 
-getAdvert(id: number): void {
-  //sets button text while fetching details
-  this.buttonText = '...'
+  getAdvert(id: number): void {
+    this.buttonText = '...'
 
-    //finalize callback sets the button text to either update || add salary based on whether the route is adding or updating a salary i.e 'id'
     this.userService.getAdvert(id)
-    .pipe(delay(1000), finalize(() => this.buttonText = id === 0 ? 'Publish' : 'Update'))
-    .subscribe({
-      next: (advert: any) => this.displaySalary(advert),
-      error: err => this.errorMessage = err
+      .pipe(delay(1000), finalize(() => this.buttonText = id === 0 ? 'Publish' : 'Update'))
+      .subscribe({
+        next: (advert: any) => this.displaySalary(advert),
+        error: err => this.errorMessage = err
+      });
+  }
+
+  displaySalary(advert: IAdvert): void {
+    this.advert = advert;
+    let province = this.country.filter((currentProvince: any) => currentProvince.name === this.advert.province)[0];
+    this.advertForm.patchValue({
+      id: this.advert.id,
+      headline: this.advert.headline,
+      province: province?.name,
+      city: this.advert.city,
+      description: this.advert.description,
+      price: this.advert.price,
     });
-}
+  }
 
-displaySalary(advert: IAdvert): void {
-  this.advert = advert;
-  let province = this.country.filter( (currentProvince:any) => currentProvince.name === this.advert.province)[0];
-  console.log('DISPLAY ADVERT: ', this.advert)
-  this.advertForm.patchValue({
-    id: this.advert.id,
-    headline: this.advert.headline,
-    province: province?.name,
-    city: this.advert.city,
-    description: this.advert.description,
-    price: this.advert.price,
-  });
-}
-
-onSaveComplete() {
-  this.advertForm.reset();
-  this.router.navigate(['/my-adverts'])
-}
+  onSaveComplete() {
+    this.advertForm.reset();
+    this.router.navigate(['/my-adverts'])
+  }
 }

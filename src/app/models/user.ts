@@ -16,7 +16,7 @@ export enum AccessLevel {
 
 export enum Status {
     live = 'LIVE',
-    hiddden = 'HIDDEN',
+    hidden = 'HIDDEN',
     deleted = 'DELETED'
 
 }

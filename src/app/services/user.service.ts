@@ -16,24 +16,12 @@ export class UserService {
 
   private userUrl = `api/users`;
   private advertUrl = `api/adverts`;
-
-  // private userUrl = `http://localhost:4200/api/users`;
+  private countryUrl = `api/country`;
 
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.userUrl).pipe(
       tap(data => {
         JSON.stringify(data);
-        console.log('USERS FROM getUsers', data)
-      }),
-      catchError(this.handleError)
-    );
-  }
-
-  getAdverts(): Observable<IAdvert[]> {
-    return this.http.get<IAdvert[]>(this.advertUrl).pipe(
-      tap(data => {
-        JSON.stringify(data);
-        console.log('Adverts FROM getAdverts', data)
       }),
       catchError(this.handleError)
     );
@@ -71,14 +59,15 @@ export class UserService {
       }));
   }
 
+  
+
   //TODO:: PUT THESE IN THEIR OWN SERVICE :SEPERATION OF CONCERN
   createAdvert(advert: IAdvert): Observable<IAdvert> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     advert.id = null;
-    console.log(advert)
     return this.http.post<IAdvert>(`api/adverts`, advert, { headers })
       .pipe(
-        tap(data => console.log('creating salary: ' + (data))),
+        tap(data => console.log('creating advert: ' + (data))),
         catchError(this.handleError)
       );
   }
@@ -96,18 +85,25 @@ export class UserService {
       );
   }
 
+  getAdverts(): Observable<IAdvert[]> {
+    return this.http.get<IAdvert[]>(this.advertUrl).pipe(
+      tap(data => {
+        JSON.stringify(data);
+      }),
+      catchError(this.handleError)
+    );
+  }
+
   updateAdvert(advert: IAdvert): Observable<IAdvert> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.advertUrl}/${advert.id}`;
     return this.http.put<IAdvert>(url, advert, { headers })
       .pipe(
-        tap(() => console.log('updating Salary: ' + advert.id)),
+        tap(() => console.log('updating Advert: ' + advert.id)),
         map(() => advert),
         catchError(this.handleError)
       );
   }
-
-  
 
   private initializeAdvert(): IAdvert {
     return {
@@ -123,6 +119,13 @@ export class UserService {
     };
   }
   
+  //TODO:: PUT IN ITS OWN SERVICE :SEPERATION OF CONCERN
+  getProvinces(): Observable<any[]> {
+    return this.http.get<any[]>(this.countryUrl).pipe(
+      tap(data => JSON.stringify(data)),
+      catchError(this.handleError)
+    );
+  }
 
 
   private handleError(err: HttpErrorResponse) {

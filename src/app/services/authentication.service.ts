@@ -27,8 +27,8 @@ export class AuthenticationService {
         return user;
       }));
   }
-  
-  getLoggedInUser(): IUser{
+
+  getLoggedInUser(): IUser {
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     return currentUser
   }

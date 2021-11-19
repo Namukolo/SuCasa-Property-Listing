@@ -1,14 +1,28 @@
 <sc-navigation id="navigation"></sc-navigation>
 
-<div *ngIf="allAdverts" class="text-center">
+<div *ngIf="allAdverts?.length" class="text-center">
     <h3>Welcome {{currentUser.forenames}}</h3>
     <h3>These are your current adverts</h3>
     <br>
 </div>
 
+<div *ngIf="!allAdverts?.length" class="text-center">
+    <h3>Welcome {{currentUser.forenames}}</h3>
+    <h3>You currently have no adverts, click the sell tab in the menu to make one</h3>
+    <br>
+</div>
+
 <div class="container" *ngIf="allAdverts">
+
     <div class="card shadow-sm" *ngFor="let advert of allAdverts">
-        <p class="status" [ngClass]="{'status-hidden': advert.status === 'HIDDEN'}">{{advert.status}}</p>
+        <!-- DISPLAYS STATUS TAG -->
+        <p *ngIf="advert.status === 'LIVE'" [ngClass]="{'status-live': advert.status === 'LIVE'}">{{advert.status}}</p>
+        <p *ngIf="advert.status === 'HIDDEN'" [ngClass]="{'status-hidden': advert.status === 'HIDDEN'}">
+            {{advert.status}}</p>
+        <p *ngIf="advert.status === 'DELETED'" [ngClass]="{'status-deleted': advert.status === 'DELETED'}">
+            {{advert.status}}</p>
+
+        <!-- CARD IMAGE, LOCATION & PRICE -->
         <img src="{{advert.images[0]}}" alt="" srcset="">
         <h1 class="headline">{{advert.headline}}</h1>
         <p class="location"><svg xmlns="http://www.w3.org/2000/svg" class="icon location_icon" fill="none"
@@ -18,7 +32,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>{{advert.city}}, {{advert.province}}</p>
-        <p class="price">{{advert.price | currency : 'ZAR': 'symbol-narrow'}}</p>
+        <p class="price">{{advert.price | currency : 'ZAR': 'symbol-narrow': '4.0-0'}}</p>
+
         <!--ACTION ICONS -->
         <div class="actions">
             <!-- EDIT -->
@@ -27,7 +42,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
             </svg>
-            <!--  -->
+
+            <!--STATUS HIDDEN & LIVE-->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 *ngIf="advert.status === 'LIVE'" (click)='onStatusClick(advert)'>
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -41,6 +57,8 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
+
+            <!-- DELETE -->
             <svg xmlns="http://www.w3.org/2000/svg" class="icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                 mwlConfirmationPopover [customTemplate]="customTemplate" (confirm)="onDeleteClick(advert)"
                 (cancel)="cancelClicked = true">
@@ -51,20 +69,10 @@
     </div>
 </div>
 
-<div class="text-center">
-    <button (click)="printUser()">Request Your Data</button>
-    <button (click)="delete()">Clear local storage</button>
-</div>
 
-<div *ngIf="!allAdverts" class="text-center">
-    <h3>Welcome {{currentUser.forenames}}</h3>
-    <h3>You currently have no adverts, click the sell tab in the menu to make one</h3>
-    <br>
-    <button (click)="delete()">Clear local storage</button>
-</div>
-
+<!-- CUSTOM TEMLPATE FOR DELETE MODAL -->
 <ng-template #customTemplate let-options="options">
-    <div [class]="'popover ' + options.placement"   class='confirmationDialog shadow-lg'>
+    <div [class]="'popover ' + options.placement" class='confirmationDialog shadow-lg'>
         <div class="modal_text">
             <h1 class="modal_heading text-danger">Delete Advert</h1>
             <p class="modal_subtext">You're about to delete an advert. This cannot be undone, are you sure?</p>
