@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { catchError, map, tap } from "rxjs/operators";
-import { Observable, of, throwError } from "rxjs";
+import { Observable, ObservedValueOf, of, throwError } from "rxjs";
 
 
 import { IAdvert, IUser } from "../models/user";
@@ -53,7 +53,7 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     user.id = null;
     return this.http.post<IUser>(`${this.userUrl}`, user, { headers })
-    // return this.http.post<any>(`api/createUser`, user)
+      // return this.http.post<any>(`api/createUser`, user)
       .pipe(
         tap(),
         catchError(this.handleError)
@@ -74,11 +74,11 @@ export class UserService {
   getUser(id: number): Observable<IUser> {
     const url = `${this.userUrl}/${id}`;
     return this.http.get<IUser>(url)
-        .pipe(
-            tap(data => (JSON.stringify(data))),
-            catchError(this.handleError)
-        );
-}
+      .pipe(
+        tap(data => (JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
 
   login(email: string, password: string) {
     return this.http.post<any>(`api/users/authenticate`, { email: email, password: password })
@@ -106,50 +106,60 @@ export class UserService {
 
   getAdvert(id: number): Observable<IAdvert> {
     if (id === 0) {
-        return of(this.initializeAdvert());
+      return of(this.initializeAdvert());
     }
+
     const url = `${this.advertUrl}/${id}`;
     return this.http.get<IAdvert>(url)
-        .pipe(
-            tap(data => (JSON.stringify(data))),
-            catchError(this.handleError)
-        );
-}
-
-updateAdvert(advert: IAdvert): Observable<IAdvert> {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  const url = `${this.advertUrl}/${advert.id}`;
-  return this.http.put<IAdvert>(url, advert, { headers })
       .pipe(
-          tap(() => console.log('updating Salary: ' + advert.id)),
-          map(() => advert),
-          catchError(this.handleError)
+        tap(data => (JSON.stringify(data))),
+        catchError(this.handleError)
       );
-}
+  }
 
-private initializeAdvert(): IAdvert {
-  return {
-    id : 0,
-    userID: null,
-    headline: null,
-    province: null,
-    city: null,
-    description: null,
-    price: 0,
-    status: null,
-    images: []
-  };
-}
-//   createSalary(salary: ISalary): Observable<ISalary> {
-//     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-//     //in memory api needs id to be null
-//     salary.id = null;
-//     return this.http.post<ISalary>(this.salaryUrl, salary, { headers })
-//         .pipe(
-//             tap(data => console.log('creating salary: ' + JSON.stringify(data))),
-//             catchError(this.handleError)
-//         );
-// }
+  updateAdvert(advert: IAdvert): Observable<IAdvert> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.advertUrl}/${advert.id}`;
+    return this.http.put<IAdvert>(url, advert, { headers })
+      .pipe(
+        tap(() => console.log('updating Salary: ' + advert.id)),
+        map(() => advert),
+        catchError(this.handleError)
+      );
+  }
+
+  // updateStatus(status: Object, advertID: number): Observable<IAdvert> {
+  //   const url = `${this.advertUrl}/${advertID}`;
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //   return this.http.patch<IAdvert>(url, status, { headers }).pipe(
+  //     tap(() => console.log('Updating Status' + advertID + 'Update: ' + status)),
+  //     catchError(this.handleError)
+  //   )
+  // }
+
+  private initializeAdvert(): IAdvert {
+    return {
+      id: 0,
+      userID: null,
+      headline: null,
+      province: null,
+      city: null,
+      description: null,
+      price: 0,
+      status: null,
+      images: []
+    };
+  }
+  //   createSalary(salary: ISalary): Observable<ISalary> {
+  //     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  //     //in memory api needs id to be null
+  //     salary.id = null;
+  //     return this.http.post<ISalary>(this.salaryUrl, salary, { headers })
+  //         .pipe(
+  //             tap(data => console.log('creating salary: ' + JSON.stringify(data))),
+  //             catchError(this.handleError)
+  //         );
+  // }
 
 
   private handleError(err: HttpErrorResponse) {

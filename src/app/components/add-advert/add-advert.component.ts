@@ -67,38 +67,7 @@ export class AddAdvertComponent implements OnInit {
     );
 
     this.currentUser = this.authenticationService.getLoggedInUser();
-
-
-
   }
-
-  // saveAdvert() {
-  //   if (this.advertForm.valid) {
-  //     if (this.advertForm.dirty) {
-  //       // const selectedProvince = this.selectedProvince.name;
-  //       let p = { ...this.advert, ...this.advertForm.value };
-  //       p.province = this.selectedProvince.name;
-  //       p.userID = this.currentUser.id;
-  //       p.images = ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg'];
-  //       p.status = Status.live;
-  //       this.success = true;
-  //       this.buttonText = 'Publishing...';
-
-  //       // console.log('submitted advert', p)
-  //       // this.stateService.users[this.authenticationService.getLoggedInUser().id].adverts.push(p);
-  //       this.userService.createAdvert(p)
-  //         .pipe(delay(2000))
-  //         .subscribe({
-  //           next: () => this.onSaveComplete(),
-  //           error: err => this.errorMessage = err
-  //         });
-  //     }
-  //   } else {
-  //     console.log('error')
-  //     this.success = false
-  //   }
-
-  // }
 
   saveAdvert() {
     if (this.advertForm.valid) {
@@ -120,7 +89,7 @@ export class AddAdvertComponent implements OnInit {
               error: err => this.errorMessage = err
             });
         } else {
-        this.buttonText = 'Updating Salary...';
+        this.buttonText = 'Updating...';
         this.userService.updateAdvert(p)
           .pipe(delay(2000))
           .subscribe({
@@ -149,10 +118,12 @@ getAdvert(id: number): void {
 
 displaySalary(advert: IAdvert): void {
   this.advert = advert;
+  let province = this.country.filter( (currentProvince:any) => currentProvince.name === this.advert.province)[0];
+  console.log('province: ', province)
   this.advertForm.patchValue({
     id: this.advert.id,
     headline: this.advert.headline,
-    province: this.advert.province,
+    province: province?.name,
     city: this.advert.city,
     description: this.advert.description,
     price: this.advert.price,

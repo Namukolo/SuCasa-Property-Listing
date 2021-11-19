@@ -68,18 +68,35 @@ export class AdvertsComponent implements OnInit {
     localStorage.removeItem('users')
   }
 
-  onEditClick(e: Event, advert: IAdvert){
-
-    // console.log('Im editing myself', advert);
+  onStatusClick(e: Event, advert: IAdvert){
     const clickedAdvert = this.allAdverts.filter(userAdvert => advert.id === userAdvert.id)[0];
+    console.log(advert)
     // console.log(clickedAdvert.id)
     // clickedAdvert.status = Status.hiddden;
     if(clickedAdvert.status == Status.hiddden){
       clickedAdvert.status = Status.live
+      // status.status = Status.live
     }
     else if(clickedAdvert.status == Status.live){
       clickedAdvert.status = Status.hiddden
+      // status.status = Status.hiddden
     }
+    //IN MEMORY API DOESNT HAVE AN IMPLEMENTATION FOR PATCH SO IM USING UPDATE
+    this.userService.updateAdvert(clickedAdvert)
+          .pipe()
+          .subscribe({
+            next: () => console.log('updated', advert),
+            error: (err:any) => console.log(err)
+          })
+
+
+
+    // this.userService.updateStatus(status, clickedAdvert.id).pipe().subscribe({
+    //   next: (advert: IAdvert) => {
+    //     console.log('updated advert status', advert) 
+    //   },
+    //   error: err => console.log(err)
+    // })
     
   }
 
