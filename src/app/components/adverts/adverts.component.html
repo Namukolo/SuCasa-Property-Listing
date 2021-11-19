@@ -64,12 +64,19 @@
 </div>
 
 <ng-template #customTemplate let-options="options">
-    <div [class]="'popover ' + options.placement" style="display: block"  class='confirmationDialog' >
-        <p class="">{{options.popoverMessage}}</p>
+    <div [class]="'popover ' + options.placement"   class='confirmationDialog shadow-lg'>
+        <div class="modal_text">
+            <h1 class="modal_heading text-danger">Delete Advert</h1>
+            <p class="modal_subtext">You're about to delete an advert. This cannot be undone, are you sure?</p>
+        </div>
 
-        <div class="row">
-            <button type="submit" class="btn btn-default" (click)="options.onConfirm({clickEvent: $event})">Cancel</button>
-            <button  id="cancel" type="button" (click)="options.onCancel({clickEvent: $event})" class="btn btn-danger float-right">Delete</button>
-          </div>
+        <div class="modal_buttons">
+            <button class="cancel btn btn-outline-secondary" (click)="options.onCancel({clickEvent: $event})">
+                CANCEL
+            </button>
+            <button class="confirm btn btn-danger" type="submit" (click)="options.onConfirm({clickEvent: $event})">
+                DELETE
+            </button>
+        </div>
     </div>
 </ng-template>
