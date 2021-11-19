@@ -34,15 +34,11 @@ export class AdvertsComponent implements OnInit {
       next: adverts => {
         this.allAdverts = [...adverts];
         this.allAdverts = this.allAdverts.filter(advert => {
-          console.log('Filtering by', this.currentUser.id);
-          return advert.userID === this.currentUser.id
+          return (advert.userID === this.currentUser.id && advert.status != 'DELETED')
         });
-        console.log('After Filter', this.allAdverts)
       },
       error: err => console.log(err)
     });
-
-    // this.userAdverts = this.allAdverts.filter(advert => advert.userID === this.currentUser.id)
 
   }
 
@@ -70,17 +66,13 @@ export class AdvertsComponent implements OnInit {
 
   onStatusClick(e: Event, advert: IAdvert){
     const clickedAdvert = this.allAdverts.filter(userAdvert => advert.id === userAdvert.id)[0];
-    console.log(advert)
-    // console.log(clickedAdvert.id)
-    // clickedAdvert.status = Status.hiddden;
     if(clickedAdvert.status == Status.hiddden){
       clickedAdvert.status = Status.live
-      // status.status = Status.live
     }
     else if(clickedAdvert.status == Status.live){
       clickedAdvert.status = Status.hiddden
-      // status.status = Status.hiddden
     }
+
     //IN MEMORY API DOESNT HAVE AN IMPLEMENTATION FOR PATCH SO IM USING UPDATE
     this.userService.updateAdvert(clickedAdvert)
           .pipe()
@@ -88,15 +80,6 @@ export class AdvertsComponent implements OnInit {
             next: () => console.log('updated', advert),
             error: (err:any) => console.log(err)
           })
-
-
-
-    // this.userService.updateStatus(status, clickedAdvert.id).pipe().subscribe({
-    //   next: (advert: IAdvert) => {
-    //     console.log('updated advert status', advert) 
-    //   },
-    //   error: err => console.log(err)
-    // })
     
   }
 

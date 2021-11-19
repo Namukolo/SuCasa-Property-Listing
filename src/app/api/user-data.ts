@@ -86,7 +86,7 @@ export class UserData implements InMemoryDbService {
             city: 'Johannesburg',
             description: 'Contemporary Executive two bed apartment.This exceptional north facing, two bed, two bathroom executive apartment, is conveniently located in the heart of Parktown North. Situated in a quiet position, in a smaller complex, the apartment offers a lock-up and go lifestyle suitable for a professional couple or for a commuter. The apartment is on the first floor and is a corner unit allowing for additional windows. The kitchen is open plan with contemporary finishes, there is allocation for three appliances and electric oven with gas hob (piped gas). The living area comprises a generous living and dining area and opens out onto a covered patio. The main bedroom is en-suite while the second bedroom has a separate bathroom. Good cupboard space throughout completes this sophisticated and immaculate apartment. There are two underground parking bays with lift access. A very well maintained and managed complex. The communal areas are pristine, with great security as well as a swimming pool. The apartment is fully furnished, the furniture can be purchased as a separate negotiation.',
             price:  1995000,
-            status: Status.live,
+            status: Status.deleted,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
         },
         {
