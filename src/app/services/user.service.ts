@@ -59,7 +59,7 @@ export class UserService {
       }));
   }
 
-  
+
 
   //TODO:: PUT THESE IN THEIR OWN SERVICE :SEPERATION OF CONCERN
   createAdvert(advert: IAdvert): Observable<IAdvert> {
@@ -99,7 +99,6 @@ export class UserService {
     const url = `${this.advertUrl}/${advert.id}`;
     return this.http.put<IAdvert>(url, advert, { headers })
       .pipe(
-        tap(() => console.log('updating Advert: ' + advert.id)),
         map(() => advert),
         catchError(this.handleError)
       );
@@ -118,7 +117,7 @@ export class UserService {
       images: []
     };
   }
-  
+
   //TODO:: PUT IN ITS OWN SERVICE :SEPERATION OF CONCERN
   getProvinces(): Observable<any[]> {
     return this.http.get<any[]>(this.countryUrl).pipe(

@@ -44,7 +44,6 @@ export class AdvertsComponent implements OnInit {
   }
 
   getCurrentUser(userId: number): void {
-    console.log(userId)
     this.userService.getUser(userId).pipe().subscribe({
       next: (user: IUser) => {
         localStorage.setItem('currentUser', JSON.stringify(user))
@@ -66,7 +65,6 @@ export class AdvertsComponent implements OnInit {
     this.userService.updateAdvert(clickedAdvert)
       .pipe()
       .subscribe({
-        next: () => console.log('updated', advert),
         error: (err: any) => console.log(err)
       })
   }
