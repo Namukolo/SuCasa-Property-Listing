@@ -34,6 +34,7 @@ export class AdvertsComponent implements OnInit {
 
     this.userService.getAdverts().subscribe({
       next: adverts => {
+        // this.userService.getProvince()
         this.allAdverts = [...adverts];
         this.allAdverts = this.allAdverts.filter(advert => {
           return (advert.userID === this.currentUser.id && advert.status != 'DELETED')
@@ -61,9 +62,8 @@ export class AdvertsComponent implements OnInit {
       clickedAdvert.status = Status.hidden
     }
 
-    //IN MEMORY API DOESNT HAVE AN IMPLEMENTATION FOR PATCH SO IM USING UPDATE
+    //IN MEMORY API DOESNT HAVE AN IMPLEMENTATION FOR PATCH SO IM USING PUT
     this.userService.updateAdvert(clickedAdvert)
-      .pipe()
       .subscribe({
         error: (err: any) => console.log(err)
       })
@@ -73,9 +73,8 @@ export class AdvertsComponent implements OnInit {
     const clickedAdvert = this.allAdverts.filter(userAdvert => advert.id === userAdvert.id)[0];
 
     clickedAdvert.status = Status.deleted
-    //IN MEMORY API DOESNT HAVE AN IMPLEMENTATION FOR PATCH SO IM USING UPDATE
+    //IN MEMORY API DOESNT HAVE AN IMPLEMENTATION FOR PATCH SO IM USING PUT
     this.userService.updateAdvert(clickedAdvert)
-      .pipe()
       .subscribe({
         next: () => this.ngOnInit(),
         error: (err: any) => console.log(err)

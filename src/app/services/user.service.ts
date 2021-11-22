@@ -31,11 +31,7 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     user.id = null;
     return this.http.post<IUser>(`${this.userUrl}`, user, { headers })
-      // return this.http.post<any>(`api/createUser`, user)
-      .pipe(
-        tap(),
         catchError(this.handleError)
-      );
   }
 
   getUser(id: number): Observable<IUser> {
@@ -124,6 +120,15 @@ export class UserService {
       tap(data => JSON.stringify(data)),
       catchError(this.handleError)
     );
+  }
+
+  getProvince(id: number): Observable<Object> {
+    const url = `${this.countryUrl}/${id}`;
+    return this.http.get<Object>(url)
+      .pipe(
+        tap(data => (JSON.stringify(data))),
+        catchError(this.handleError)
+      );
   }
 
 

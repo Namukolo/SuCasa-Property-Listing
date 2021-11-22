@@ -1,0 +1,37 @@
+<sc-navigation></sc-navigation>
+<div class="wrapper" *ngIf="advert">
+    <div class="col-info">
+        <div class="images">
+            <div class="thumbnails">
+                <img src="{{advert.images[0]}}" alt="">
+                <img src="{{advert.images[0]}}" alt="">
+                <img src="{{advert.images[0]}}" alt="">
+
+            </div>
+            <div class="main-image">
+                <img src="{{advert.images[0]}}" alt="">
+            </div>
+
+        </div>
+        <div class="price_row">
+            <p class="price">{{advert.price | currency : 'ZAR': 'symbol-narrow': '4.0-0'}}</p>
+            <p class="location"> <svg xmlns="http://www.w3.org/2000/svg" class="location_icon" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {{advert.city}}, {{advert.province}}</p>
+        </div>
+
+        <div class="description">
+            <p>
+                {{advert.description}}
+            </p>
+        </div>
+    </div>
+    <div class="col-seller">
+        <h3>CONTACT SELLER COMPONENT COMING SOON</h3>
+    </div>
+</div>
