@@ -23,6 +23,7 @@ import { UserService } from './services/user.service';
 import { AdvertsComponent } from './components/adverts/adverts.component';
 import { AddAdvertComponent } from './components/add-advert/add-advert.component';
 import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
+import { AdvertListComponent } from './components/advert-list/advert-list.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ConfirmationPopoverModule } from 'angular-confirmation-popover';
     NavigationComponent,
     AdvertsComponent,
     AddAdvertComponent,
+    AdvertListComponent,
   ],
   imports: [
     BrowserModule,
