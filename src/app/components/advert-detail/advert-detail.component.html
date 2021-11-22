@@ -1,6 +1,6 @@
 <sc-navigation></sc-navigation>
 <div class="container">
-    <div class="card shadow-sm" *ngFor="let advert of allAdverts">
+    <div class="card shadow-sm" *ngIf="advert">
         <!-- CARD IMAGE, LOCATION & PRICE -->
         <img src="{{advert.images[0]}}" alt="" srcset="">
         <h1 class="headline">{{advert.headline}}</h1>

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddAdvertComponent } from './components/add-advert/add-advert.component';
+import { AdvertDetailComponent } from './components/advert-detail/advert-detail.component';
 import { AdvertListComponent } from './components/advert-list/advert-list.component';
 import { AdvertsComponent } from './components/adverts/adverts.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
@@ -10,6 +11,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 
 const routes: Routes = [
   { path: 'for-sale', component: AdvertListComponent },
+  { path: 'for-sale/:id', component: AdvertDetailComponent },
   { path: 'add-advert', component: AddAdvertComponent },
   { path: 'add-advert/:id/edit', component: AddAdvertComponent },
   { path: 'my-adverts', component: AdvertsComponent },
