@@ -49,14 +49,15 @@ export class AddAdvertComponent implements OnInit {
 
     this.userService.getProvinces().pipe().subscribe(
       {
-        next: (data) => { this.country = data },
+        next: (data) => this.country = data,
         error: (error) => console.log(error)
       }
     )
 
     this.advertForm.get('province').valueChanges.subscribe(
       value => {
-        this.selectedProvince = value;
+        let province = this.country.filter( province => province.name === value)
+        this.selectedProvince = province[0];
         this.advertForm.get('city').reset();
       }
     )
@@ -68,10 +69,10 @@ export class AddAdvertComponent implements OnInit {
     if (this.advertForm.valid) {
       if (this.advertForm.dirty) {
         let p = { ...this.advert, ...this.advertForm.value };
-        p.province = this.selectedProvince.name;
+        // p.province = this.selectedProvince.name;
 
         if (p.id === 0) {
-          p.province = this.selectedProvince.name;
+          // p.province = this.selectedProvince.name;
           p.userID = this.currentUser.id;
           p.images = ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg'];
           p.status = Status.live;
@@ -80,7 +81,8 @@ export class AddAdvertComponent implements OnInit {
           this.userService.createAdvert(p)
             .pipe(delay(2000))
             .subscribe({
-              next: () => this.onSaveComplete(),
+              next: () => {this.onSaveComplete()},
+              // next: () => {console.log(p)},
               error: err => this.errorMessage = err
             });
         } else {
@@ -89,6 +91,7 @@ export class AddAdvertComponent implements OnInit {
             .pipe(delay(2000))
             .subscribe({
               next: () => this.onSaveComplete(),
+              // next: () => {console.log(p)},
               error: (err: any) => console.log(err)
             })
         }
@@ -108,7 +111,7 @@ export class AddAdvertComponent implements OnInit {
     this.userService.getAdvert(id)
       .pipe(delay(1000), finalize(() => this.buttonText = id === 0 ? 'Publish' : 'Update'))
       .subscribe({
-        next: (advert: any) => this.displaySalary(advert),
+        next: (advert: IAdvert) => this.displaySalary(advert),
         error: err => this.errorMessage = err
       });
   }

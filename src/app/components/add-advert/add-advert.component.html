@@ -33,7 +33,7 @@
                             advertForm.get('province')?.dirty) &&
                             !advertForm.get('province')?.valid }">
                             <option [selected]="true" [attr.disabled]=true>Select a province</option>
-                            <option *ngFor="let province of country" [ngValue]="province">{{province.name}}</option>
+                            <option *ngFor="let province of country" [value]="province.name">{{province.name}}</option>
                         </select>
 
                     </div>

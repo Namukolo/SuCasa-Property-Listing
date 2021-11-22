@@ -56,11 +56,11 @@ export class UserData implements InMemoryDbService {
     ];
 
     country: any[] = [
-        { id: 1, name: 'Gauteng', cities: [{ name: 'Johannesburg', }, { 'name': 'Pretoria' }] },
-        { id: 2, name: 'Free State', cities: [{ name: 'Bloemfontein', }, { 'name': 'Welkom' }] },
-        { id: 3, name: 'Western Cape', cities: [{ name: 'Capetown', }, { 'name': 'Stellenbosh' }] },
-        { id: 4, name: 'North West', cities: [{ name: 'Mahikeng', }, { 'name': 'Klerksdorp' }] },
-        { id: 5, name: 'KZN', cities: [{ name: 'Durban', }, { 'name': 'Richards Bay' }] }
+        { id: 1, name: 'Gauteng', cities: [{ id: 1, name: 'Johannesburg', }, { id:2,'name': 'Pretoria' }] },
+        { id: 2, name: 'Free State', cities: [{ id: 1,name: 'Bloemfontein', }, { id:2,'name': 'Welkom' }] },
+        { id: 3, name: 'Western Cape', cities: [{ id: 1,name: 'Capetown', }, { id:2,'name': 'Stellenbosh' }] },
+        { id: 4, name: 'North West', cities: [{ id: 1,name: 'Mahikeng', }, { id:2,'name': 'Klerksdorp' }] },
+        { id: 5, name: 'KZN', cities: [{ id: 1,name: 'Durban', }, { id:2,'name': 'Richards Bay' }] }
     ]
 
     adverts: IAdvert[] = [
@@ -68,8 +68,8 @@ export class UserData implements InMemoryDbService {
             id: 1,
             userID: 3,
             headline: "3 Bedroom Townhouse for Sale in Montana Park",
-            province: 'Gauteng',
-            city: 'Pretoria',
+            province: "Gauteng",
+            city:  "Pretoria",
             description: "Cosmopolitan Projects NEWLY LAUNCHED DEVELOPMENT IN MONTANA.This Luxury Complex situated inside the well-known Zambezi Manor Lifestyle Estate in Montana, offers exclusive 3-bedroom, 2-bathroom townhouses including a garage and/or carport. This all-in-one Lifestyle Estate offers you the perfect family home from only R1.9M, estimate monthly repayment starting from R16 000. Qualifying income to qualify are R52 000 single or joint.Perfectly located, this estate gives you easy access to all major routes like the N1, N4 and N14 Highways.",
             price: 2700000,
             status: Status.live,
@@ -79,8 +79,8 @@ export class UserData implements InMemoryDbService {
             id: 2,
             userID: 3,
             headline: "1 bedroom apartment for sale in Melrose Arch",
-            province: 'Gauteng',
-            city: 'Johannesburg',
+            province: "Gauteng",
+            city: "Johannesburg",
             description: 'Far Superior to anything else you have seen. Step into spectacular. Well-appointed on the 6th floor this designer apartment offers a host of unique features. Custom designed and decorated to compliment todays lifestyle. A fitted workstation makes working from home an absolute please. Grand scale, open plan living off the trend setting, chic kitchen. Gorgeous bedroom suite with an en suite bathroom which features a walk-in rain shower. The complex offers 24-hour concierge, excellent security, and full generator backup. The list of benefits is endless... come and see for yourself.',
             price: 3000000,
             status: Status.hidden,
@@ -90,8 +90,8 @@ export class UserData implements InMemoryDbService {
             id: 3,
             userID: 3,
             headline: "3 Bedroom Apartment / Flat for Sale in Paradyskloof",
-            province: 'Capetown',
-            city: 'Stellenbosh',
+            province: "Western Cape",
+            city: "Stellenbosch",
             description: 'Welcome to Stellenbosch 101Exclusive Mandate.This 3 Bedroom apartment is situated in the popular Stellenbosch 101 complex and is ideal for young professionals, students or investment purposes.Open plan kitchen and lounge that opens up to a balcony with the most astonishing mountain views.This is a well-maintained complex with communal pool and braai facilities.Close to Techno Park and Die Boord shopping centre.',
             price: 1799000,
             status: Status.deleted,
