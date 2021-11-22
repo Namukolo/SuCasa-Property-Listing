@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { StateService } from './state.service';
-import { AccessLevel } from '../models/user';
+import { AccessLevel, IUser } from '../models/user';
 
 
 @Injectable({
@@ -15,8 +15,9 @@ export class AuthenticationService {
   setAccessLevel(value: AccessLevel) {
     this.stateService.currentUserAccessLevel = value;
   }
+
   login(email: string, password: string) {
-    return this.http.post<any>(`http://localhost:4200/users/authenticate`, { email: email, password: password })
+    return this.http.post<any>(`api/authenticate`, { email: email, password: password })
       .pipe(map(user => {
         // login is successful if there's a 'jwt' token in the response
         if (user && user.token) {
@@ -25,6 +26,11 @@ export class AuthenticationService {
         }
         return user;
       }));
+  }
+
+  getLoggedInUser(): IUser {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    return currentUser
   }
 
   logout() {

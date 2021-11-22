@@ -23,19 +23,19 @@
 
                     <!-- NAME -->
                     <div class="form-group mb-3">
-                        <input type="text" name="name" class="form-control my-input" id="name" placeholder="Name"
-                            formControlName="name" [ngClass]="{'is-invalid': (userForm.get('name')?.touched ||
-                            userForm.get('name')?.dirty) &&
-                            !userForm.get('name')?.valid }" />
+                        <input type="text" name="forenames" class="form-control my-input" id="forenames"
+                            placeholder="Name" formControlName="forenames" [ngClass]="{'is-invalid': (userForm.get('forenames')?.touched ||
+                            userForm.get('forenames')?.dirty) &&
+                            !userForm.get('forenames')?.valid }" />
 
                         <span class="invalid-feedback">
-                            <span *ngIf="userForm.get('name')?.errors?.required" class="field-tip">
+                            <span *ngIf="userForm.get('forenames')?.errors?.required" class="field-tip">
                                 Please enter your name.
                             </span>
-                            <span *ngIf="userForm.get('name')?.errors?.minlength" class="field-tip">
+                            <span *ngIf="userForm.get('forenames')?.errors?.minlength" class="field-tip">
                                 Your name must be longer than 1 character.
                             </span>
-                            <span *ngIf="userForm.get('name')?.errors?.maxlength" class="field-tip">
+                            <span *ngIf="userForm.get('forenames')?.errors?.maxlength" class="field-tip">
                                 Your name must not be longer than 100 characters.
                             </span>
                         </span>

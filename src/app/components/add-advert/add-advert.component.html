@@ -1,0 +1,89 @@
+<sc-navigation></sc-navigation>
+
+<div class="container">
+    <!-- PAGE HEADING -->
+    <div class="col-md-12 mx-auto text-center">
+        <div class="header-title">
+            <h1 class="wv-heading--title">Su<span class="logo-cut">Casa</span></h1>
+            <h2 class="wv-heading--subtitle">Sell your property</h2>
+        </div>
+    </div>
+
+    <!-- FORM -->
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="myform form">
+                <form action="" method="" name="registration" novalidate (ngSubmit)="saveAdvert()"
+                    [formGroup]="advertForm">
+                    <!-- HEADLINE -->
+                    <div class="form-group mb-3">
+                        <input type="text" name="headline" class="form-control my-input" id="headline"
+                            placeholder="Headline" formControlName="headline" [ngClass]="{'is-invalid': (advertForm.get('headline')?.touched ||
+                            advertForm.get('headline')?.dirty) &&
+                            !advertForm.get('headline')?.valid }" />
+                    </div>
+
+                    <!-- PROVINCE -->
+                    <div class="form-group mb-3 labelled-input">
+                        <span class="field-tip">
+                            Select a province.
+                        </span>
+                        <select class="form-select my-input labelled-input" aria-label="Select province mb-2" id="province"
+                            formControlName="province" [ngClass]="{'is-invalid': (advertForm.get('province')?.touched ||
+                            advertForm.get('province')?.dirty) &&
+                            !advertForm.get('province')?.valid }">
+                            <option [selected]="true" [attr.disabled]=true>Select a province</option>
+                            <option *ngFor="let province of country" [ngValue]="province">{{province.name}}</option>
+                        </select>
+
+                    </div>
+
+                    <!-- CITY -->
+                    <div class="form-group mb-3 labelled-input">
+                        <span class="field-tip">
+                            Select a city.
+                        </span>
+                        <select class="form-select my-input labelled-input" aria-label="Select city mb-2" id="city"
+                            formControlName="city" [ngClass]="{'is-invalid': (advertForm.get('city')?.touched ||
+                        advertForm.get('city')?.dirty) &&
+                        !advertForm.get('city')?.valid }">
+                            <option  [attr.disabled]=true>Select a city</option>
+                            <option *ngFor="let city of selectedProvince?.cities" value={{city?.name}}>{{city?.name}}
+                            </option>
+                        </select>
+
+                    </div>
+
+                    <!-- DESCRIPTION -->
+                    <div class="form-group mb-3 ">
+                        <textarea class="form-control form-field" id="description" rows="3" placeholder="Description"
+                            formControlName="description" [ngClass]="{'is-invalid': (advertForm.get('description')?.touched ||
+                            advertForm.get('description')?.dirty) &&
+                            !advertForm.get('description')?.valid }"></textarea>
+                    </div>
+
+                    <!-- PRICE -->
+                    <div class="form-group mb-3">
+                        <input type="number" id="price" name="price" class="form-control my-input" placeholder="Price"
+                            formControlName="price" [ngClass]="{'is-invalid': (advertForm.get('price')?.touched ||
+                            advertForm.get('price')?.dirty) &&
+                            !advertForm.get('price')?.valid }" />
+                    </div>
+
+                    <!-- BUTTONS -->
+                    <div class="btn-row">
+                        <!-- CANCEL -->
+                        <button type="button" class="btn btn-outline-danger cancel" routerLink="/my-adverts">Cancel</button>
+                        <!-- PUBLISH -->
+                        <button type="submit" class="btn send-button">{{buttonText}}</button>
+
+                    </div>
+                    <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="success === false">
+                        Please enter all the required fields
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
