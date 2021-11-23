@@ -1,0 +1,99 @@
+* {
+	color: #4c537d;
+	font-family: "Poppins", sans-serif;
+	font-size: 1.8rem;
+}
+
+.header{
+    margin-bottom: 3rem;
+}
+
+.send-button {
+	background: #62ca6b;
+	width: 100%;
+	font-weight: 600;
+	color: #fff;
+	padding: 1rem 3.125rem;
+	height: 5rem;
+	font-size: 1.8rem;
+}
+
+input {
+	height: 5rem;
+	&::placeholder {
+		font-size: 1.8rem;
+	}
+}
+
+.my-input {
+	box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+	cursor: text;
+	padding: 8px 10px;
+	transition: border 0.1s linear;
+}
+
+h1 {
+	font-size: 6rem;
+	line-height: 4rem;
+	font-weight: 600;
+	color: rgb(26, 25, 25);
+	margin-bottom: 2rem;
+	.logo-cut {
+		color: #62ca6b;
+		font-size: 6rem;
+	}
+}
+
+h2 {
+	color: rgb(59, 58, 58);
+
+	font-size: 1.8rem;
+	line-height: 2.6rem;
+	font-weight: 600;
+}
+
+.field-tip {
+	font-size: 1.3rem;
+}
+.to-seller-profile{
+	cursor: pointer;
+	font-size: 1.4rem;
+	margin-top: 1.5rem;
+}
+
+.btn-row{
+	display: flex;
+	justify-content: space-between;
+	margin-top: 3rem;
+	button{
+		width: 40%;
+		font-weight: 600;
+		padding: 1rem 3.125rem;
+		height: 5rem;
+		font-size: 1.8rem;
+	}
+	.cancel {
+		color: #df4759;
+		&:hover{
+			color: #fff;
+		}
+	}
+
+}
+
+@media screen and (max-width: 480px) {
+	h1 {
+		font-size: 26px;
+	}
+	h2 {
+		font-size: 20px;
+	}
+    
+}
+
+@media screen and (max-width: 766px) {
+    .form-parent {
+        // height: 60vh;
+        padding: 0 5rem;
+    }
+}

@@ -43,6 +43,16 @@ export class UserService {
       );
   }
 
+  updateUser(user: IUser): Observable<IUser> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.userUrl}/${user.id}`;
+    return this.http.put<IAdvert>(url, user, { headers })
+      .pipe(
+        map(() => user),
+        catchError(this.handleError)
+      );
+  }
+
   login(email: string, password: string) {
     return this.http.post<any>(`api/users/authenticate`, { email: email, password: password })
       .pipe(map(user => {

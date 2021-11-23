@@ -6,6 +6,7 @@ import { AdvertListComponent } from './components/advert-list/advert-list.compon
 import { AdvertsComponent } from './components/adverts/adverts.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import { LoginComponent } from './components/login/login.component';
+import { MyAccountComponent } from './components/my-account/my-account.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 // import { RouteGuard } from './shared/route.guard';
 
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'add-advert/:id/edit', component: AddAdvertComponent },
   { path: 'my-adverts', component: AdvertsComponent },
   { path: 'homepage', component: HomepageComponent },
+  { path: 'my-account', component: MyAccountComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: '', redirectTo: 'homepage', pathMatch: 'full' },

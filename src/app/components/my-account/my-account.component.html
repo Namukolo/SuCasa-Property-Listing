@@ -1,0 +1,159 @@
+<sc-navigation></sc-navigation>
+<div class="col-md-6 mx-auto text-center header">
+    <div class="header-title">
+        <h1 class="wv-heading--title">
+            Su<span class="logo-cut">Casa</span>
+        </h1>
+        <h2 class="wv-heading--subtitle">
+            Only change values of the account details you wish to update
+        </h2>
+    </div>
+</div>
+
+<div class="row form-parent">
+    <div class="col-md-4 mx-auto">
+        <div class="myform form ">
+            <form action="" method="" name="registration" novalidate (ngSubmit)="submitForm()"
+                [formGroup]="myAccountForm">
+
+                <!-- NAME -->
+                <div class="form-group mb-3">
+                    <input type="text" name="forenames" class="form-control my-input" id="forenames" placeholder="Name"
+                        formControlName="forenames" [ngClass]="{'is-invalid': (myAccountForm.get('forenames')?.touched ||
+                        myAccountForm.get('forenames')?.dirty) &&
+                        !myAccountForm.get('forenames')?.valid }" />
+
+                    <span class="invalid-feedback">
+                        <span *ngIf="myAccountForm.get('forenames')?.errors?.required" class="field-tip">
+                            Please enter your name.
+                        </span>
+                        <span *ngIf="myAccountForm.get('forenames')?.errors?.minlength" class="field-tip">
+                            Your name must be longer than 1 character.
+                        </span>
+                        <span *ngIf="myAccountForm.get('forenames')?.errors?.maxlength" class="field-tip">
+                            Your name must not be longer than 100 characters.
+                        </span>
+                    </span>
+                </div>
+
+                <!-- SURNAME -->
+                <div class="form-group mb-3">
+                    <input type="text" name="surname" class="form-control my-input" id="surname" placeholder="Surname"
+                        formControlName="surname" [ngClass]="{'is-invalid': (myAccountForm.get('surname')?.touched ||
+                        myAccountForm.get('surname')?.dirty) &&
+                        !myAccountForm.get('surname')?.valid }" />
+
+                    <span class="invalid-feedback">
+                        <span *ngIf="myAccountForm.get('surname')?.errors?.required" class="field-tip">
+                            Please enter your Surname.
+                        </span>
+                        <span *ngIf="myAccountForm.get('surname')?.errors?.minlength" class="field-tip">
+                            Your surname must be longer than 1 character.
+                        </span>
+                        <span *ngIf="myAccountForm.get('surname')?.errors?.maxlength" class="field-tip">
+                            Your surname must not be longer than 100 characters.
+                        </span>
+                    </span>
+                </div>
+
+                <!-- EMAIL -->
+                <div class="form-group mb-3">
+                    <input type="email" name="email" class="form-control my-input" id="email" placeholder="email"
+                        formControlName="email" [ngClass]="{'is-invalid': (myAccountForm.get('email')?.touched ||
+                        myAccountForm.get('email')?.dirty) &&
+                        !myAccountForm.get('email')?.valid }" />
+
+                    <span class="invalid-feedback">
+                        <span *ngIf="myAccountForm.get('email')?.errors?.required" class="field-tip">
+                            Please enter your email.
+                        </span>
+                        <span *ngIf="myAccountForm.get('email')?.errors?.minlength" class="field-tip">
+                            Your email must be longer than 6 characters.
+                        </span>
+                        <span *ngIf="myAccountForm.get('email')?.errors?.maxlength" class="field-tip">
+                            Your email must not be longer than 100 characters.
+                        </span>
+                        <span *ngIf="myAccountForm.get('email')?.errors?.email" class="field-tip">
+                            Enter a valid email.
+                        </span>
+                    </span>
+                </div>
+
+                <div class="form-group mb-3">
+                    <input type="password" name="password" class="form-control my-input" id="password"
+                        placeholder="Your current Password" formControlName="password" [ngClass]="{'is-invalid':(myAccountForm.get('password')?.touched ||
+                        myAccountForm.get('password')?.dirty) &&
+                        !myAccountForm.get('password')?.valid }" />
+                    <span class="field-tip">
+                        enter your password to confirm the changes(required)
+                    </span>
+                    <span class="invalid-feedback">
+                        <span *ngIf="myAccountForm.get('password')?.errors">
+                        </span>
+                    </span>
+                </div>
+
+                <!-- PASSWORDS -->
+                <div class="form-group mb-3" formGroupName="passwordGroup">
+                    <div class="form-group mb-3">
+                        <input type="password" name="newPassword" class="form-control my-input" id="newPassword"
+                            placeholder="New Password" formControlName="newPassword" [ngClass]="{'is-invalid': 
+                            (myAccountForm.get('passwordGroup').errors) ||((myAccountForm.get('passwordGroup.newPassword')?.touched ||
+                            myAccountForm.get('passwordGroup.newPassword')?.dirty) &&
+                            !myAccountForm.get('passwordGroup.newPassword')?.valid) }" />
+                        <span class="field-tip">
+                            atleast 8 characters, no spaces
+                        </span>
+                        <span class="invalid-feedback">
+                            <span *ngIf="myAccountForm.get('passwordGroup.password')?.errors">
+                            </span>
+                        </span>
+                    </div>
+
+
+                    <div class="form-group mb-3">
+                        <input type="password" name="confirmPassword" class="form-control my-input" id="confirmPassword"
+                            placeholder="Confirm new Password" formControlName="confirmPassword" [ngClass]="{'is-invalid': (myAccountForm.get('passwordGroup').errors) ||
+                            ((myAccountForm.get('passwordGroup.newPassword').touched ||
+                            myAccountForm.get('passwordGroup.newPassword').dirty) &&
+                            !myAccountForm.get('passwordGroup.newPassword').valid )}" />
+
+                        <span class="invalid-feedback">
+                            <span *ngIf="(myAccountForm.get('passwordGroup.confirmPassword').errors?.required)"
+                                class="field-tip">
+                                Confirm your password
+                            </span>
+                            <span *ngIf="(myAccountForm.get('passwordGroup')?.errors?.match)" class="field-tip">
+                                Your passwords dont match.
+                            </span>
+                        </span>
+                    </div>
+                </div>
+                <div class="btn-row">
+                    <button type="button" class="btn btn-outline-danger cancel" routerLink="/my-adverts">Cancel</button>
+
+                    <button type="submit" class=" btn btn-block send-button tx-tfm">{{btnText}}</button>
+                </div>
+
+
+                <div class="alert alert-danger" style="margin-top: 1rem;" role="alert"
+                    *ngIf="incorrectPassword === true && success === true">
+                    Your current password is incorrect
+                </div>
+
+                <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="success === false ">
+                    Please enter all required fields
+                </div>
+
+                <div class="alert alert-success" style="margin-top: 1rem;" role="alert"
+                    *ngIf="success && incorrectPassword === false">
+                    Account updated Successfully
+                </div>
+            </form>
+
+            <div class="text-center field-tip to-seller-profile" routerLink="/login">
+                Click here to update your seller profile
+            </div>
+        </div>
+    </div>
+</div>
