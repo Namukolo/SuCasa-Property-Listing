@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
 import { IUser } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
 
+// CUSTOM VALIDATORS
 function passwordMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const password = c.get('newPassword');
   const confirmPassword = c.get('confirmPassword');
@@ -43,7 +44,7 @@ export class MyAccountComponent implements OnInit {
   success: boolean;
   btnText: string = 'Update'
 
-  constructor(private fb: FormBuilder, private userService: UserService, private route: ActivatedRoute, private router: Router, private authenticationService: AuthenticationService) { }
+  constructor(private fb: FormBuilder, private userService: UserService, private router: Router, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
     if (!this.authenticationService.getLoggedInUser()) {
@@ -52,6 +53,7 @@ export class MyAccountComponent implements OnInit {
 
     this.currentUser = this.authenticationService.getLoggedInUser();
     this.getUser(this.currentUser.id)
+
     // this.myAccountForm = this.fb.group({
     //     forenames: [this.user?.forenames, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
     //     surname: [this.user?.surname, [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
@@ -79,7 +81,7 @@ export class MyAccountComponent implements OnInit {
 
   getUser(userID: number) {
     this.userService.getUser(userID).subscribe({
-      next: loggedUser => {
+      next: (loggedUser: IUser) => {
         // this.user = loggedUser
         this.displayUser(loggedUser)
       },
@@ -121,8 +123,8 @@ export class MyAccountComponent implements OnInit {
         this.userService.updateUser(newUserObject)
           .pipe(delay(2000))
           .subscribe({
-            next: (user) => {console.log('updated user', user), this.onSaveComplete()},
-            error: (err: any) => console.log(err)
+            next: (user: IUser) => { console.log('updated user', user), this.onSaveComplete() },
+            error: (err: string) => console.log(err)
           })
       }
     } else {
@@ -130,7 +132,6 @@ export class MyAccountComponent implements OnInit {
       this.incorrectPassword = false
     }
   }
-
 
   onSaveComplete() {
     this.myAccountForm.reset();

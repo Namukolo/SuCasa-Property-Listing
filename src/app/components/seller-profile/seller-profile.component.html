@@ -1,0 +1,58 @@
+<sc-navigation></sc-navigation>
+
+<div class="col-md-6 mx-auto text-center header">
+    <div class="header-title">
+        <h1 class="wv-heading--title">
+            Su<span class="logo-cut">Casa</span>
+        </h1>
+        <h2 class="wv-heading--subtitle">
+            This is how buyers will contact you - Only change the values of your profile you wish to update
+        </h2>
+    </div>
+
+    <!-- FORM -->
+    <div class="row form-parent">
+        <div class="col-md-6 mx-auto">
+            <div class="myform form ">
+                <form action="" method="" name="registration" novalidate (ngSubmit)="submitForm()"
+                    [formGroup]="sellerProfileForm">
+
+                    <!-- EMAIL -->
+                    <div class="form-group mb-3">
+                        <input type="email" name="email" class="form-control my-input" id="email" placeholder="Email"
+                            formControlName="email" [ngClass]="{'is-invalid': (sellerProfileForm.get('email')?.touched ||
+                            sellerProfileForm.get('email')?.dirty) &&
+                            !sellerProfileForm.get('email')?.valid }" />
+
+                    </div>
+
+                    <!-- PHONE NUMBER -->
+                    <div class="form-group mb-3">
+                        <input type="text" name="phoneNumber" class="form-control my-input" id="phoneNumber"
+                            placeholder="Phone number" formControlName="phoneNumber" [ngClass]="{'is-invalid': (sellerProfileForm.get('phoneNumber')?.touched ||
+                            sellerProfileForm.get('phoneNumber')?.dirty) &&
+                            !sellerProfileForm.get('phoneNumber')?.valid }" />
+                    </div>
+
+                    <!-- BUTTONS -->
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-outline-danger cancel"
+                            routerLink="/my-adverts">Cancel</button>
+
+                        <button type="submit" class=" btn btn-block send-button tx-tfm">{{btnText}}</button>
+                    </div>
+
+                    <!-- ALERTS -->
+                    <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="success  === false">
+                        Please enter all the required fields
+                    </div>
+
+                    <div class="alert alert-success" style="margin-top: 1rem;" role="alert" *ngIf="success">
+                        Profile updated Successfully
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

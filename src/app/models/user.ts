@@ -3,6 +3,7 @@ export interface IUser {
     forenames: string,
     surname: string,
     email: string,
+    phoneNumber?: string;
     password: string,
     accessLevel: AccessLevel,
     adverts?: IAdvert[]

@@ -10,6 +10,7 @@
     </div>
 </div>
 
+<!-- FORM -->
 <div class="row form-parent">
     <div class="col-md-4 mx-auto">
         <div class="myform form ">
@@ -79,6 +80,7 @@
                     </span>
                 </div>
 
+                <!-- CURRENT PASSWORD -->
                 <div class="form-group mb-3">
                     <input type="password" name="password" class="form-control my-input" id="password"
                         placeholder="Your current Password" formControlName="password" [ngClass]="{'is-invalid':(myAccountForm.get('password')?.touched ||
@@ -93,7 +95,7 @@
                     </span>
                 </div>
 
-                <!-- PASSWORDS -->
+                <!-- PASSWORDS (NEW & CONFIRM NEW)-->
                 <div class="form-group mb-3" formGroupName="passwordGroup">
                     <div class="form-group mb-3">
                         <input type="password" name="newPassword" class="form-control my-input" id="newPassword"
@@ -109,7 +111,6 @@
                             </span>
                         </span>
                     </div>
-
 
                     <div class="form-group mb-3">
                         <input type="password" name="confirmPassword" class="form-control my-input" id="confirmPassword"
@@ -129,15 +130,17 @@
                         </span>
                     </div>
                 </div>
+
+                <!-- BUTTONS -->
                 <div class="btn-row">
                     <button type="button" class="btn btn-outline-danger cancel" routerLink="/my-adverts">Cancel</button>
 
                     <button type="submit" class=" btn btn-block send-button tx-tfm">{{btnText}}</button>
                 </div>
 
-
+                <!-- ALERTS -->
                 <div class="alert alert-danger" style="margin-top: 1rem;" role="alert"
-                    *ngIf="incorrectPassword === true && success === true">
+                    *ngIf="incorrectPassword === true && success">
                     Your current password is incorrect
                 </div>
 
@@ -151,7 +154,8 @@
                 </div>
             </form>
 
-            <div class="text-center field-tip to-seller-profile" routerLink="/login">
+            <!-- LINK TO PROFILE UPDATE -->
+            <div class="text-center field-tip to-seller-profile" routerLink="/my-seller-profile">
                 Click here to update your seller profile
             </div>
         </div>
