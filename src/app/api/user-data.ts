@@ -152,6 +152,17 @@ export class UserData implements InMemoryDbService {
             price: 800000,
             status: Status.live,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+        },
+        {
+            id: 9,
+            userID: 2,
+            headline: "2 bedroom townhouse for sale in Melrose North",
+            province: 'Western Cape',
+            city: 'Stellenbosh',
+            description: 'This beautiful townhouse apartment is located in the upmarket suburb of Melrose in Johannesburg.The apartment is in a secure complex that is neatly tucked away from the hustle and bustle of the city.The unit has open plan living areas which lead onto the balcony. The lounge area has recently been tiled, with laminated floorin the bedrooms.The unit has 2 bedrooms and 1 full bathroom.Two bedrooms and full bathroom.The unit also comes with a double carport.The complex is within walking distance to popular parks, shops and malls.',
+            price: 800000,
+            status: Status.live,
+            images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
         }
 
     ]

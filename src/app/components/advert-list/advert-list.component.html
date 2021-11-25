@@ -1,7 +1,7 @@
 <sc-navigation></sc-navigation>
+<sc-search (searchClicked)='onSearchClicked()'></sc-search>
 <div class="container">
-    <div class="card shadow-sm" *ngFor="let advert of allAdverts">
-
+    <div class="card shadow-sm" *ngFor="let advert of filteredAdverts">
         <!-- CARD IMAGE, LOCATION & PRICE -->
         <img src="{{advert.images[0]}}" alt="" srcset="">
         <h1 class="headline">{{advert.headline}}</h1>

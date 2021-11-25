@@ -27,6 +27,7 @@ import { AdvertListComponent } from './components/advert-list/advert-list.compon
 import { AdvertDetailComponent } from './components/advert-detail/advert-detail.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { SellerProfileComponent } from './components/seller-profile/seller-profile.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SellerProfileComponent } from './components/seller-profile/seller-profi
     AdvertDetailComponent,
     MyAccountComponent,
     SellerProfileComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,

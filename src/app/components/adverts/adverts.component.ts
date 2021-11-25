@@ -19,7 +19,7 @@ export class AdvertsComponent implements OnInit {
   userAdverts: IAdvert[];
   confirmClicked = false;
   cancelClicked = false;
-
+  filteredAdverts: IAdvert[]
 
   ngOnInit(): void {
     if (!this.authenticationService.getLoggedInUser()) {
@@ -32,9 +32,9 @@ export class AdvertsComponent implements OnInit {
     //get current user from api using id
     this.getCurrentUser(this.currentUser.id);
 
+
     this.userService.getAdverts().subscribe({
       next: adverts => {
-        // this.userService.getProvince()
         this.allAdverts = [...adverts];
         this.allAdverts = this.allAdverts.filter(advert => {
           return (advert.userID === this.currentUser.id && advert.status != 'DELETED')

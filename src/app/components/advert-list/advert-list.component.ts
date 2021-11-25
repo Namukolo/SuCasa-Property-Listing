@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IAdvert } from 'src/app/models/user';
+import { StateService } from 'src/app/services/state.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -8,15 +9,34 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./advert-list.component.scss']
 })
 export class AdvertListComponent implements OnInit {
-  allAdverts: IAdvert[];
+  allAdverts: IAdvert[] = [];
+  filteredAdverts: IAdvert[];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private stateService: StateService) { }
 
   ngOnInit(): void {
+    const searchedAds = this.stateService.searchedAdverts
+
+    console.log('Searched ads form state: ', searchedAds)
+
     this.userService.getAdverts().subscribe({
-      next: adverts => this.allAdverts = adverts.filter(advert => advert.status === 'LIVE'),
+      next: (adverts: IAdvert[]) => {
+        this.allAdverts = adverts.filter(advert => advert.status === 'LIVE').reverse();
+        this.filteredAdverts = searchedAds?.length >= 1 ? [...searchedAds] : this.allAdverts;
+        // this.setSearchedAdverts([...this.allAdverts]);
+
+      },
       error: err => console.log('something went wrong: ', err)
     })
+
   }
 
+  setSearchedAdverts(adverts: IAdvert[]) {
+    this.stateService.searchedAdverts = [...adverts];
+  }
+
+  onSearchClicked() {
+    console.log('search was clicked')
+    this.ngOnInit();
+  }
 }
