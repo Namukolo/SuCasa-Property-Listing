@@ -32,13 +32,5 @@ export interface IAdvert {
     price: number,
     status: Status,
     images: string[]
-    // id: number,
-    // userID: number,
-    // headline: string,
-    // province: number,
-    // city: number,
-    // description: string,
-    // price: number,
-    // status: Status,
-    // images: string[]
+    favUserID?:number
 }

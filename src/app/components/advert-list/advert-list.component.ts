@@ -11,18 +11,18 @@ import { UserService } from 'src/app/services/user.service';
 export class AdvertListComponent implements OnInit {
   allAdverts: IAdvert[] = [];
   filteredAdverts: IAdvert[];
-
+  searchedAds: IAdvert[]
   constructor(private userService: UserService, private stateService: StateService) { }
 
   ngOnInit(): void {
-    const searchedAds = this.stateService.searchedAdverts
+    this.searchedAds = this.stateService.searchedAdverts
 
-    console.log('Searched ads form state: ', searchedAds)
+    console.log('Searched ads form state: ', this.searchedAds)
 
     this.userService.getAdverts().subscribe({
       next: (adverts: IAdvert[]) => {
         this.allAdverts = adverts.filter(advert => advert.status === 'LIVE').reverse();
-        this.filteredAdverts = searchedAds?.length >= 1 ? [...searchedAds] : this.allAdverts;
+        this.filteredAdverts = this.searchedAds?.length >= 1 ? [...this.searchedAds] : this.allAdverts;
         // this.setSearchedAdverts([...this.allAdverts]);
 
       },

@@ -1,5 +1,9 @@
 <sc-navigation></sc-navigation>
 <sc-search (searchClicked)='onSearchClicked()'></sc-search>
+
+<div class="container" *ngIf="searchedAds?.length === 0">
+    no results
+</div>
 <div class="container">
     <div class="card shadow-sm" *ngFor="let advert of filteredAdverts">
         <!-- CARD IMAGE, LOCATION & PRICE -->

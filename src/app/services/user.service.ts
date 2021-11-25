@@ -17,6 +17,8 @@ export class UserService {
   private userUrl = `api/users`;
   private advertUrl = `api/adverts`;
   private countryUrl = `api/country`;
+  private favouritesUrl = `api/favourites`;
+
 
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(this.userUrl).pipe(
@@ -141,6 +143,23 @@ export class UserService {
       );
   }
 
+  //TODO:: PUT IN ITS OWN SERVICE :SEPERATION OF CONCERN
+  createFavourite(advert: IAdvert): Observable<IAdvert> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+    advert.id = null;
+    return this.http.post<IAdvert>(`${this.favouritesUrl}`, advert, { headers })
+      .pipe(
+        tap(data => JSON.stringify(data)),
+        catchError(this.handleError)
+      );
+  }
+
+  getFavourites(): Observable<IAdvert[]> {
+    return this.http.get<IAdvert[]>(this.favouritesUrl).pipe(
+      tap(data => JSON.stringify(data)),
+      catchError(this.handleError)
+    );
+  }
 
   private handleError(err: HttpErrorResponse) {
     let errorMessage = '';
