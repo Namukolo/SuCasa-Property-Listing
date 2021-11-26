@@ -21,6 +21,7 @@ export class SearchComponent implements OnInit {
   adverts: IAdvert[];
   filteredAdverts: IAdvert[];
   sub: Subscription
+  success: boolean
   searchParameters = { province: '', city: '', minPrice: 0, maxPrice: 0, keywords: '' };
 
   @Output() searchClicked: EventEmitter<IAdvert[]> = new EventEmitter<IAdvert[]>();
@@ -36,7 +37,7 @@ export class SearchComponent implements OnInit {
       keywords: [''],
     });
 
-    this.userService.getProvinces().pipe().subscribe(
+    this.userService.getProvinces().subscribe(
       {
         next: (data) => this.country = data,
         error: (error) => console.log(error)
@@ -47,7 +48,6 @@ export class SearchComponent implements OnInit {
       next: (adverts: IAdvert[]) => {
         this.adverts = adverts.filter(advert => advert.status === Status.live)
         this.filteredAdverts = this.adverts
-        // this.setSearchedAdverts([])
       },
       error: (err: string) => console.log('something went wrong', err)
     })
@@ -100,35 +100,48 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    if (this.searchParameters.province) {
-      // console.log('PRESENT PROVINCE', this.searchParameters.province)
-      this.filteredAdverts = this.filteredAdverts.filter(advert => advert.province === this.searchParameters.province)
+    if (this.searchForm.valid) {
+      if (this.searchForm.dirty) {
+        if (this.searchParameters.province) {
+          // console.log('PRESENT PROVINCE', this.searchParameters.province)
+          this.filteredAdverts = this.filteredAdverts.filter(advert => advert.province === this.searchParameters.province)
+        }
+        if (this.searchParameters.city) {
+          // console.log('PRESENT CITY', this.searchParameters.city)
+          this.filteredAdverts = this.filteredAdverts.filter(advert => advert.city === this.searchParameters.city)
+        }
+        if (this.searchParameters.maxPrice) {
+          // console.log('PRESENT MAX', this.searchParameters.maxPrice)
+          this.filteredAdverts = this.filteredAdverts.filter(advert => advert.price <= this.searchParameters.maxPrice)
+    
+        }
+        if (this.searchParameters.minPrice) {
+          // console.log('PRESENT MIN', this.searchParameters.minPrice)
+          this.filteredAdverts = this.filteredAdverts.filter(advert => advert.price >= this.searchParameters.minPrice)
+    
+        }
+        if (this.searchParameters.keywords) {
+          // console.log('PRESENT KEYWORDS', this.searchParameters.keywords)
+          this.filteredAdverts = this.filteredAdverts.filter(advert => advert.description.toLowerCase().includes(this.searchParameters.keywords.toLowerCase()) || advert.headline.toLowerCase().includes(this.searchParameters.keywords.toLowerCase()))
+    
+        }
+        const featuredAdverts = this.filteredAdverts.filter(advert => advert.featured).reverse()
+        // a.sort((a, b) => b - a).reverse();
+        const ads = this.filteredAdverts.filter(advert => !advert.featured).reverse();
+        const allAds = [...featuredAdverts, ...ads]
+        // console.log('featured ads in search',featuredAdverts)
+        // this.setSearchedAdverts(this.filteredAdverts)
+        this.setSearchedAdverts(allAds)
+    
+        // console.log('searched ads', this.filteredAdverts)
+        this.searchClicked.emit(this.filteredAdverts);
+        this.searchForm.reset()
+        this.router.navigate(['/for-sale']);
+        this.ngOnInit()
+      }
     }
-    if (this.searchParameters.city) {
-      // console.log('PRESENT CITY', this.searchParameters.city)
-      this.filteredAdverts = this.filteredAdverts.filter(advert => advert.city === this.searchParameters.city)
-    }
-    if (this.searchParameters.maxPrice) {
-      // console.log('PRESENT MAX', this.searchParameters.maxPrice)
-      this.filteredAdverts = this.filteredAdverts.filter(advert => advert.price <= this.searchParameters.maxPrice)
-
-    }
-    if (this.searchParameters.minPrice) {
-      // console.log('PRESENT MIN', this.searchParameters.minPrice)
-      this.filteredAdverts = this.filteredAdverts.filter(advert => advert.price >= this.searchParameters.minPrice)
-
-    }
-    if (this.searchParameters.keywords) {
-      // console.log('PRESENT KEYWORDS', this.searchParameters.keywords)
-      this.filteredAdverts = this.filteredAdverts.filter(advert => advert.description.toLowerCase().includes(this.searchParameters.keywords.toLowerCase()) || advert.headline.toLowerCase().includes(this.searchParameters.keywords.toLowerCase()))
-
-    }
-    this.setSearchedAdverts(this.filteredAdverts)
-    console.log('searched ads', this.filteredAdverts)
-    this.searchClicked.emit(this.filteredAdverts);
-    this.searchForm.reset()
-    this.router.navigate(['/for-sale']);
-    this.ngOnInit()
+    this.success = false;
+    
   }
 
 }

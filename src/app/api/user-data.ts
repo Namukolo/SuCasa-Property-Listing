@@ -73,6 +73,7 @@ export class UserData implements InMemoryDbService {
             description: "Cosmopolitan Projects NEWLY LAUNCHED DEVELOPMENT IN MONTANA.This Luxury Complex situated inside the well-known Zambezi Manor Lifestyle Estate in Montana, offers exclusive 3-bedroom, 2-bathroom townhouses including a garage and/or carport. This all-in-one Lifestyle Estate offers you the perfect family home from only R1.9M, estimate monthly repayment starting from R16 000. Qualifying income to qualify are R52 000 single or joint.Perfectly located, this estate gives you easy access to all major routes like the N1, N4 and N14 Highways.",
             price: 2700000,
             status: Status.live,
+            featured:true,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
         },
         {
@@ -106,6 +107,7 @@ export class UserData implements InMemoryDbService {
             description: 'Urban Park and Ocean Views. ON SHOW: SUNDAY 21 NOVEMBER 2021 from 14:00 - 17:00133 Main Road, Green Point. This perfectly positioned 78m2 apartment situated on Main Road consists of 2 bedrooms and 1.5 bathrooms. Separate galley with a large living and dining area complete with uninterrupted views over the Green Point Urban Park overlooking the ocean fromopen balcony.',
             price: 2450000,
             status: Status.live,
+            featured:true,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
         },
         {
@@ -128,6 +130,7 @@ export class UserData implements InMemoryDbService {
             description: 'This stunning home is a luxurious double-storey contemporary residence situated in Meerensee, Richards Bay. Nestled in the well known street of Shad shoal, this home is conveniently situated to be close to everything. The home is designed for entertainment with expansive doors which open up the indoor/outdoor living area which consists of a lounge and opens onto a pool and sun lounging area overlooking the neatly manicured garden.',
             price: 4200000,
             status: Status.live,
+            featured:true,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
         },
 
@@ -150,6 +153,7 @@ export class UserData implements InMemoryDbService {
             city: 'Mahikeng',
             description: 'This beautiful townhouse apartment is located in the upmarket suburb of Melrose in Johannesburg.The apartment is in a secure complex that is neatly tucked away from the hustle and bustle of the city.The unit has open plan living areas which lead onto the balcony. The lounge area has recently been tiled, with laminated floorin the bedrooms.The unit has 2 bedrooms and 1 full bathroom.Two bedrooms and full bathroom.The unit also comes with a double carport.The complex is within walking distance to popular parks, shops and malls.',
             price: 800000,
+            featured:false,
             status: Status.live,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
         },
@@ -163,7 +167,80 @@ export class UserData implements InMemoryDbService {
             price: 800000,
             status: Status.live,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
-        }
+        },
+        {
+            id: 10,
+            userID: 3,
+            headline: "6 Bedroom House for Sale in Meer En See",
+            province: 'Free State',
+            city: 'Bloemfontein',
+            description: 'This stunning home is a luxurious double-storey contemporary residence situated in Meerensee, Richards Bay. Nestled in the well known street of Shad shoal, this home is conveniently situated to be close to everything. The home is designed for entertainment with expansive doors which open up the indoor/outdoor living area which consists of a lounge and opens onto a pool and sun lounging area overlooking the neatly manicured garden.',
+            price: 4200000,
+            status: Status.live,
+            featured:true,
+            images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+        },
+        {
+            id: 11,
+            userID: 3,
+            headline: "6 Bedroom House for Sale in Meer En See",
+            province: 'KZN',
+            city: 'Richards Bay',
+            description: 'This stunning home is a luxurious double-storey contemporary residence situated in Meerensee, Richards Bay. Nestled in the well known street of Shad shoal, this home is conveniently situated to be close to everything. The home is designed for entertainment with expansive doors which open up the indoor/outdoor living area which consists of a lounge and opens onto a pool and sun lounging area overlooking the neatly manicured garden.',
+            price: 4200000,
+            status: Status.live,
+            featured:true,
+            images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+        },
+
+        {
+            id: 12,
+            userID: 3,
+            headline: "6 Bedroom House for Sale in Meer En See",
+            province: 'KZN',
+            city: 'Richards Bay',
+            description: 'This stunning home is a luxurious double-storey contemporary residence situated in Meerensee, Richards Bay. Nestled in the well known street of Shad shoal, this home is conveniently situated to be close to everything. The home is designed for entertainment with expansive doors which open up the indoor/outdoor living area which consists of a lounge and opens onto a pool and sun lounging area overlooking the neatly manicured garden.',
+            price: 4200000,
+            status: Status.live,
+            featured:true,
+            images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+        },
+        {
+            id: 13,
+            userID: 3,
+            headline: "6 Bedroom House for Sale in Meer En See",
+            province: 'Free State',
+            city: 'Welkom',
+            description: 'This stunning home is a luxurious double-storey contemporary residence situated in Meerensee, Richards Bay. Nestled in the well known street of Shad shoal, this home is conveniently situated to be close to everything. The home is designed for entertainment with expansive doors which open up the indoor/outdoor living area which consists of a lounge and opens onto a pool and sun lounging area overlooking the neatly manicured garden.',
+            price: 4200000,
+            status: Status.live,
+            featured:true,
+            images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+        },
+        {
+            id: 14,
+            userID: 3,
+            headline: "2 Bedroom Apartment / Flat for Sale in Potchefstroom Central",
+            province: 'North West',
+            city: 'Klerksdorp',
+            description: 'This stunning home is a luxurious double-storey contemporary residence situated in Meerensee, Richards Bay. Nestled in the well known street of Shad shoal, this home is conveniently situated to be close to everything. The home is designed for entertainment with expansive doors which open up the indoor/outdoor living area which consists of a lounge and opens onto a pool and sun lounging area overlooking the neatly manicured garden.',
+            price: 500000,
+            status: Status.live,
+            featured:true,
+            images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+        },
+        {
+            id: 15,
+            userID: 3,
+            headline: "Beautiful 3 bedroom house in the heart of Montana",
+            province: 'Gauteng',
+            city: 'Pretoria',
+            description: 'This stunning home is a luxurious double-storey contemporary residence situated in Meerensee, Richards Bay. Nestled in the well known street of Shad shoal, this home is conveniently situated to be close to everything. The home is designed for entertainment with expansive doors which open up the indoor/outdoor living area which consists of a lounge and opens onto a pool and sun lounging area overlooking the neatly manicured garden.',
+            price: 2390000,
+            status: Status.live,
+            featured:true,
+            images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+        },
 
     ]
     favourites: IAdvert[] = [

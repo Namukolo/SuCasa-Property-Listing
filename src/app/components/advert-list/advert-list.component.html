@@ -1,12 +1,13 @@
 <sc-navigation></sc-navigation>
 <sc-search (searchClicked)='onSearchClicked()'></sc-search>
 
-<div class="container" *ngIf="searchedAds?.length === 0">
-    no results
+<div class="container no-results" *ngIf="searchedAds?.length === 0">
+    no results...
 </div>
 <div class="container">
     <div class="card shadow-sm" *ngFor="let advert of filteredAdverts">
         <!-- CARD IMAGE, LOCATION & PRICE -->
+        <p class="status" *ngIf="advert.featured">FEATURED</p>
         <img src="{{advert.images[0]}}" alt="" srcset="">
         <h1 class="headline">{{advert.headline}}</h1>
         <p class="location"><svg xmlns="http://www.w3.org/2000/svg" class="icon location_icon" fill="none"

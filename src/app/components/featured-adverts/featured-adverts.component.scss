@@ -4,14 +4,18 @@
     justify-content: space-between;
     margin-top: 3rem;
 }
-.no-results{
-    font-size: 1.6rem;
+
+.carousel-parent{
+    // margin-top: 4rem;
+    margin: 4rem 2rem;
 }
 
 .card {
+    // background-color: red;
     position: relative;
-    width: 48%;
+    width:100%;
     margin-bottom: 3rem;
+    // margin-right: 2rem;
     padding: 3rem;
     border-radius: 1.2rem;
     a{
@@ -25,7 +29,6 @@
         width: 8rem;
         
     }
-
     .status {
         position: absolute;
         top: 1.8rem;
@@ -39,7 +42,7 @@
         letter-spacing: 0.2rem;
         padding: 0.1rem 0.4rem;
         border-radius: 0.5rem;
-        background-color: #62ca6b ;
+        background-color: #62ca6b;
     }
     img {
         width: 100%;

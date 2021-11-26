@@ -31,6 +31,7 @@ export interface IAdvert {
     description: string,
     price: number,
     status: Status,
-    images: string[]
-    favUserID?:number
+    images: string[],
+    favUserID?:number,
+    featured?:boolean
 }

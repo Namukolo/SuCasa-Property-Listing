@@ -17,7 +17,7 @@ export class AdvertListComponent implements OnInit {
   ngOnInit(): void {
     this.searchedAds = this.stateService.searchedAdverts
 
-    console.log('Searched ads form state: ', this.searchedAds)
+    // console.log('Searched ads form state: ', this.searchedAds)
 
     this.userService.getAdverts().subscribe({
       next: (adverts: IAdvert[]) => {

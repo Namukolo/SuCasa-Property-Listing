@@ -28,6 +28,11 @@ import { AdvertDetailComponent } from './components/advert-detail/advert-detail.
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { SellerProfileComponent } from './components/seller-profile/seller-profile.component';
 import { SearchComponent } from './components/search/search.component';
+import { FeaturedAdvertsComponent } from './components/featured-adverts/featured-adverts.component';
+import { CarouselModule, OwlRouterLinkDirective } from 'ngx-owl-carousel-o';
+import { NoopAnimationPlayer } from '@angular/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -43,6 +48,8 @@ import { SearchComponent } from './components/search/search.component';
     MyAccountComponent,
     SellerProfileComponent,
     SearchComponent,
+    FeaturedAdvertsComponent,
+    // OwlRouterLinkDirective,
   ],
   imports: [
     BrowserModule,
@@ -50,13 +57,8 @@ import { SearchComponent } from './components/search/search.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    // RouterModule.forRoot([
-    //   { path: 'homepage', component: HomepageComponent },
-    //   { path: 'login', component: LoginComponent },
-    //   { path: 'registration', component: RegistrationComponent },
-    //   { path: '', redirectTo: 'homepage', pathMatch: 'full' },
-    //   { path: '**', redirectTo: 'homepage', pathMatch: 'full' },
-    // ]),
+    CarouselModule,
+    BrowserAnimationsModule,
     ConfirmationPopoverModule.forRoot({
       confirmButtonType: 'danger',
       popoverClass: 'confirmationDialog',
@@ -68,6 +70,7 @@ import { SearchComponent } from './components/search/search.component';
     
     // InMemoryWebApiModule.forRoot(UserData)
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],
   bootstrap: [AppComponent],
 })
