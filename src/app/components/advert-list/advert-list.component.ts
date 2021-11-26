@@ -17,14 +17,10 @@ export class AdvertListComponent implements OnInit {
   ngOnInit(): void {
     this.searchedAds = this.stateService.searchedAdverts
 
-    // console.log('Searched ads form state: ', this.searchedAds)
-
     this.userService.getAdverts().subscribe({
       next: (adverts: IAdvert[]) => {
         this.allAdverts = adverts.filter(advert => advert.status === 'LIVE').reverse();
         this.filteredAdverts = this.searchedAds?.length >= 1 ? [...this.searchedAds] : this.allAdverts;
-        // this.setSearchedAdverts([...this.allAdverts]);
-
       },
       error: err => console.log('something went wrong: ', err)
     })

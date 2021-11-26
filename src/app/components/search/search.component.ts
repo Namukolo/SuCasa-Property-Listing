@@ -4,7 +4,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { IAdvert, Status } from 'src/app/models/user';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 import { StateService } from 'src/app/services/state.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -103,37 +102,29 @@ export class SearchComponent implements OnInit {
     if (this.searchForm.valid) {
       if (this.searchForm.dirty) {
         if (this.searchParameters.province) {
-          // console.log('PRESENT PROVINCE', this.searchParameters.province)
           this.filteredAdverts = this.filteredAdverts.filter(advert => advert.province === this.searchParameters.province)
         }
+
         if (this.searchParameters.city) {
-          // console.log('PRESENT CITY', this.searchParameters.city)
           this.filteredAdverts = this.filteredAdverts.filter(advert => advert.city === this.searchParameters.city)
         }
+
         if (this.searchParameters.maxPrice) {
-          // console.log('PRESENT MAX', this.searchParameters.maxPrice)
           this.filteredAdverts = this.filteredAdverts.filter(advert => advert.price <= this.searchParameters.maxPrice)
-    
         }
+
         if (this.searchParameters.minPrice) {
-          // console.log('PRESENT MIN', this.searchParameters.minPrice)
           this.filteredAdverts = this.filteredAdverts.filter(advert => advert.price >= this.searchParameters.minPrice)
-    
         }
+
         if (this.searchParameters.keywords) {
-          // console.log('PRESENT KEYWORDS', this.searchParameters.keywords)
           this.filteredAdverts = this.filteredAdverts.filter(advert => advert.description.toLowerCase().includes(this.searchParameters.keywords.toLowerCase()) || advert.headline.toLowerCase().includes(this.searchParameters.keywords.toLowerCase()))
-    
         }
+
         const featuredAdverts = this.filteredAdverts.filter(advert => advert.featured).reverse()
-        // a.sort((a, b) => b - a).reverse();
         const ads = this.filteredAdverts.filter(advert => !advert.featured).reverse();
         const allAds = [...featuredAdverts, ...ads]
-        // console.log('featured ads in search',featuredAdverts)
-        // this.setSearchedAdverts(this.filteredAdverts)
         this.setSearchedAdverts(allAds)
-    
-        // console.log('searched ads', this.filteredAdverts)
         this.searchClicked.emit(this.filteredAdverts);
         this.searchForm.reset()
         this.router.navigate(['/for-sale']);
@@ -141,7 +132,7 @@ export class SearchComponent implements OnInit {
       }
     }
     this.success = false;
-    
+
   }
 
 }

@@ -14,11 +14,12 @@ adverts: IAdvert[]
 
   ngOnInit(): void {
     this.userService.getAdverts().subscribe({
-      next: (adverts) => {this.adverts = adverts.filter(advert => advert.status == Status.live && advert.featured).reverse(), console.log(this.adverts)},
-      // err: (err: string) => console.log('something went wrong: ', err)
+      next: (adverts) => this.adverts = adverts.filter(advert => advert.status == Status.live && advert.featured).reverse(),
+      error: (err: string) => console.log('something went wrong: ', err)
     })
   }
 
+  // CUSTOM OPTIONS FOR CAROUSEL
   customOptions: OwlOptions = {
     loop: false,
     mouseDrag: true,

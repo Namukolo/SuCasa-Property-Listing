@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { delay, finalize, sequenceEqual } from 'rxjs/operators';
+import { delay } from 'rxjs/operators';
 import { IAdvert, IUser } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
@@ -77,14 +77,13 @@ export class AdvertDetailComponent implements OnInit {
 
     let favouriteAdvert = { ...this.advert };
     favouriteAdvert.favUserID = this.loggedUser.id
-    console.log(favouriteAdvert)
     this.userService.createFavourite(favouriteAdvert).subscribe({
       next: () => this.favourite = true,
       error: (err: string) => console.log('something went wrong', err)
     })
 
     this.userService.getFavourites().subscribe({
-      next: (favor) => console.log('FAVOURITES', favor)
+      next: (favourites) => console.log('FAVOURITES', favourites)
     })
   }
 

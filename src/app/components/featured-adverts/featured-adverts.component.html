@@ -1,14 +1,19 @@
 <div class="carousel-parent">
-
+  <!-- CAROUSEL -->
   <owl-carousel-o [options]="customOptions">
     <ng-container *ngFor="let advert of adverts">
-      <ng-template class="card shadow-sm" carouselSlide >
+      <ng-template class="card shadow-sm" carouselSlide>
         <div class="card shadow-sm">
-        <p class="status">FEATURED</p>
+          <!-- FEATURED -->
+          <p class="status">FEATURED</p>
 
-          <!-- CARD IMAGE, LOCATION & PRICE -->
+          <!-- CARD IMAGE -->
           <img src="{{advert.images[0]}}" alt="" srcset="">
+
+          <!-- CARD HEADLINE -->
           <h1 class="headline">{{advert.headline}}</h1>
+
+          <!-- LOCATION -->
           <p class="location"><svg xmlns="http://www.w3.org/2000/svg" class="icon location_icon" fill="none"
               viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -16,7 +21,11 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
             </svg>{{advert.city}}, {{advert.province}}</p>
+
+            <!-- PRICE -->
           <p class="price">{{advert.price | currency : 'ZAR': 'symbol-narrow': '4.0-0'}}</p>
+
+          <!-- LINK -->
           <a [routerLink]="['/for-sale', advert.id]">Read more</a>
         </div>
       </ng-template>

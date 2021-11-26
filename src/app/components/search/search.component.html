@@ -1,30 +1,21 @@
 <div class="search-parent">
     <form [formGroup]="searchForm" (ngSubmit)="search()" class="form-inline">
-
-        <!-- <select class="my-input border border-secondary" name="province" id="" formControlName="province" [ngClass]="{'is-invalid': (searchForm.get('province')?.touched ||
-        searchForm.get('province')?.dirty) &&
-        !searchForm.get('province')?.valid }" >
-            <option value="" disabled=true>Select a province</option>
-            <option [value]="province.name" *ngFor=" let province of country">{{province.name}}</option>
-        </select> -->
-
-        <select class="form-select province my-input border border-secondary" aria-label="Select province mb-2" id="province"
-            formControlName="province" [ngClass]="{'is-invalid': (searchForm.get('province')?.touched ||
+        <!-- PROVINCE -->
+        <select class="form-select province my-input border border-secondary" aria-label="Select province mb-2"
+            id="province" formControlName="province" [ngClass]="{'is-invalid': (searchForm.get('province')?.touched ||
                             searchForm.get('province')?.dirty) &&
                             !searchForm.get('province')?.valid }">
-            <!-- <option [selected]="true" [attr.disabled]=true>Select a province</option> -->
             <option value="" disabled=true>Select a province (required)</option>
-
             <option *ngFor="let province of country" [value]="province.name">{{province.name}}</option>
         </select>
 
-
+        <!-- CITY -->
         <select name="" id="" formControlName="city" class="my-input border border-secondary">
             <option value="" disabled=true selected=true>Select a city</option>
             <option [value]='city.name' *ngFor="let city of selectedProvince?.cities">{{city?.name}}</option>
         </select>
 
-        <!-- <div class="form-group"> -->
+        <!-- MINIMUM PRICE -->
         <select name="" id="" formControlName="minPrice" class="my-input border border-secondary">
             <option value="">Minimum Price</option>
             <option value="10000">R10 000</option>
@@ -38,9 +29,8 @@
             <option value="50000000">R50 000 000</option>
             <option value="100000000">R100 000 000</option>
         </select>
-        <!-- </div> -->
 
-        <!-- <div class="form-group"> -->
+        <!-- MAXIMUM PRICE -->
         <select name="" id="" formControlName="maxPrice" class="my-input border border-secondary">
             <option value="">Maximum Price</option>
             <option value="10000">R10 000</option>
@@ -54,18 +44,15 @@
             <option value="50000000">R50 000 000</option>
             <option value="100000000">R100 000 000</option>
         </select>
-        <!-- </div> -->
 
-        <!-- <div class="form-group"> -->
-        <input type="text" placeholder="Keywords" formControlName="keywords" class="my-input border border-secondary keywords">
+        <!-- KEYWORDS -->
+        <input type="text" placeholder="Keywords" formControlName="keywords"
+            class="my-input border border-secondary keywords">
 
-        <!-- </div> -->
-
+        <!-- SUBMIT -->
         <button type="submit" (click)="search()" class="send-button">Search</button>
         <div class="alert alert-danger error" style="margin-top: 1rem;" role="alert" *ngIf="success === false">
             Please enter all the required fields
         </div>
     </form>
-   
-
 </div>
