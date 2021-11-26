@@ -51,8 +51,14 @@
 
         <!-- SUBMIT -->
         <button type="submit" (click)="search()" class="send-button">Search</button>
-        <div class="alert alert-danger error" style="margin-top: 1rem;" role="alert" *ngIf="success === false">
+
+        <div class="alert alert-danger error" style="margin-top: 1rem;" role="alert" *ngIf="error">
             Please enter all the required fields
         </div>
+
+        <div class="alert alert-success" style="margin-top: 1rem;" role="alert" *ngIf="success">
+             Results
+        </div>
+
     </form>
 </div>

@@ -79,7 +79,6 @@ export class AddAdvertComponent implements OnInit {
             .pipe(delay(2000))
             .subscribe({
               next: () => {this.onSaveComplete()},
-              // next: () => {console.log(p)},
               error: err => this.errorMessage = err
             });
         } else {
@@ -88,7 +87,6 @@ export class AddAdvertComponent implements OnInit {
             .pipe(delay(2000))
             .subscribe({
               next: () => this.onSaveComplete(),
-              // next: () => {console.log(p)},
               error: (err: any) => console.log(err)
             })
         }

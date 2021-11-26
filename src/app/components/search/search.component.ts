@@ -1,3 +1,4 @@
+import { prepareEventListenerParameters } from '@angular/compiler/src/render3/view/template';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -19,8 +20,9 @@ export class SearchComponent implements OnInit {
   selectedProvince: any = { name: '', cities: [] }
   adverts: IAdvert[];
   filteredAdverts: IAdvert[];
-  sub: Subscription
-  success: boolean
+  sub: Subscription;
+  success: boolean;
+  error: boolean;
   searchParameters = { province: '', city: '', minPrice: 0, maxPrice: 0, keywords: '' };
 
   @Output() searchClicked: EventEmitter<IAdvert[]> = new EventEmitter<IAdvert[]>();
@@ -101,6 +103,7 @@ export class SearchComponent implements OnInit {
   search() {
     if (this.searchForm.valid) {
       if (this.searchForm.dirty) {
+
         if (this.searchParameters.province) {
           this.filteredAdverts = this.filteredAdverts.filter(advert => advert.province === this.searchParameters.province)
         }
@@ -121,18 +124,27 @@ export class SearchComponent implements OnInit {
           this.filteredAdverts = this.filteredAdverts.filter(advert => advert.description.toLowerCase().includes(this.searchParameters.keywords.toLowerCase()) || advert.headline.toLowerCase().includes(this.searchParameters.keywords.toLowerCase()))
         }
 
-        const featuredAdverts = this.filteredAdverts.filter(advert => advert.featured).reverse()
+        const featuredAdverts = this.filteredAdverts.filter(advert => advert.featured).sort((a,b) => a.price - b.price ).reverse()
         const ads = this.filteredAdverts.filter(advert => !advert.featured).reverse();
         const allAds = [...featuredAdverts, ...ads]
+
         this.setSearchedAdverts(allAds)
         this.searchClicked.emit(this.filteredAdverts);
-        this.searchForm.reset()
-        this.router.navigate(['/for-sale']);
-        this.ngOnInit()
-      }
-    }
-    this.success = false;
 
+        this.searchForm.reset()
+        this.ngOnInit()
+        this.onSaveComplete()
+
+      } else {
+        this.searchForm.reset()
+        this.onSaveComplete()
+      }
+    } else {
+      this.success = false
+    }
   }
 
+  onSaveComplete() {
+    this.router.navigate(['/for-sale']);
+  }
 }
