@@ -69,10 +69,7 @@ export class AddAdvertComponent implements OnInit {
     if (this.advertForm.valid) {
       if (this.advertForm.dirty) {
         let p = { ...this.advert, ...this.advertForm.value };
-        // p.province = this.selectedProvince.name;
-
         if (p.id === 0) {
-          // p.province = this.selectedProvince.name;
           p.userID = this.currentUser.id;
           p.images = ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg'];
           p.status = Status.live;
@@ -82,7 +79,6 @@ export class AddAdvertComponent implements OnInit {
             .pipe(delay(2000))
             .subscribe({
               next: () => {this.onSaveComplete()},
-              // next: () => {console.log(p)},
               error: err => this.errorMessage = err
             });
         } else {
@@ -91,7 +87,6 @@ export class AddAdvertComponent implements OnInit {
             .pipe(delay(2000))
             .subscribe({
               next: () => this.onSaveComplete(),
-              // next: () => {console.log(p)},
               error: (err: any) => console.log(err)
             })
         }

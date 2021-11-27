@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AccessLevel, IUser } from '../models/user';
+import { AccessLevel, IAdvert, IUser } from '../models/user';
 import { AuthenticationService } from './authentication.service';
 
 @Injectable({
@@ -10,6 +10,7 @@ export class StateService {
   currentUserAccessLevel: AccessLevel;
   showNavigation: boolean;
   users: IUser[]
+  searchedAdverts: IAdvert[]
 
   constructor() { }
 

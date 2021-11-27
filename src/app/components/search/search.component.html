@@ -1,0 +1,64 @@
+<div class="search-parent">
+    <form [formGroup]="searchForm" (ngSubmit)="search()" class="form-inline">
+        <!-- PROVINCE -->
+        <select class="form-select province my-input border border-secondary" aria-label="Select province mb-2"
+            id="province" formControlName="province" [ngClass]="{'is-invalid': (searchForm.get('province')?.touched ||
+                            searchForm.get('province')?.dirty) &&
+                            !searchForm.get('province')?.valid }">
+            <option value="" disabled=true>Select a province (required)</option>
+            <option *ngFor="let province of country" [value]="province.name">{{province.name}}</option>
+        </select>
+
+        <!-- CITY -->
+        <select name="" id="" formControlName="city" class="my-input border border-secondary">
+            <option value="" disabled=true selected=true>Select a city</option>
+            <option [value]='city.name' *ngFor="let city of selectedProvince?.cities">{{city?.name}}</option>
+        </select>
+
+        <!-- MINIMUM PRICE -->
+        <select name="" id="" formControlName="minPrice" class="my-input border border-secondary">
+            <option value="">Minimum Price</option>
+            <option value="10000">R10 000</option>
+            <option value="50000">R50 000</option>
+            <option value="100000">R100 000</option>
+            <option value="500000">R500 000</option>
+            <option value="1000000">R1 000 000</option>
+            <option value="2000000">R2 000 000</option>
+            <option value="5000000">R5 000 000</option>
+            <option value="10000000">R10 000 000</option>
+            <option value="50000000">R50 000 000</option>
+            <option value="100000000">R100 000 000</option>
+        </select>
+
+        <!-- MAXIMUM PRICE -->
+        <select name="" id="" formControlName="maxPrice" class="my-input border border-secondary">
+            <option value="">Maximum Price</option>
+            <option value="10000">R10 000</option>
+            <option value="50000">R50 000</option>
+            <option value="100000">R100 000</option>
+            <option value="500000">R500 000</option>
+            <option value="1000000">R1 000 000</option>
+            <option value="2000000">R2 000 000</option>
+            <option value="5000000">R5 000 000</option>
+            <option value="10000000">R10 000 000</option>
+            <option value="50000000">R50 000 000</option>
+            <option value="100000000">R100 000 000</option>
+        </select>
+
+        <!-- KEYWORDS -->
+        <input type="text" placeholder="Keywords" formControlName="keywords"
+            class="my-input border border-secondary keywords">
+
+        <!-- SUBMIT -->
+        <button type="submit" (click)="search()" class="send-button">Search</button>
+
+        <div class="alert alert-danger error" style="margin-top: 1rem;" role="alert" *ngIf="error">
+            Please enter all the required fields
+        </div>
+
+        <div class="alert alert-success" style="margin-top: 1rem;" role="alert" *ngIf="success">
+             Results
+        </div>
+
+    </form>
+</div>

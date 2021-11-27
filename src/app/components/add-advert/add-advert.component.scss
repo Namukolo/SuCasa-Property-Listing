@@ -8,7 +8,7 @@
 	height: 60vh;
 }
 
-.form{
+.form {
 	margin-top: 4rem;
 }
 
@@ -28,7 +28,7 @@ input {
 		font-size: 1.8rem;
 	}
 }
-.form-field{
+.form-field {
 	margin-bottom: 2rem;
 }
 
@@ -40,7 +40,7 @@ input {
 	margin-bottom: 2rem;
 }
 
-.labelled-input{
+.labelled-input {
 	margin-top: -1rem;
 }
 
@@ -58,16 +58,15 @@ h1 {
 
 h2 {
 	color: rgb(59, 58, 58);
-
 	font-size: 1.8rem;
 	line-height: 2.6rem;
 	font-weight: 600;
 }
-.btn-row{
+.btn-row {
 	display: flex;
 	justify-content: space-between;
 	margin-top: 3rem;
-	button{
+	button {
 		width: 40%;
 		font-weight: 600;
 		padding: 1rem 3.125rem;
@@ -76,17 +75,16 @@ h2 {
 	}
 	.cancel {
 		color: #df4759;
-		&:hover{
+		&:hover {
 			color: #fff;
 		}
 	}
-
 }
 
 .field-tip {
 	font-size: 1.3rem;
 }
-.to-login{
+.to-login {
 	cursor: pointer;
 	font-size: 1.4rem;
 	margin-top: 1rem;

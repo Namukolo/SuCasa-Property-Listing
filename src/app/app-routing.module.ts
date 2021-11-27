@@ -9,7 +9,6 @@ import { LoginComponent } from './components/login/login.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SellerProfileComponent } from './components/seller-profile/seller-profile.component';
-// import { RouteGuard } from './shared/route.guard';
 
 const routes: Routes = [
   { path: 'for-sale', component: AdvertListComponent },

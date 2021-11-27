@@ -1,18 +1,21 @@
 <sc-navigation></sc-navigation>
+
 <div class="wrapper" *ngIf="advert">
     <div class="col-info">
+        <!-- IMAGES -->
         <div class="images">
             <div class="thumbnails">
                 <img src="{{advert.images[0]}}" alt="">
                 <img src="{{advert.images[0]}}" alt="">
                 <img src="{{advert.images[0]}}" alt="">
-
             </div>
+
             <div class="main-image">
                 <img src="{{advert.images[0]}}" alt="">
             </div>
-
         </div>
+
+        <!-- PRICE & LOCATION -->
         <div class="price_row">
             <p class="price">{{advert.price | currency : 'ZAR': 'symbol-narrow': '4.0-0'}}</p>
             <p class="location"> <svg xmlns="http://www.w3.org/2000/svg" class="location_icon" fill="none"
@@ -25,13 +28,80 @@
                 {{advert.city}}, {{advert.province}}</p>
         </div>
 
+        <!-- DESCRIPTION -->
         <div class="description">
             <p>
                 {{advert.description}}
             </p>
         </div>
+
     </div>
-    <div class="col-seller">
-        <h3>CONTACT SELLER COMPONENT COMING SOON</h3>
+
+    <!-- CONTACT SELLER -->
+    <div class="col-seller shadow" *ngIf="seller">
+        <!-- SELLER INFO -->
+        <div class="seller-info">
+            <img src="../../../assets/images/profile-image.jpg" class="profile_image" alt="" srcset="">
+            <p class="name">{{seller.forenames}} {{seller.surname}}</p>
+            <p class="email">{{seller.email}}</p>
+            <p class="phone"> {{seller.phoneNumber}}</p>
+            <svg xmlns="http://www.w3.org/2000/svg" class="favourite_icon" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" (click)="addFavourite()" *ngIf='!favourite'>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" class="favourite" viewBox="0 0 20 20" fill="#62ca6b"
+                *ngIf='favourite'>
+                <path fill-rule="evenodd"
+                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                    clip-rule="evenodd" />
+            </svg>
+        </div>
+
+        <!-- CONTACT SELLER FORM -->
+        <form action="" method="" name="contactSeller" novalidate (ngSubmit)="sendMessage()"
+            [formGroup]="contactSellerForm" class="contact-seller-form">
+
+            <!-- NAME -->
+            <div class="form-group">
+                <input type="text" name="name" class="form-control my-input" id="names" placeholder="Name"
+                    formControlName="name" [ngClass]="{'is-invalid': (contactSellerForm.get('name')?.touched ||
+                            contactSellerForm.get('name')?.dirty) &&
+                            !contactSellerForm.get('name')?.valid }" />
+            </div>
+
+            <!-- EMAIL -->
+            <div class="form-group">
+                <input type="email" name="email" class="form-control my-input" id="email" placeholder="email"
+                    formControlName="email" [ngClass]="{'is-invalid': (contactSellerForm.get('email')?.touched ||
+                            contactSellerForm.get('email')?.dirty) &&
+                            !contactSellerForm.get('email')?.valid }" />
+            </div>
+
+            <!-- PHONENUMBER -->
+            <div class="form-group">
+                <input type="text" name="phoneNumber" class="form-control my-input" id="phoneNumber"
+                    placeholder="phoneNumber" formControlName="phoneNumber" [ngClass]="{'is-invalid': (contactSellerForm.get('phoneNumber')?.touched ||
+                            contactSellerForm.get('phoneNumber')?.dirty) &&
+                            !contactSellerForm.get('phoneNumber')?.valid }" />
+            </div>
+
+            <!-- BUTTON -->
+            <div class="form-group mb-3 ">
+                <textarea class="form-control form-field my-input" id="message" rows="3" placeholder="Message"
+                    formControlName="message" [ngClass]="{'is-invalid': (contactSellerForm.get('message')?.touched ||
+                    contactSellerForm.get('message')?.dirty) &&
+                    !contactSellerForm.get('message')?.valid }"></textarea>
+            </div>
+
+            <!-- BUTTON -->
+            <button type="submit" class="btn send-button">Contact</button>
+            <div class="alert alert-danger" style="margin-top: 1rem;" role="alert" *ngIf="success === false">
+                Please enter all the required fields
+            </div>
+            <div class="alert alert-success" style="margin-top: 1rem;" role="alert" *ngIf="success">
+                Message Sent
+            </div>
+        </form>
     </div>
 </div>

@@ -31,14 +31,7 @@ export interface IAdvert {
     description: string,
     price: number,
     status: Status,
-    images: string[]
-    // id: number,
-    // userID: number,
-    // headline: string,
-    // province: number,
-    // city: number,
-    // description: string,
-    // price: number,
-    // status: Status,
-    // images: string[]
+    images: string[],
+    favUserID?:number,
+    featured?:boolean
 }
