@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MyAccountComponent } from './components/my-account/my-account.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { SellerProfileComponent } from './components/seller-profile/seller-profile.component';
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 const routes: Routes = [
   { path: 'for-sale', component: AdvertListComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'add-advert', component: AddAdvertComponent },
   { path: 'add-advert/:id/edit', component: AddAdvertComponent },
   { path: 'my-adverts', component: AdvertsComponent },
+  {path: 'user-management', component: UserManagementComponent},
   { path: 'homepage', component: HomepageComponent },
   { path: 'my-account', component: MyAccountComponent },
   { path: 'my-seller-profile', component: SellerProfileComponent },

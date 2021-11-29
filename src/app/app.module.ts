@@ -33,6 +33,7 @@ import { CarouselModule, OwlRouterLinkDirective } from 'ngx-owl-carousel-o';
 import { NoopAnimationPlayer } from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { UserManagementComponent } from './components/user-management/user-management.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     SellerProfileComponent,
     SearchComponent,
     FeaturedAdvertsComponent,
+    UserManagementComponent,
     // OwlRouterLinkDirective,
   ],
   imports: [

@@ -15,9 +15,7 @@ export class UserData implements InMemoryDbService {
             email: 'admin@gmail.com',
             password: 'Namukolo123',
             accessLevel: AccessLevel.admin,
-            adverts: [
-
-            ]
+            adverts: []
         },
         {
             id: 2,
@@ -26,6 +24,7 @@ export class UserData implements InMemoryDbService {
             email: 'james@gmail.com',
             password: 'James123',
             accessLevel: AccessLevel.user,
+            locked: true,
         },
         {
             id: 3,
@@ -34,6 +33,7 @@ export class UserData implements InMemoryDbService {
             email: 'email@gmail.com',
             password: 'Bongani123',
             accessLevel: AccessLevel.user,
+            locked: false,
         },
         {
             id: 4,
@@ -42,7 +42,9 @@ export class UserData implements InMemoryDbService {
             email: 'idontknow@gmail.com',
             password: 'Jane1234',
             accessLevel: AccessLevel.user,
-            adverts: []
+            adverts: [],
+            locked: true,
+
         },
         {
             id: 5,

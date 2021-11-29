@@ -1,0 +1,68 @@
+<sc-navigation></sc-navigation>
+<div class='filter-row'>
+
+    <div class="label-input-group company">
+        <p class='label'>Search User</p>
+        <div>
+            <input type='text' class="form-control my-input" [(ngModel)]='userSearch' />
+        </div>
+    </div>
+</div>
+
+
+<div class="container">
+    <table class="table table-hover accordion-table">
+        <caption>List of all current Users</caption>
+        <thead>
+            <tr>
+                <th scope="col">Forenames</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Email</th>
+                <th scope="col">Locked</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+
+        <tbody *ngFor="let user of filteredUsers">
+            <tr class="main-level">
+                <td>{{user.forenames}}</td>
+                <td>{{user.surname }}</td>
+                <td>{{user.email}}</td>
+                <td *ngIf="user.locked"><svg xmlns="http://www.w3.org/2000/svg" class="locked_icon" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                </td>
+                <td *ngIf="!user.locked"></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            Actions
+                        </button>
+                
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" *ngIf="user.locked" (click)="unlockAccount(user)">Unlock Account</a>
+                            <a class="dropdown-item"  (click)="fetchEmail(user)">Change Email</a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+
+    <form action="" method="" name="login" [formGroup]="emailChangeForm" novalidate *ngIf="emailChangeForm" (ngSubmit)=updateEmail()>
+        <!-- EMAIL -->
+        <div class="form-group mb-4">
+            <input type="email" name="email" class="form-control my-input" id="email" placeholder="email"
+                formControlName="email" [ngClass]="{'is-invalid': 
+            (emailChangeForm.get('email')?.touched ||
+            emailChangeForm.get('email')?.dirty) &&
+            !emailChangeForm.get('email')?.valid}" />
+        </div>
+        <button type="submit" class=" btn btn-block send-button tx-tfm">Login</button>
+
+    </form>
+</div>
