@@ -41,7 +41,7 @@ export class AdvertDetailComponent implements OnInit {
     })
   }
 
-  sendMessage() {
+  sendMessage(): void {
     if (this.contactSellerForm.valid) {
       if (this.contactSellerForm.dirty) {
         this.contactSellerForm.reset()
@@ -64,15 +64,28 @@ export class AdvertDetailComponent implements OnInit {
       });
   }
 
-  getSellerInfo(sellerID: number) {
+  getSellerInfo(sellerID: number): void {
     this.userService.getUser(sellerID).subscribe({
       next: (user: IUser) => { this.seller = user; console.log(this.seller) }
     })
   }
 
-  addFavourite() {
+  addFavourite(): void {
     if (!this.loggedUser) {
-      this.router.navigate(['/login']);
+      const currentFavAds = JSON.parse(localStorage.getItem("favourites") || '[]');
+      // currentFavAds.push(currentFavAds)
+      currentFavAds.push(this.advert)
+      localStorage.setItem("favourites", JSON.stringify(currentFavAds));
+      console.log('local storage', JSON.parse(localStorage.getItem("favourites")))
+
+      return
+      // if (currentFavAds.includes(this.advert)) {
+      //   return
+      // } else {
+      //   currentFavAds.push(this.advert);
+      //   localStorage.setItem("favourites", JSON.stringify(currentFavAds));
+      //   return
+      // }
     }
 
     let favouriteAdvert = { ...this.advert };

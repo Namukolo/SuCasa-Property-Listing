@@ -52,21 +52,21 @@ export class UserManagementComponent implements OnInit {
 
 
   }
-  fetchEmail(user: IUser) {
+  fetchEmail(user: IUser): void {
     this.userService.getUser(user.id).subscribe({
       next: (user: IUser) => { this.user = user,  this.displayForm()},
       error: (err: string) => console.log('something went wrong', err)
     })
   }
 
-  displayForm() {
+  displayForm(): void {
 
     this.emailChangeForm = this.fb.group({
       email: [this.user.email, Validators.email]
     })
   }
 
-  updateEmail(){
+  updateEmail(): void {
       if (this.emailChangeForm.valid) {
         if (this.emailChangeForm.dirty) {
           let newUserObject = { ...this.user, ...this.emailChangeForm.value }
@@ -83,7 +83,7 @@ export class UserManagementComponent implements OnInit {
     }
   }
 
-  unlockAccount(user:IUser){
+  unlockAccount(user:IUser): void {
     user.locked = false;
       this.userService.updateUser(user)
         .subscribe({
@@ -92,7 +92,7 @@ export class UserManagementComponent implements OnInit {
     }
   
 
-  onSaveComplete(){
+  onSaveComplete(): void{
     this.emailChangeForm.reset()
     this.ngOnInit()
   }

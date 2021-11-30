@@ -66,7 +66,7 @@ export class RegistrationComponent implements OnInit {
 
   }
 
-  registerUser() {
+  registerUser(): void {
     if (!this.userForm.valid) {
       this.failed = true;
       return;

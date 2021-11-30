@@ -1,0 +1,40 @@
+<sc-navigation></sc-navigation>
+
+<div class="container" *ngIf="favourites">
+    <div class="container no-adverts" *ngIf="favourites.length === 0">
+        <h1>
+            You have no favourites
+        </h1>
+    </div>
+
+    <div class="container no-adverts" *ngIf="favourites.length > 0">
+        <div class="card shadow-sm" *ngFor="let advert of favourites">
+            <!-- CARD IMAGE, LOCATION & PRICE -->
+            <img src="{{advert.images[0]}}" alt="" srcset="">
+            <h1 class="headline">{{advert.headline}}</h1>
+            <p class="location"><svg xmlns="http://www.w3.org/2000/svg" class="icon location_icon" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>{{advert.city}}, {{advert.province}}</p>
+            <p class="price">{{advert.price | currency : 'ZAR': 'symbol-narrow': '4.0-0'}}</p>
+
+            <!--ACTION ICONS -->
+            <div class="actions">
+                <!-- ADVERT DETAILS LINK -->
+                <a [routerLink]="['/for-sale', advert.id]">Read more</a>
+
+                <!-- UNFAVOURITE ICON -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="favourite" viewBox="0 0 20 20" fill="#62ca6b">
+                    <path fill-rule="evenodd"
+                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        clip-rule="evenodd" (click)="unfavourite(advert)"/>
+                </svg>
+            </div>
+            <a (click) = "delete()">Clear</a>
+
+        </div>
+    </div>
+</div>

@@ -34,6 +34,8 @@ import { NoopAnimationPlayer } from '@angular/animations';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { UserManagementComponent } from './components/user-management/user-management.component';
+import { FavouriteAdvertsComponent } from './components/favourite-adverts/favourite-adverts.component';
+import { AdvertManagementComponent } from './components/advert-management/advert-management.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { UserManagementComponent } from './components/user-management/user-manag
     SearchComponent,
     FeaturedAdvertsComponent,
     UserManagementComponent,
+    FavouriteAdvertsComponent,
+    AdvertManagementComponent,
     // OwlRouterLinkDirective,
   ],
   imports: [

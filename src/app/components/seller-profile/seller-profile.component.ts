@@ -35,7 +35,7 @@ export class SellerProfileComponent implements OnInit {
     this.getUser(this.currentUser.id)
   }
 
-  getUser(userID: number) {
+  getUser(userID: number): void {
     this.userService.getUser(userID).subscribe({
       next: loggedUser => {
         this.displayUser(loggedUser)
@@ -44,7 +44,7 @@ export class SellerProfileComponent implements OnInit {
     })
   }
 
-  displayUser(user: IUser) {
+  displayUser(user: IUser): void {
     this.user = user;
     this.sellerProfileForm.patchValue(
       {
@@ -54,7 +54,7 @@ export class SellerProfileComponent implements OnInit {
     )
   }
 
-  submitForm() {
+  submitForm(): void {
     if (this.sellerProfileForm.valid) {
       if (this.sellerProfileForm.dirty) {
         this.success = true;
@@ -74,7 +74,7 @@ export class SellerProfileComponent implements OnInit {
     }
   }
 
-  onSaveComplete() {
+  onSaveComplete(): void {
     this.sellerProfileForm.reset();
     this.router.navigate(['/my-adverts'])
   }

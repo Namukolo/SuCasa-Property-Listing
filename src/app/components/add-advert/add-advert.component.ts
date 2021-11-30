@@ -65,7 +65,7 @@ export class AddAdvertComponent implements OnInit {
     this.currentUser = this.authenticationService.getLoggedInUser()
   }
 
-  saveAdvert() {
+  saveAdvert(): void {
     if (this.advertForm.valid) {
       if (this.advertForm.dirty) {
         let p = { ...this.advert, ...this.advertForm.value };
@@ -124,7 +124,7 @@ export class AddAdvertComponent implements OnInit {
     });
   }
 
-  onSaveComplete() {
+  onSaveComplete(): void {
     this.advertForm.reset();
     this.router.navigate(['/my-adverts'])
   }

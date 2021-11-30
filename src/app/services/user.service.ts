@@ -29,11 +29,22 @@ export class UserService {
     );
   }
 
-  createUser(user: IUser) {
+  // createUser(user: IUser) {
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+  //   user.id = null;
+  //   return this.http.post<IUser>(`${this.userUrl}`, user, { headers })
+  //       catchError(this.handleError)
+  // }
+
+
+  createUser(user: IUser): Observable<IUser> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     user.id = null;
     return this.http.post<IUser>(`${this.userUrl}`, user, { headers })
+      .pipe(
+        map(() => user),
         catchError(this.handleError)
+      );
   }
 
   getUser(id: number): Observable<IUser> {
@@ -55,7 +66,7 @@ export class UserService {
       );
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<IUser> {
     return this.http.post<any>(`api/users/authenticate`, { email: email, password: password })
       .pipe(map(user => {
         // login is successful if there's a 'jwt' token in the response
@@ -159,6 +170,15 @@ export class UserService {
       tap(data => JSON.stringify(data)),
       catchError(this.handleError)
     );
+  }
+
+  deleteFavourite(advertID: number): Observable<{}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.favouritesUrl}/${advertID}`;
+    return this.http.delete<IAdvert>(url, { headers }).pipe(
+      tap(() => console.log(`Deleting Favourite IDa: ${advertID}`)),
+      catchError(this.handleError)
+    )
   }
 
   private handleError(err: HttpErrorResponse) {

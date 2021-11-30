@@ -27,11 +27,11 @@ export class AdvertListComponent implements OnInit {
 
   }
 
-  setSearchedAdverts(adverts: IAdvert[]) {
+  setSearchedAdverts(adverts: IAdvert[]): void {
     this.stateService.searchedAdverts = [...adverts];
   }
 
-  onSearchClicked() {
+  onSearchClicked(): void {
     console.log('search was clicked')
     this.ngOnInit();
   }

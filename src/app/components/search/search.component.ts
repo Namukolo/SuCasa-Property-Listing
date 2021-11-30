@@ -100,7 +100,7 @@ export class SearchComponent implements OnInit {
     this.stateService.searchedAdverts = [...adverts];
   }
 
-  search() {
+  search(): void {
     if (this.searchForm.valid) {
       if (this.searchForm.dirty) {
 
@@ -144,7 +144,7 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  onSaveComplete() {
+  onSaveComplete(): void {
     this.router.navigate(['/for-sale']);
   }
 }

@@ -4,14 +4,26 @@
 th, caption {
     color: #62ca6b;
 }
-
+th{
+	font-size: 2rem;
+	font-weight: 600;
+}
+.dropdown-actions{
+	background-color: #62ca6b;
+	color: #fff;
+	border: none;
+}
+td{
+	padding: 1rem 0;
+	text-align: left ;
+}
+.locked{
+	padding-left: 2.5rem;
+}
 .locked_icon{
 	width: 2rem;
 	height: 2rem;
 	text-align: center;
-}
-.hidden{
-    display: none;
 }
 
 tr{
@@ -20,6 +32,8 @@ tr{
 
 *{
 	color: #4C537D;
+    color: rgb(59, 58, 58);
+
 	font-family: 'Poppins', sans-serif;
     font-size: 1.4rem;
 }
@@ -30,15 +44,7 @@ tr{
 	color:#fff;
 	padding: 8px 25px;
 }
-.g-button{
-	color: #fff !important;
-	border: 1px solid #EA4335;
-	background: #ea4335 !important;
-	width:100%;
-	font-weight: 600;
-	color:#fff;
-	padding: 8px 25px;
-}
+
 .btn-add{
     margin-bottom: 4rem;
     max-width: 20rem;
@@ -49,19 +55,21 @@ tr{
 
 .filter-row{
 	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	font-family: 'Poppins', sans-serif;
+	// align-items: center;
+	// justify-content: space-between;
+	// font-family: 'Poppins', sans-serif;
+	align-self: flex-start ;
+	// border: 1px solid red;
 }
-.filter-row{
-	margin: 2rem 1rem;
-}
-.my-input{
-	cursor: text;
-	padding: 5px 10px;
-	transition: border .1s linear;
-	max-width: 20rem;
-}
+// .filter-row{
+// 	margin: 2rem 1rem;
+// }
+// .my-input{
+// 	cursor: text;
+// 	padding: 5px 10px;
+// 	transition: border .1s linear;
+// 	max-width: 20rem;
+// }
 
 .label-input-group{
 	display: flex;
@@ -69,16 +77,47 @@ tr{
 	flex-direction: row;
 	align-items: center;
 	flex: 1;
-	justify-content: center;
+	margin-bottom: 4rem;
+	// justify-content: center;
 
 }
 
-.company{
-	margin-right: 2rem;
+// .company{
+// 	margin-right: 2rem;
 
-}
+// }
 
 .label-input-group .label{
-	margin-right: .5rem;
-	align-self: center;
+	margin: .1rem .5rem 0 0;
+	font-weight: 600;
+	// align-self: center;
+}
+
+h2{
+	margin-bottom: 3rem;
+	font-size: 3rem;
+	font-weight: 600;
+}
+
+form{
+	// border: 1px solid red;
+	width: 30%;
+	
+	input{
+		width: 100%;
+		padding: 2rem 10px;
+		height: 3rem;
+		font-size: 1.6rem;
+	}
+	.g-button{
+		color: #fff;
+		// border: 1px solid #EA4335;
+		// background: #ea4335 !important;
+	background-color: #62ca6b;
+
+		width:100%;
+		font-weight: 600;
+		color:#fff;
+		padding: 8px 25px;
+	}
 }
