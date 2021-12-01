@@ -34,7 +34,6 @@ export class AdvertDetailComponent implements OnInit {
       }
     );
 
-
     this.contactSellerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
@@ -43,7 +42,7 @@ export class AdvertDetailComponent implements OnInit {
     })
 
     this.userService.getFavourites().subscribe({
-      next: (favourites) => { this.favourites = favourites; console.log('favorites fomr ngONIT', this.favourites) }
+      next: (favourites) => this.favourites = favourites
     })
   }
 
@@ -72,7 +71,7 @@ export class AdvertDetailComponent implements OnInit {
 
   getSellerInfo(sellerID: number): void {
     this.userService.getUser(sellerID).subscribe({
-      next: (user: IUser) => { this.seller = user; console.log(this.seller) }
+      next: (user: IUser) => this.seller = user
     })
   }
 
@@ -89,7 +88,8 @@ export class AdvertDetailComponent implements OnInit {
       localStorage.setItem("favourites", JSON.stringify(currentFavAds));
       this.favourite = true;
       return
-    } 
+    }
+
     else if (this.loggedUser) {
       if ((this.favourites.filter((advert: IAdvert) => advert.id === this.advert.id)).length > 0) {
         this.favourite = true
@@ -102,8 +102,6 @@ export class AdvertDetailComponent implements OnInit {
         next: () => this.favourite = true,
         error: (err: string) => console.log('something went wrong', err)
       })
-
     }
   }
-
 }

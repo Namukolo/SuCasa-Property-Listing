@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { delay } from 'rxjs/operators';
-import { AccessLevel, IUser, Status } from 'src/app/models/user';
+import { AccessLevel, IUser} from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -16,8 +16,8 @@ export class UserManagementComponent implements OnInit {
   filteredUsers: IUser[]
   private _userSearch: string = '';
   emailChangeForm: FormGroup
-  user:IUser
-  success:boolean
+  user: IUser
+  success: boolean
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private userService: UserService, private fb: FormBuilder) { }
 
@@ -45,56 +45,51 @@ export class UserManagementComponent implements OnInit {
       next: (users: IUser[]) => {
         this.allUsers = users;
         this.filteredUsers = this.allUsers;
-        console.log(this.filteredUsers)
       },
       error: (err: string) => console.log('something went wrong', err)
     })
-
-
   }
+
   fetchEmail(user: IUser): void {
     this.userService.getUser(user.id).subscribe({
-      next: (user: IUser) => { this.user = user,  this.displayForm()},
+      next: (user: IUser) => { this.user = user, this.displayForm() },
       error: (err: string) => console.log('something went wrong', err)
     })
   }
 
   displayForm(): void {
-
     this.emailChangeForm = this.fb.group({
       email: [this.user.email, Validators.email]
     })
   }
 
   updateEmail(): void {
-      if (this.emailChangeForm.valid) {
-        if (this.emailChangeForm.dirty) {
-          let newUserObject = { ...this.user, ...this.emailChangeForm.value }
-  
-          this.userService.updateUser(newUserObject)
-            .pipe(delay(2000))
-            .subscribe({
-              next: (user) => { console.log('updated user', user), this.onSaveComplete() },
-              error: (err: any) => console.log(err)
-            })
-        }
-      } else {
-        this.success = false;
+    if (this.emailChangeForm.valid) {
+      if (this.emailChangeForm.dirty) {
+        let newUserObject = { ...this.user, ...this.emailChangeForm.value }
+
+        this.userService.updateUser(newUserObject)
+          .pipe(delay(1000))
+          .subscribe({
+            next: () => this.onSaveComplete(),
+            error: (err: any) => console.log(err)
+          })
+      }
+    } else {
+      this.success = false;
     }
   }
 
-  unlockAccount(user:IUser): void {
+  unlockAccount(user: IUser): void {
     user.locked = false;
-      this.userService.updateUser(user)
-        .subscribe({
-          error: (err: any) => console.log(err)
-        })
-    }
-  
+    this.userService.updateUser(user)
+      .subscribe({
+        error: (err: any) => console.log(err)
+      })
+  }
 
-  onSaveComplete(): void{
+  onSaveComplete(): void {
     this.emailChangeForm.reset()
     this.ngOnInit()
   }
-
 }

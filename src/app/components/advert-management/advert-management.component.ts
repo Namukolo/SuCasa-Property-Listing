@@ -31,13 +31,11 @@ export class AdvertManagementComponent implements OnInit {
       next: (users: IUser[]) => {
         this.allUsers = users;
         this.filteredUsers = this.allUsers;
-        console.log(this.filteredUsers)
       },
       error: (err: string) => console.log('something went wrong', err)
     })
 
   }
-
 
   get userSearch(): string {
     return this._userSearch;
@@ -55,13 +53,14 @@ export class AdvertManagementComponent implements OnInit {
 
   getAdverts(user: IUser) {
     this.userService.getAdverts().subscribe({
-      next: (adverts: IAdvert[]) => { this.filteredAdverts = adverts.filter((advert: IAdvert) => advert.userID === user.id); console.log(this.filteredAdverts) },
+      next: (adverts: IAdvert[]) => this.filteredAdverts = adverts.filter((advert: IAdvert) => advert.userID === user.id),
       error: (err: string) => console.log('something went wrong', err)
     })
   }
 
   statusChange(advert: IAdvert, status: String): void {
     const clickedAdvert = this.filteredAdverts.filter(userAdvert => advert.id === userAdvert.id)[0];
+
     if (status === 'LIVE') {
       clickedAdvert.status = Status.live
     }
@@ -73,12 +72,9 @@ export class AdvertManagementComponent implements OnInit {
       clickedAdvert.status = Status.deleted
     }
 
-    //IN MEMORY API DOESNT HAVE AN IMPLEMENTATION FOR PATCH SO IM USING PUT
     this.userService.updateAdvert(clickedAdvert)
       .subscribe({
         error: (err: any) => console.log(err)
       })
   }
-
-
 }

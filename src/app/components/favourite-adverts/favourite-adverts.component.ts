@@ -17,7 +17,6 @@ export class FavouriteAdvertsComponent implements OnInit {
     if (!this.authenticationService.getLoggedInUser()) {
       this.favourites = JSON.parse(localStorage.getItem("favourites") || '[]');
       this.favourites = this.favourites.reverse()
-      console.log('localStorage Ads', this.favourites)
       return
     }
 
@@ -30,7 +29,6 @@ export class FavouriteAdvertsComponent implements OnInit {
   }
 
   unfavourite(advert: IAdvert): void {
-
     if (!this.authenticationService.getLoggedInUser()) {
       const currentFavAds = JSON.parse(localStorage.getItem("favourites") || '[]');
       currentFavAds.splice(currentFavAds.findIndex((favourite: IAdvert) => favourite.id === advert.id), 1)
@@ -38,10 +36,10 @@ export class FavouriteAdvertsComponent implements OnInit {
       this.ngOnInit()
       return
     }
+
     this.userService.deleteFavourite(advert.id).subscribe({
       next: () => this.ngOnInit(),
       error: (err: string) => console.log('something went wrong', err)
     })
   }
-
 }

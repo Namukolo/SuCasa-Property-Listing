@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { catchError, map, tap } from "rxjs/operators";
-import { Observable, ObservedValueOf, of, throwError } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 
 
 import { IAdvert, IUser } from "../models/user";
@@ -28,14 +28,6 @@ export class UserService {
       catchError(this.handleError)
     );
   }
-
-  // createUser(user: IUser) {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
-  //   user.id = null;
-  //   return this.http.post<IUser>(`${this.userUrl}`, user, { headers })
-  //       catchError(this.handleError)
-  // }
-
 
   createUser(user: IUser): Observable<IUser> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -137,6 +129,8 @@ export class UserService {
     };
   }
 
+
+
   //TODO:: PUT IN ITS OWN SERVICE :SEPERATION OF CONCERN
   getProvinces(): Observable<any[]> {
     return this.http.get<any[]>(this.countryUrl).pipe(
@@ -154,6 +148,8 @@ export class UserService {
       );
   }
 
+
+
   //TODO:: PUT IN ITS OWN SERVICE :SEPERATION OF CONCERN
   createFavourite(advert: IAdvert): Observable<IAdvert> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -164,17 +160,6 @@ export class UserService {
         catchError(this.handleError)
       );
   }
-
-  // createAdvert(advert: IAdvert): Observable<IAdvert> {
-  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
-  //   advert.id = null;
-  //   return this.http.post<IAdvert>(`api/adverts`, advert, { headers })
-  //     .pipe(
-  //       tap(data => console.log('creating advert: ' + (data))),
-  //       catchError(this.handleError)
-  //     );
-  // }
-
 
   getFavourites(): Observable<IAdvert[]> {
     return this.http.get<IAdvert[]>(this.favouritesUrl).pipe(
@@ -187,7 +172,7 @@ export class UserService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     const url = `${this.favouritesUrl}/${advertID}`;
     return this.http.delete<IAdvert>(url, { headers }).pipe(
-      tap(() => console.log(`Deleting Favourite IDa: ${advertID}`)),
+      tap(data => JSON.stringify(data)),
       catchError(this.handleError)
     )
   }
