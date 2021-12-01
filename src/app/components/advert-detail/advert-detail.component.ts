@@ -20,6 +20,7 @@ export class AdvertDetailComponent implements OnInit {
   success: boolean;
   favourite: boolean
   loggedUser: IUser
+  favourites: IAdvert[]
 
   constructor(private route: ActivatedRoute, private userService: UserService, private fb: FormBuilder, private authenticationService: AuthenticationService, private router: Router) { }
 
@@ -33,11 +34,16 @@ export class AdvertDetailComponent implements OnInit {
       }
     );
 
+
     this.contactSellerForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(100)]],
       email: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(100)]],
       phoneNumber: ['', [Validators.minLength(0), Validators.maxLength(100)]],
       message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(2000)]],
+    })
+
+    this.userService.getFavourites().subscribe({
+      next: (favourites) => { this.favourites = favourites; console.log('favorites fomr ngONIT', this.favourites) }
     })
   }
 
@@ -73,31 +79,31 @@ export class AdvertDetailComponent implements OnInit {
   addFavourite(): void {
     if (!this.loggedUser) {
       const currentFavAds = JSON.parse(localStorage.getItem("favourites") || '[]');
-      // currentFavAds.push(currentFavAds)
+
+      if ((currentFavAds.filter((advert: IAdvert) => advert.id === this.advert.id)).length > 0) {
+        this.favourite = true;
+        return
+      }
+
       currentFavAds.push(this.advert)
       localStorage.setItem("favourites", JSON.stringify(currentFavAds));
-      console.log('local storage', JSON.parse(localStorage.getItem("favourites")))
-
+      this.favourite = true;
       return
-      // if (currentFavAds.includes(this.advert)) {
-      //   return
-      // } else {
-      //   currentFavAds.push(this.advert);
-      //   localStorage.setItem("favourites", JSON.stringify(currentFavAds));
-      //   return
-      // }
+    } 
+    else if (this.loggedUser) {
+      if ((this.favourites.filter((advert: IAdvert) => advert.id === this.advert.id)).length > 0) {
+        this.favourite = true
+        return
+      }
+
+      let favouriteAdvert = { ...this.advert };
+      favouriteAdvert.favUserID = this.loggedUser.id
+      this.userService.createFavourite(favouriteAdvert).subscribe({
+        next: () => this.favourite = true,
+        error: (err: string) => console.log('something went wrong', err)
+      })
+
     }
-
-    let favouriteAdvert = { ...this.advert };
-    favouriteAdvert.favUserID = this.loggedUser.id
-    this.userService.createFavourite(favouriteAdvert).subscribe({
-      next: () => this.favourite = true,
-      error: (err: string) => console.log('something went wrong', err)
-    })
-
-    this.userService.getFavourites().subscribe({
-      next: (favourites) => console.log('FAVOURITES', favourites)
-    })
   }
 
 }

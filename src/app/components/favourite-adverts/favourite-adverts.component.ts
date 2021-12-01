@@ -16,30 +16,28 @@ export class FavouriteAdvertsComponent implements OnInit {
   ngOnInit(): void {
     if (!this.authenticationService.getLoggedInUser()) {
       this.favourites = JSON.parse(localStorage.getItem("favourites") || '[]');
+      this.favourites = this.favourites.reverse()
       console.log('localStorage Ads', this.favourites)
       return
-      // let currentAds: IAdvert[] = []
-      // const currentFavAds = JSON.parse(localStorage.getItem("favourites") || '[]');
-      // currentAds.push(currentFavAds)
-      // this.favourites = currentAds;
-      // console.log('unauth favs', this.favourites)
     }
 
     const currentUser = this.authenticationService.getLoggedInUser();
 
     this.userService.getFavourites().subscribe({
-      next: (favourites: IAdvert[]) => { this.favourites = favourites.filter((favourite: IAdvert) => favourite.favUserID === currentUser.id), console.log('users  favourites', this.favourites) },
+      next: (favourites: IAdvert[]) => this.favourites = favourites.filter((favourite: IAdvert) => favourite.favUserID === currentUser.id).reverse(),
       error: (err: string) => console.log('something went wrong', err)
     })
   }
 
-  delete(): void {
-    localStorage.clear()
-  }
-
-
-
   unfavourite(advert: IAdvert): void {
+
+    if (!this.authenticationService.getLoggedInUser()) {
+      const currentFavAds = JSON.parse(localStorage.getItem("favourites") || '[]');
+      currentFavAds.splice(currentFavAds.findIndex((favourite: IAdvert) => favourite.id === advert.id), 1)
+      localStorage.setItem("favourites", JSON.stringify(currentFavAds));
+      this.ngOnInit()
+      return
+    }
     this.userService.deleteFavourite(advert.id).subscribe({
       next: () => this.ngOnInit(),
       error: (err: string) => console.log('something went wrong', err)

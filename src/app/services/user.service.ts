@@ -165,6 +165,17 @@ export class UserService {
       );
   }
 
+  // createAdvert(advert: IAdvert): Observable<IAdvert> {
+  //   const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
+  //   advert.id = null;
+  //   return this.http.post<IAdvert>(`api/adverts`, advert, { headers })
+  //     .pipe(
+  //       tap(data => console.log('creating advert: ' + (data))),
+  //       catchError(this.handleError)
+  //     );
+  // }
+
+
   getFavourites(): Observable<IAdvert[]> {
     return this.http.get<IAdvert[]>(this.favouritesUrl).pipe(
       tap(data => JSON.stringify(data)),
