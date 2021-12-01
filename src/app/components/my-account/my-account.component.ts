@@ -79,7 +79,7 @@ export class MyAccountComponent implements OnInit {
 
   }
 
-  getUser(userID: number) {
+  getUser(userID: number): void {
     this.userService.getUser(userID).subscribe({
       next: (loggedUser: IUser) => {
         // this.user = loggedUser
@@ -89,7 +89,7 @@ export class MyAccountComponent implements OnInit {
     })
   }
 
-  displayUser(user: IUser) {
+  displayUser(user: IUser): void {
     this.user = user;
     this.myAccountForm.patchValue(
       {
@@ -100,7 +100,7 @@ export class MyAccountComponent implements OnInit {
     )
   }
 
-  submitForm() {
+  submitForm(): void {
     if (this.myAccountForm.valid) {
       if (this.myAccountForm.dirty) {
 
@@ -133,7 +133,7 @@ export class MyAccountComponent implements OnInit {
     }
   }
 
-  onSaveComplete() {
+  onSaveComplete(): void {
     this.myAccountForm.reset();
     this.router.navigate(['/my-adverts'])
   }

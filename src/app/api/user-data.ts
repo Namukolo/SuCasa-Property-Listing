@@ -15,9 +15,7 @@ export class UserData implements InMemoryDbService {
             email: 'admin@gmail.com',
             password: 'Namukolo123',
             accessLevel: AccessLevel.admin,
-            adverts: [
-
-            ]
+            adverts: []
         },
         {
             id: 2,
@@ -26,6 +24,7 @@ export class UserData implements InMemoryDbService {
             email: 'james@gmail.com',
             password: 'James123',
             accessLevel: AccessLevel.user,
+            locked: true,
         },
         {
             id: 3,
@@ -34,6 +33,7 @@ export class UserData implements InMemoryDbService {
             email: 'email@gmail.com',
             password: 'Bongani123',
             accessLevel: AccessLevel.user,
+            locked: false,
         },
         {
             id: 4,
@@ -42,7 +42,9 @@ export class UserData implements InMemoryDbService {
             email: 'idontknow@gmail.com',
             password: 'Jane1234',
             accessLevel: AccessLevel.user,
-            adverts: []
+            adverts: [],
+            locked: true,
+
         },
         {
             id: 5,
@@ -276,6 +278,19 @@ export class UserData implements InMemoryDbService {
             description: "Cosmopolitan Projects NEWLY LAUNCHED DEVELOPMENT IN MONTANA.This Luxury Complex situated inside the well-known Zambezi Manor Lifestyle Estate in Montana, offers exclusive 3-bedroom, 2-bathroom townhouses including a garage and/or carport. This all-in-one Lifestyle Estate offers you the perfect family home from only R1.9M, estimate monthly repayment starting from R16 000. Qualifying income to qualify are R52 000 single or joint.Perfectly located, this estate gives you easy access to all major routes like the N1, N4 and N14 Highways.",
             price: 2700000,
             status: Status.live,
+            favUserID: 3,
+            images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
+        },
+        {
+            id: 3,
+            userID: 2,
+            headline: "3 Bedroom Townhouse for Sale in Montana Park",
+            province: "Gauteng",
+            city: "Pretoria",
+            description: "Cosmopolitan Projects NEWLY LAUNCHED DEVELOPMENT IN MONTANA.This Luxury Complex situated inside the well-known Zambezi Manor Lifestyle Estate in Montana, offers exclusive 3-bedroom, 2-bathroom townhouses including a garage and/or carport. This all-in-one Lifestyle Estate offers you the perfect family home from only R1.9M, estimate monthly repayment starting from R16 000. Qualifying income to qualify are R52 000 single or joint.Perfectly located, this estate gives you easy access to all major routes like the N1, N4 and N14 Highways.",
+            price: 2700000,
+            status: Status.live,
+            favUserID: 4,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
         },
         {
@@ -286,7 +301,8 @@ export class UserData implements InMemoryDbService {
             city: "Johannesburg",
             description: 'Far Superior to anything else you have seen. Step into spectacular. Well-appointed on the 6th floor this designer apartment offers a host of unique features. Custom designed and decorated to compliment todays lifestyle. A fitted workstation makes working from home an absolute please. Grand scale, open plan living off the trend setting, chic kitchen. Gorgeous bedroom suite with an en suite bathroom which features a walk-in rain shower. The complex offers 24-hour concierge, excellent security, and full generator backup. The list of benefits is endless... come and see for yourself.',
             price: 3000000,
-            status: Status.hidden,
+            favUserID: 3,
+            status: Status.live,
             images: ['https://www.homestratosphere.com/wp-content/uploads/2020/07/folding-house-by-ar-design-studio-Sept222020-min.jpg']
         }
     ]

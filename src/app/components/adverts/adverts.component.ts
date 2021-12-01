@@ -53,7 +53,7 @@ export class AdvertsComponent implements OnInit {
     })
   }
 
-  onStatusClick(advert: IAdvert) {
+  onStatusClick(advert: IAdvert): void {
     const clickedAdvert = this.allAdverts.filter(userAdvert => advert.id === userAdvert.id)[0];
     if (clickedAdvert.status == Status.hidden) {
       clickedAdvert.status = Status.live
@@ -69,7 +69,7 @@ export class AdvertsComponent implements OnInit {
       })
   }
 
-  onDeleteClick(advert: IAdvert) {
+  onDeleteClick(advert: IAdvert): void {
     const clickedAdvert = this.allAdverts.filter(userAdvert => advert.id === userAdvert.id)[0];
 
     clickedAdvert.status = Status.deleted

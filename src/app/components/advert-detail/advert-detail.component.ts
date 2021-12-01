@@ -20,6 +20,7 @@ export class AdvertDetailComponent implements OnInit {
   success: boolean;
   favourite: boolean
   loggedUser: IUser
+  favourites: IAdvert[]
 
   constructor(private route: ActivatedRoute, private userService: UserService, private fb: FormBuilder, private authenticationService: AuthenticationService, private router: Router) { }
 
@@ -39,9 +40,13 @@ export class AdvertDetailComponent implements OnInit {
       phoneNumber: ['', [Validators.minLength(0), Validators.maxLength(100)]],
       message: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(2000)]],
     })
+
+    this.userService.getFavourites().subscribe({
+      next: (favourites) => this.favourites = favourites
+    })
   }
 
-  sendMessage() {
+  sendMessage(): void {
     if (this.contactSellerForm.valid) {
       if (this.contactSellerForm.dirty) {
         this.contactSellerForm.reset()
@@ -64,27 +69,39 @@ export class AdvertDetailComponent implements OnInit {
       });
   }
 
-  getSellerInfo(sellerID: number) {
+  getSellerInfo(sellerID: number): void {
     this.userService.getUser(sellerID).subscribe({
-      next: (user: IUser) => { this.seller = user; console.log(this.seller) }
+      next: (user: IUser) => this.seller = user
     })
   }
 
-  addFavourite() {
+  addFavourite(): void {
     if (!this.loggedUser) {
-      this.router.navigate(['/login']);
+      const currentFavAds = JSON.parse(localStorage.getItem("favourites") || '[]');
+
+      if ((currentFavAds.filter((advert: IAdvert) => advert.id === this.advert.id)).length > 0) {
+        this.favourite = true;
+        return
+      }
+
+      currentFavAds.push(this.advert)
+      localStorage.setItem("favourites", JSON.stringify(currentFavAds));
+      this.favourite = true;
+      return
     }
 
-    let favouriteAdvert = { ...this.advert };
-    favouriteAdvert.favUserID = this.loggedUser.id
-    this.userService.createFavourite(favouriteAdvert).subscribe({
-      next: () => this.favourite = true,
-      error: (err: string) => console.log('something went wrong', err)
-    })
+    else if (this.loggedUser) {
+      if ((this.favourites.filter((advert: IAdvert) => advert.id === this.advert.id)).length > 0) {
+        this.favourite = true
+        return
+      }
 
-    this.userService.getFavourites().subscribe({
-      next: (favourites) => console.log('FAVOURITES', favourites)
-    })
+      let favouriteAdvert = { ...this.advert };
+      favouriteAdvert.favUserID = this.loggedUser.id
+      this.userService.createFavourite(favouriteAdvert).subscribe({
+        next: () => this.favourite = true,
+        error: (err: string) => console.log('something went wrong', err)
+      })
+    }
   }
-
 }

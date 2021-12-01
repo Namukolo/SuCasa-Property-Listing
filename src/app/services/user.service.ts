@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { catchError, map, tap } from "rxjs/operators";
-import { Observable, ObservedValueOf, of, throwError } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
 
 
 import { IAdvert, IUser } from "../models/user";
@@ -29,11 +29,14 @@ export class UserService {
     );
   }
 
-  createUser(user: IUser) {
+  createUser(user: IUser): Observable<IUser> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
     user.id = null;
     return this.http.post<IUser>(`${this.userUrl}`, user, { headers })
+      .pipe(
+        map(() => user),
         catchError(this.handleError)
+      );
   }
 
   getUser(id: number): Observable<IUser> {
@@ -55,7 +58,7 @@ export class UserService {
       );
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<IUser> {
     return this.http.post<any>(`api/users/authenticate`, { email: email, password: password })
       .pipe(map(user => {
         // login is successful if there's a 'jwt' token in the response
@@ -126,6 +129,8 @@ export class UserService {
     };
   }
 
+
+
   //TODO:: PUT IN ITS OWN SERVICE :SEPERATION OF CONCERN
   getProvinces(): Observable<any[]> {
     return this.http.get<any[]>(this.countryUrl).pipe(
@@ -143,6 +148,8 @@ export class UserService {
       );
   }
 
+
+
   //TODO:: PUT IN ITS OWN SERVICE :SEPERATION OF CONCERN
   createFavourite(advert: IAdvert): Observable<IAdvert> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -159,6 +166,15 @@ export class UserService {
       tap(data => JSON.stringify(data)),
       catchError(this.handleError)
     );
+  }
+
+  deleteFavourite(advertID: number): Observable<{}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.favouritesUrl}/${advertID}`;
+    return this.http.delete<IAdvert>(url, { headers }).pipe(
+      tap(data => JSON.stringify(data)),
+      catchError(this.handleError)
+    )
   }
 
   private handleError(err: HttpErrorResponse) {

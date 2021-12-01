@@ -14,7 +14,7 @@ export class StateService {
 
   constructor() { }
 
-  getUsers() {
+  getUsers(): IUser[] {
     const users = JSON.parse(localStorage.getItem('users'));
     console.log(users)
     return users;

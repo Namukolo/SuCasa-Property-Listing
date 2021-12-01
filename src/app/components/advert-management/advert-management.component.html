@@ -1,0 +1,73 @@
+<sc-navigation></sc-navigation>
+
+<!-- SEARCH -->
+<div class='filter-row container'>
+    <div class="label-input-group company">
+        <p class='label'>Surname</p>
+        <div>
+            <input type='text' class="form-control my-input" [(ngModel)]='userSearch' />
+        </div>
+    </div>
+</div>
+
+<!-- USER TABLE -->
+<div class="container">
+    <table class="table table-hover accordion-table">
+        <caption>List of all current Users</caption>
+        <thead>
+            <tr>
+                <th scope="col">Forenames</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Email</th>
+            </tr>
+        </thead>
+
+        <tbody *ngFor="let user of filteredUsers">
+            <tr class="main-level" (click)="getAdverts(user)">
+                <td>{{user.forenames}}</td>
+                <td>{{user.surname }}</td>
+                <td>{{user.email}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- USER ADVERTS -->
+    <div class="container" *ngIf="filteredAdverts?.length === 0">
+        <h3>No Adverts</h3>
+    </div>
+    <div class="container" *ngIf="filteredAdverts">
+        <div class="card shadow-sm" *ngFor="let advert of filteredAdverts">
+
+            <p *ngIf="advert.status === 'LIVE'" [ngClass]="{'status-live': advert.status === 'LIVE'}">{{advert.status}}
+            </p>
+            <p *ngIf="advert.status === 'HIDDEN'" [ngClass]="{'status-hidden': advert.status === 'HIDDEN'}">
+                {{advert.status}}</p>
+            <p *ngIf="advert.status === 'DELETED'" [ngClass]="{'status-deleted': advert.status === 'DELETED'}">
+                {{advert.status}}</p>
+
+            <div class="dropdown status status-change">
+                <button class="btn btn-secondary dropdown-toggle dropdown-actions" type="button" id="dropdownMenuButton"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Status
+                </button>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="statusChange(advert,'LIVE')">Live</a>
+                    <a class="dropdown-item" (click)="statusChange(advert,'HIDDEN')">Hidden</a>
+                    <a class="dropdown-item" (click)="statusChange(advert,'DELETED')">Deleted</a>
+                </div>
+            </div>
+
+            <!-- CARD IMAGE, LOCATION & PRICE -->
+            <img src="{{advert.images[0]}}" alt="" srcset="">
+            <h1 class="headline">{{advert.headline}}</h1>
+            <p class="location"><svg xmlns="http://www.w3.org/2000/svg" class="icon location_icon" fill="none"
+                    viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>{{advert.city}}, {{advert.province}}</p>
+            <p class="price">{{advert.price | currency : 'ZAR': 'symbol-narrow': '4.0-0'}}</p>
+        </div>
+    </div>

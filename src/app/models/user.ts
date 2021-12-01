@@ -6,6 +6,7 @@ export interface IUser {
     phoneNumber?: string;
     password: string,
     accessLevel: AccessLevel,
+    locked?: boolean,
     adverts?: IAdvert[]
 }
 
